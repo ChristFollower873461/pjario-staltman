@@ -7,6 +7,7 @@ All notable changes to this package should be documented here.
 - Hardened Pevie review packets so the diff is mandatory context and optional rules cannot crowd it out.
 - Hardened Pevie planning-brief validation to reject empty required sections and stale ready gates.
 - Clarified Pevie GitHub Actions adoption when using the nested companion profile by itself.
+- Updated GitHub Actions workflow dependencies to current major versions.
 - Added validated examples for core and frontend workflows.
 - Added public-facing contribution and security docs while keeping the repository private.
 
