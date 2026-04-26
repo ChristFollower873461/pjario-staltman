@@ -30,6 +30,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - `qa-plan.md`
   - `pr.md`
   - `garbage-collection.md`
+- `examples/`
+  - Validated sample trivial ticket, non-trivial ticket, planning brief, and build request.
 - `tools/review-packet.py`
   - Builds `.review-packet.md` for review-agent context.
   - Includes sensitive untracked-file filtering by default.
@@ -41,13 +43,17 @@ This package is a portable release-quality workflow for agentic engineering:
   - Frontend-focused profile for UI taste, accessibility, performance, observability, and frontend QA.
 - `.github/workflows/quality.yml`
   - Repository-level smoke and package checks.
+- `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`
+  - Public-facing maintainer and release-readiness docs.
 
 ## Baseline Commands
 
 - `make test`
 - `make test-all`
+- `make validate-examples`
 - `make review-packet`
 - `make pevie-test`
+- `make pevie-validate-examples`
 - `make pevie-review-packet`
 - `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
 
@@ -93,5 +99,6 @@ Notes:
 ## QA Snapshot
 
 - `make test-all` currently passes in this repository.
+- `make validate-examples` and `make pevie-validate-examples` currently pass.
 - `make review-packet` currently generates `.review-packet.md`.
 - Planning checker passes on valid non-trivial ticket + planning brief.

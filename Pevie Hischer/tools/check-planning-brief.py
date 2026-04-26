@@ -20,6 +20,14 @@ REQUIRED_SECTIONS = [
     "## Ready-To-Implement Gate",
 ]
 
+READY_GATE_CHECKS = [
+    "- [ ] Scope and non-goals are explicit.",
+    "- [ ] Key risks are mapped to proof.",
+    "- [ ] QA plan is concrete.",
+    "- [ ] Rollout/rollback is realistic.",
+    "- [ ] Unknowns are resolved or intentionally tracked.",
+]
+
 
 def read_text(path: Path) -> str:
     if not path.exists():
@@ -36,10 +44,34 @@ def detect_level(ticket_text: str) -> str:
     return match.group(1).lower()
 
 
+def require_non_placeholder(plan_text: str, section_header: str) -> None:
+    next_section_match = re.search(
+        rf"^{re.escape(section_header)}\n(.*?)(?=^## |\Z)",
+        plan_text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    if not next_section_match:
+        raise SystemExit(f"Planning brief missing required section: {section_header}")
+    body = next_section_match.group(1)
+    meaningful_lines = [
+        line.strip()
+        for line in body.splitlines()
+        if line.strip() and line.strip() not in {"-", "In:", "Out:", "Automated:", "Manual:", "Failure-path:"}
+    ]
+    if not meaningful_lines:
+        raise SystemExit(f"Planning brief section is empty: {section_header}")
+
+
 def validate_plan(plan_text: str) -> None:
     for section in REQUIRED_SECTIONS:
-        if section not in plan_text:
-            raise SystemExit(f"Planning brief missing required section: {section}")
+        require_non_placeholder(plan_text, section)
+
+    missing_gate_lines = [line for line in READY_GATE_CHECKS if line not in plan_text]
+    if missing_gate_lines:
+        raise SystemExit(
+            "Planning brief checklist appears out of date. Restore the required "
+            "ready-to-implement gate items from the template."
+        )
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:

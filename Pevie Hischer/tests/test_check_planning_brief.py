@@ -132,6 +132,54 @@ Failure-path:
                 )
             self.assertIn("missing required section", str(exc.exception))
 
+    def test_empty_required_plan_section_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ticket = self.write(
+                root,
+                "ticket.md",
+                "# Ticket\n\n## Implementation Complexity\n\nLevel: non-trivial\n",
+            )
+            plan = self.write(
+                root,
+                "plan.md",
+                self.valid_plan().replace(
+                    """## QA Strategy
+Automated:
+- make test
+Manual:
+- smoke key flows
+Failure-path:
+- forced API error state
+""",
+                    "## QA Strategy\n\n",
+                ),
+            )
+            with self.assertRaises(SystemExit) as exc:
+                check_planning_brief.main(
+                    ["--ticket", str(ticket), "--planning-brief", str(plan)]
+                )
+            self.assertIn("section is empty", str(exc.exception))
+
+    def test_outdated_ready_gate_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ticket = self.write(
+                root,
+                "ticket.md",
+                "# Ticket\n\n## Implementation Complexity\n\nLevel: non-trivial\n",
+            )
+            plan = self.write(
+                root,
+                "plan.md",
+                self.valid_plan().replace("- [ ] QA plan is concrete.\n", ""),
+            )
+            with self.assertRaises(SystemExit) as exc:
+                check_planning_brief.main(
+                    ["--ticket", str(ticket), "--planning-brief", str(plan)]
+                )
+            self.assertIn("checklist appears out of date", str(exc.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

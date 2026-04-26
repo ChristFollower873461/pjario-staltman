@@ -75,7 +75,16 @@ def collect_diff(root: Path, args: argparse.Namespace) -> str:
     if args.cached:
         return run_git(root, ["diff", "--cached", "--no-ext-diff", "--unified=80", "--", target_path])
     if args.base:
-        return run_git(root, ["diff", "--no-ext-diff", "--unified=80", f"{args.base}...HEAD", "--", target_path])
+        try:
+            return run_git(root, ["diff", "--no-ext-diff", "--unified=80", f"{args.base}...HEAD", "--", target_path])
+        except RuntimeError:
+            try:
+                return run_git(root, ["diff", "--no-ext-diff", "--unified=80", args.base, "--", target_path])
+            except RuntimeError as error:
+                raise SystemExit(
+                    f"Could not diff against base ref '{args.base}'. Ensure the ref exists locally "
+                    "or fetch it from remote before running review-packet."
+                ) from error
     staged = run_git(root, ["diff", "--cached", "--no-ext-diff", "--unified=80", "--", target_path])
     unstaged = run_git(root, ["diff", "--no-ext-diff", "--unified=80", "--", target_path])
     sections = []
@@ -86,11 +95,8 @@ def collect_diff(root: Path, args: argparse.Namespace) -> str:
     return "\n\n".join(sections)
 
 
-def trim(text: str, max_bytes: int) -> str:
-    data = text.encode("utf-8")
-    if len(data) <= max_bytes:
-        return text
-    return data[:max_bytes].decode("utf-8", errors="ignore") + "\n\n[packet truncated]\n"
+def byte_len(text: str) -> int:
+    return len(text.encode("utf-8"))
 
 
 def build_packet(root: Path, args: argparse.Namespace) -> str:
@@ -101,7 +107,7 @@ def build_packet(root: Path, args: argparse.Namespace) -> str:
     docs_text = "\n\n".join(f"## {name}\n\n{body}" for name, body in docs)
     diff = collect_diff(root, args).strip() or "No tracked diff found for `Pevie Hischer`."
 
-    packet = f"""# Pevie Hischer Review Packet
+    header = f"""# Pevie Hischer Review Packet
 
 Generated: {generated}
 Repo: {root}
@@ -116,16 +122,42 @@ Review these frontend-package changes with a staff frontend quality bar. Use P2+
 ```text
 {status}
 ```
+"""
 
+    docs_block = ""
+    if docs_text:
+        docs_block = f"""
 # Package Rules
 
 {docs_text}
+"""
 
+    diff_block = f"""
 # Changes To Review
 
 {diff}
 """
-    return trim(packet, args.max_bytes)
+
+    minimum_required = byte_len(header) + byte_len(diff_block)
+    if minimum_required > args.max_bytes:
+        raise SystemExit(
+            "Diff exceeds --max-bytes budget. Rerun with a larger --max-bytes value "
+            "or a narrower --base range."
+        )
+
+    remaining = args.max_bytes - minimum_required
+    optional_parts: list[str] = []
+    if docs_block and remaining > 0:
+        docs_notice = (
+            "\n# Package Rules\n\n"
+            "[omitted due to --max-bytes; rerun with a larger value for full frontend rules context]\n"
+        )
+        if byte_len(docs_block) <= remaining:
+            optional_parts.append(docs_block)
+        elif byte_len(docs_notice) <= remaining:
+            optional_parts.append(docs_notice)
+
+    return header + "".join(optional_parts) + diff_block
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:

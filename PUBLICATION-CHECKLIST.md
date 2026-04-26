@@ -8,15 +8,18 @@ Use this before making the repository public.
 - [ ] Confirm package docs describe generic agent workflows, not private internal operations.
 - [ ] Decide whether to include a license. Until then, keep the repository private.
 - [ ] Decide whether to keep `Pevie Hischer/` in this repository or split it into a separate package later.
+- [ ] Confirm `SECURITY.md` has the right public reporting channel before opening the repo.
 
 ## Repository Polish
 
 - [ ] Run `make test-all`.
+- [ ] Run `make validate-examples`.
+- [ ] Run `make pevie-validate-examples`.
 - [ ] Run `make review-packet`.
 - [ ] Run `make pevie-review-packet`.
 - [ ] Confirm generated `.review-packet.md` files are ignored.
 - [ ] Confirm GitHub Actions passes on the default branch.
-- [ ] Review `README.md`, `ADOPTION-CHECKLIST.md`, and `MAIN-AGENT-HANDOFF.md` for public clarity.
+- [ ] Review `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `ADOPTION-CHECKLIST.md`, and `MAIN-AGENT-HANDOFF.md` for public clarity.
 
 ## Public Launch
 

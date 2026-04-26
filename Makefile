@@ -1,4 +1,4 @@
-.PHONY: review-packet test check-planning-brief pevie-test pevie-review-packet test-all
+.PHONY: review-packet test check-planning-brief validate-examples pevie-test pevie-review-packet pevie-validate-examples test-all
 
 review-packet:
 	python3 tools/review-packet.py --include-untracked --output .review-packet.md
@@ -12,7 +12,14 @@ pevie-test:
 pevie-review-packet:
 	$(MAKE) -f "Pevie Hischer/Makefile" review-packet
 
-test-all: test pevie-test
+validate-examples:
+	python3 tools/check-planning-brief.py --ticket examples/trivial-ticket.md
+	python3 tools/check-planning-brief.py --ticket examples/non-trivial-ticket.md --planning-brief examples/planning-brief.md
+
+pevie-validate-examples:
+	$(MAKE) -f "Pevie Hischer/Makefile" validate-examples
+
+test-all: test pevie-test validate-examples pevie-validate-examples
 
 check-planning-brief:
 	@if [ -n "$(PLAN)" ]; then \

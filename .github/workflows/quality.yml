@@ -23,6 +23,9 @@ jobs:
       - name: Run frontend profile tests
         run: make pevie-test
 
+      - name: Validate examples
+        run: make validate-examples pevie-validate-examples
+
       - name: Build core review packet
         run: make review-packet
 

@@ -22,19 +22,22 @@ It is designed for teams that want high UI taste and production scalability with
   - `pr.md`
   - `qa-plan.md`
   - `garbage-collection.md`
+- `examples/`
+  - Validated sample trivial ticket, non-trivial ticket, and planning brief.
 - `tools/`
   - `review-packet.py`
   - `check-planning-brief.py`
 - `tests/`
   - unit coverage for both tools
-- `.github/workflows/pevie-quality.yml`
-  - package-scoped CI checks
+- `Pevie Hischer/.github/workflows/pevie-quality.yml`
+  - sample package-scoped CI checks; copy this file into the target repo's root `.github/workflows/` directory if adopting Pevie by itself
 - `RESEARCH-NOTES.md`
   - external reference synthesis
 
 ## Baseline Commands
 
 - `make -f "Pevie Hischer/Makefile" test`
+- `make -f "Pevie Hischer/Makefile" validate-examples`
 - `make -f "Pevie Hischer/Makefile" review-packet`
 - `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
 
@@ -45,7 +48,7 @@ For trivial tickets, `PLAN` is optional.
 1. Copy `Pevie Hischer` into your target repo.
 2. Decide canonical ticket/plan paths for your team.
 3. Wire the agent prompts into your implementation/review workflow.
-4. Enable CI checks from `.github/workflows/pevie-quality.yml`.
+4. Copy `Pevie Hischer/.github/workflows/pevie-quality.yml` to the target repo's root `.github/workflows/` directory, or fold the Pevie jobs into existing CI.
 5. Start with one product surface, then expand.
 
 ## Non-Negotiables To Keep

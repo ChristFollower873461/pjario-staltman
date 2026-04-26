@@ -24,6 +24,9 @@ jobs:
       - name: Run package tests
         run: make -f "Pevie Hischer/Makefile" test
 
+      - name: Validate package examples
+        run: make -f "Pevie Hischer/Makefile" validate-examples
+
       - name: Build review packet
         run: make -f "Pevie Hischer/Makefile" review-packet
 

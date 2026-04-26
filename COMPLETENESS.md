@@ -14,11 +14,13 @@ This package is complete enough to use as a first working harness for agentic so
 - Ticket, PR note, QA plan, and garbage-collection templates.
 - A planning-brief template to force pre-implementation scope, risk-to-proof mapping, and rollout planning.
 - A build-request template for repo path, target platform, current state, constraints, required proof, and coordinator follow-up.
+- Validated examples for trivial tickets, non-trivial tickets, planning briefs, and build requests.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.
 - A `check-planning-brief.py` validator and `make check-planning-brief` guard for non-trivial tickets.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.
 - Repository-level GitHub Actions quality workflow.
+- Public-facing `CONTRIBUTING.md`, `SECURITY.md`, and `CHANGELOG.md`.
 - Private-to-public publication checklist.
 
 ## Intentionally Not Included Yet

@@ -46,6 +46,7 @@ A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/READM
 
 ```bash
 make test
+make validate-examples
 make review-packet
 make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
 make test-all
@@ -61,7 +62,19 @@ Frontend profile checks:
 
 ```bash
 make pevie-test
+make pevie-validate-examples
 make pevie-review-packet
+```
+
+## Examples
+
+Validated examples live in [`examples/`](examples/) and [`Pevie Hischer/examples/`](Pevie%20Hischer/examples/). They are intentionally small, but they show the expected difference between trivial work and non-trivial work that needs a planning brief.
+
+Run:
+
+```bash
+make validate-examples
+make pevie-validate-examples
 ```
 
 ## Repository Layout
@@ -73,15 +86,20 @@ make pevie-review-packet
 │   ├── agents/
 │   ├── rules/
 │   └── templates/
+├── examples/
 ├── tools/
 ├── tests/
 ├── Pevie Hischer/
 │   ├── build-system/
+│   ├── examples/
 │   ├── tools/
 │   └── tests/
 ├── ADOPTION-CHECKLIST.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── MAIN-AGENT-HANDOFF.md
-└── PUBLICATION-CHECKLIST.md
+├── PUBLICATION-CHECKLIST.md
+└── SECURITY.md
 ```
 
 ## Safety Defaults

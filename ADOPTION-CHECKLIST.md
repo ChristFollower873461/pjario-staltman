@@ -6,6 +6,7 @@ Use this checklist when installing Pjario Staltman into a target repository.
 
 - [ ] Copy `AGENTS.md`.
 - [ ] Copy `build-system/`.
+- [ ] Copy `examples/`.
 - [ ] Copy `tools/`.
 - [ ] Copy `tests/`.
 - [ ] Copy the relevant `Makefile` targets.
@@ -29,6 +30,7 @@ Use this checklist when installing Pjario Staltman into a target repository.
 Run and confirm:
 
 - [ ] `make test`
+- [ ] `make validate-examples`
 - [ ] `make review-packet`
 - [ ] `make check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
 

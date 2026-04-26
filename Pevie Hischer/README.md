@@ -22,6 +22,7 @@ This package is based on `Pjario Staltman`, with a tighter focus on:
 6. Review with `build-system/agents/frontend-staff-reviewer.md`.
 7. Promote repeated review friction with `build-system/templates/garbage-collection.md`.
 8. Run `make -f "Pevie Hischer/Makefile" test`.
+9. Validate examples with `make -f "Pevie Hischer/Makefile" validate-examples`.
 
 ## Opinionated Frontend Quality Bar
 
@@ -34,5 +35,10 @@ This package is based on `Pjario Staltman`, with a tighter focus on:
 ## Commands
 
 - `make -f "Pevie Hischer/Makefile" test`
+- `make -f "Pevie Hischer/Makefile" validate-examples`
 - `make -f "Pevie Hischer/Makefile" review-packet`
 - `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
+
+## Examples
+
+Validated examples live in [`examples/`](examples/). They show the minimum acceptable shape for trivial frontend work and for non-trivial frontend work that needs a planning brief.

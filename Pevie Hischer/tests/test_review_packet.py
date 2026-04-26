@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 def load_module():
@@ -63,12 +64,29 @@ class PevieReviewPacketTests(unittest.TestCase):
             self.assertIn("# Changes To Review", packet)
             self.assertIn("No tracked diff found", packet)
 
-    def test_packet_is_trimmed_when_max_bytes_small(self):
+    def test_build_packet_keeps_changes_section_when_budget_is_tight(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             self.init_repo(root)
-            packet = review_packet.build_packet(root, self.args(max_bytes=350))
-            self.assertLessEqual(len(packet.encode("utf-8")), 380)
+            with mock.patch.object(review_packet, "collect_rules", return_value=[("rule.md", "x" * 4000)]):
+                packet = review_packet.build_packet(root, self.args(max_bytes=900))
+
+            self.assertIn("# Changes To Review", packet)
+            self.assertIn("No tracked diff found", packet)
+            self.assertTrue(
+                "# Package Rules" not in packet
+                or "[omitted due to --max-bytes;" in packet
+            )
+            self.assertLessEqual(review_packet.byte_len(packet), 900)
+
+    def test_build_packet_fails_when_diff_cannot_fit_budget(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_repo(root)
+            with mock.patch.object(review_packet, "collect_diff", return_value="D" * 5000):
+                with self.assertRaises(SystemExit) as exc:
+                    review_packet.build_packet(root, self.args(max_bytes=200))
+            self.assertIn("Diff exceeds --max-bytes budget", str(exc.exception))
 
     def test_collect_diff_returns_staged_diff_for_new_file(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -80,6 +98,14 @@ class PevieReviewPacketTests(unittest.TestCase):
             diff = review_packet.collect_diff(root, self.args())
             self.assertIn("## Staged Diff", diff)
             self.assertIn("updated", diff)
+
+    def test_collect_diff_with_missing_base_has_clear_message(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.init_repo(root)
+            with self.assertRaises(SystemExit) as exc:
+                review_packet.collect_diff(root, self.args(base="definitely-missing-ref"))
+            self.assertIn("Could not diff against base ref", str(exc.exception))
 
 
 if __name__ == "__main__":

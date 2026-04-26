@@ -7,9 +7,11 @@ Use this checklist to install and operationalize `Pevie Hischer` in a target rep
 - [ ] Copy the full `Pevie Hischer` directory into the target repo root.
 - [ ] Confirm these exist:
   - [ ] `Pevie Hischer/build-system/`
+  - [ ] `Pevie Hischer/examples/`
   - [ ] `Pevie Hischer/tools/`
   - [ ] `Pevie Hischer/tests/`
   - [ ] `Pevie Hischer/.github/workflows/pevie-quality.yml`
+- [ ] If using the Pevie workflow by itself, copy `Pevie Hischer/.github/workflows/pevie-quality.yml` into the target repo's root `.github/workflows/` directory.
 
 ## 2) Define Team Conventions
 
@@ -32,6 +34,7 @@ Use this checklist to install and operationalize `Pevie Hischer` in a target rep
 Run and confirm:
 
 - [ ] `make -f "Pevie Hischer/Makefile" test`
+- [ ] `make -f "Pevie Hischer/Makefile" validate-examples`
 - [ ] `make -f "Pevie Hischer/Makefile" review-packet`
 - [ ] `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
 
@@ -42,6 +45,7 @@ For trivial tickets:
 ## 5) CI Integration
 
 - [ ] Ensure GitHub Actions is enabled for the repository.
+- [ ] Confirm the Pevie workflow file lives under the target repo's root `.github/workflows/` directory, or that equivalent Pevie checks are folded into an existing workflow.
 - [ ] Confirm workflow appears in Actions tab:
   - [ ] `pevie-quality`
 - [ ] Open a PR touching `Pevie Hischer/**` and verify workflow passes.
