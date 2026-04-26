@@ -1,0 +1,42 @@
+name: quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run core tests
+        run: make test
+
+      - name: Run frontend profile tests
+        run: make pevie-test
+
+      - name: Build core review packet
+        run: make review-packet
+
+      - name: Build frontend review packet
+        run: make pevie-review-packet
+
+      - name: Validate trivial ticket shape sample
+        run: |
+          tmpdir="$(mktemp -d)"
+          cat > "$tmpdir/ticket.md" <<'EOF'
+          # Ticket
+
+          ## Implementation Complexity
+
+          Level: trivial
+          EOF
+          make check-planning-brief TICKET="$tmpdir/ticket.md"

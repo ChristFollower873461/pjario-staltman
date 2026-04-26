@@ -1,0 +1,88 @@
+# Pjario Staltman
+
+A small operating system for building software with agents.
+
+Pjario Staltman turns agent work into a repeatable loop: tickets define intent, agents implement scoped changes, proof is captured, staff-level review checks the work, and repeated friction becomes durable guardrails instead of repeated comments.
+
+This repository is private while the system is being refined. It is structured so it can be made public later with minimal cleanup.
+
+## Profiles
+
+### Pjario Staltman
+
+The core workflow for agentic engineering:
+
+- ticketed work with explicit outcome, scope, risk, acceptance criteria, and proof
+- planning briefs for non-trivial changes
+- implementation-agent handoffs
+- staff-level review prompts
+- review packet generation
+- rule promotion when review feedback repeats
+
+### Pevie Hischer
+
+A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/README.md). Use it when the work needs high-taste UI delivery, design-system discipline, accessibility, performance review, frontend observability, and production-grade QA evidence.
+
+## Quick Start
+
+1. Write work using [`build-system/templates/ticket.md`](build-system/templates/ticket.md) and set `Level: trivial` or `Level: non-trivial`.
+2. For non-trivial work, draft [`build-system/templates/planning-brief.md`](build-system/templates/planning-brief.md) before implementation.
+3. For build or release coordination, fill [`build-system/templates/build-request.md`](build-system/templates/build-request.md) and use [`build-system/agents/build-coordinator.md`](build-system/agents/build-coordinator.md).
+4. Give the task plus [`AGENTS.md`](AGENTS.md) and [`build-system/agents/implementation-agent.md`](build-system/agents/implementation-agent.md) to an implementation agent.
+5. Capture QA and risk evidence with [`build-system/templates/pr.md`](build-system/templates/pr.md) and [`build-system/templates/qa-plan.md`](build-system/templates/qa-plan.md).
+6. Generate a review packet with `make review-packet`.
+7. Review with [`build-system/agents/software-engineer-reviewer.md`](build-system/agents/software-engineer-reviewer.md).
+8. Promote repeated review feedback with [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
+
+## Commands
+
+```bash
+make test
+make review-packet
+make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make test-all
+```
+
+For trivial tickets, `PLAN` is optional:
+
+```bash
+make check-planning-brief TICKET=path/to/ticket.md
+```
+
+Frontend profile checks:
+
+```bash
+make pevie-test
+make pevie-review-packet
+```
+
+## Repository Layout
+
+```text
+.
+├── AGENTS.md
+├── build-system/
+│   ├── agents/
+│   ├── rules/
+│   └── templates/
+├── tools/
+├── tests/
+├── Pevie Hischer/
+│   ├── build-system/
+│   ├── tools/
+│   └── tests/
+├── ADOPTION-CHECKLIST.md
+├── MAIN-AGENT-HANDOFF.md
+└── PUBLICATION-CHECKLIST.md
+```
+
+## Safety Defaults
+
+- Review packets exclude likely sensitive untracked files by default.
+- The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
+- Non-trivial work should not start without scope, proof, and rollout thinking.
+- Review findings should block only when tied to correctness, user risk, production risk, security, privacy, scale, or maintainability.
+
+## Philosophy
+
+Keep the system small. Add a rule, template field, test, lint, or tool only when it prevents a real recurring failure.
