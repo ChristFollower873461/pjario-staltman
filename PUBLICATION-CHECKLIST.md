@@ -21,6 +21,6 @@ Use this before making the repository public.
 ## Public Launch
 
 - [ ] Add a license if public reuse is intended.
-- [ ] Add repository description and topics.
+- [ ] Confirm the repository description and topics still fit the intended public audience.
 - [ ] Set the repository visibility to public.
 - [ ] Create a first release tag only after the workflow has been used in at least one real target repo.

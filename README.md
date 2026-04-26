@@ -1,10 +1,18 @@
 # Pjario Staltman
 
+[![Quality](https://github.com/ChristFollower873461/pjario-staltman/actions/workflows/quality.yml/badge.svg)](https://github.com/ChristFollower873461/pjario-staltman/actions/workflows/quality.yml)
+
 A small operating system for building software with agents.
 
 Pjario Staltman turns agent work into a repeatable loop: tickets define intent, agents implement scoped changes, proof is captured, staff-level review checks the work, and repeated friction becomes durable guardrails instead of repeated comments.
 
 This repository is private while the system is being refined. It is structured so it can be made public later with minimal cleanup.
+
+## Current Status
+
+- Visibility: private
+- Public-readiness: staged for later review with [`PUBLICATION-CHECKLIST.md`](PUBLICATION-CHECKLIST.md)
+- License: intentionally undecided until public reuse is approved
 
 ## Profiles
 
