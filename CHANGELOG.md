@@ -4,6 +4,8 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added pinned official `@google/design.md` linting for Pevie `DESIGN.md` examples and CI.
+- Added a 15-minute adoption guide and a complete Pevie golden workflow example.
 - Added a Stitch-compatible `DESIGN.md` contract to the Pevie frontend profile.
 - Added Pevie design-context validation and wired `DESIGN.md` into planning, implementation, review, PR notes, and QA plans.
 - Hardened Pevie review packets so the diff is mandatory context and optional rules cannot crowd it out.

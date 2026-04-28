@@ -15,11 +15,13 @@ This package is complete enough to use as a first working harness for agentic so
 - A planning-brief template to force pre-implementation scope, risk-to-proof mapping, and rollout planning.
 - A build-request template for repo path, target platform, current state, constraints, required proof, and coordinator follow-up.
 - Validated examples for trivial tickets, non-trivial tickets, planning briefs, and build requests.
+- A 15-minute adoption guide for first-time target repos.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.
 - A `check-planning-brief.py` validator and `make check-planning-brief` guard for non-trivial tickets.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.
 - A Stitch-compatible Pevie `DESIGN.md` template plus validation for frontend design context.
+- A complete Pevie golden workflow example that connects ticket, `DESIGN.md`, planning brief, QA plan, and PR note.
 - Repository-level GitHub Actions quality workflow.
 - Public-facing `CONTRIBUTING.md`, `SECURITY.md`, and `CHANGELOG.md`.
 - Private-to-public publication checklist.

@@ -1,4 +1,4 @@
-.PHONY: review-packet test check-planning-brief validate-examples pevie-test pevie-review-packet pevie-validate-examples test-all
+.PHONY: review-packet test check-planning-brief validate-examples pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
 
 review-packet:
 	python3 tools/review-packet.py --include-untracked --output .review-packet.md
@@ -18,6 +18,9 @@ validate-examples:
 
 pevie-validate-examples:
 	$(MAKE) -f "Pevie Hischer/Makefile" validate-examples
+
+pevie-design-lint:
+	$(MAKE) -f "Pevie Hischer/Makefile" design-lint-examples
 
 test-all: test pevie-test validate-examples pevie-validate-examples
 

@@ -32,6 +32,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - `garbage-collection.md`
 - `examples/`
   - Validated sample trivial ticket, non-trivial ticket, planning brief, and build request.
+- `docs/adopt-in-15-minutes.md`
+  - Fast target-repo adoption path.
 - `tools/review-packet.py`
   - Builds `.review-packet.md` for review-agent context.
   - Includes sensitive untracked-file filtering by default.
@@ -54,6 +56,7 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make review-packet`
 - `make pevie-test`
 - `make pevie-validate-examples`
+- `make pevie-design-lint`
 - `make pevie-review-packet`
 - `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md`
 - `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`

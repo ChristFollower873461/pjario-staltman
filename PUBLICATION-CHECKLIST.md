@@ -15,6 +15,7 @@ Use this before making the repository public.
 - [ ] Run `make test-all`.
 - [ ] Run `make validate-examples`.
 - [ ] Run `make pevie-validate-examples`.
+- [ ] Run `make pevie-design-lint`.
 - [ ] Run `make review-packet`.
 - [ ] Run `make pevie-review-packet`.
 - [ ] Confirm generated `.review-packet.md` files are ignored.

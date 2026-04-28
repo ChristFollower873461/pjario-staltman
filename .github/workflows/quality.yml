@@ -17,6 +17,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
       - name: Run core tests
         run: make test
 
@@ -25,6 +30,9 @@ jobs:
 
       - name: Validate examples
         run: make validate-examples pevie-validate-examples
+
+      - name: Lint DESIGN.md examples
+        run: make pevie-design-lint
 
       - name: Build core review packet
         run: make review-packet

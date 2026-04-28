@@ -46,10 +46,14 @@ Use `build-system/templates/DESIGN.md` as the starter template.
 
 - `make -f "Pevie Hischer/Makefile" test`
 - `make -f "Pevie Hischer/Makefile" validate-examples`
+- `make -f "Pevie Hischer/Makefile" design-lint-examples`
 - `make -f "Pevie Hischer/Makefile" review-packet`
 - `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
 - `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md`
+- `make -f "Pevie Hischer/Makefile" design-lint DESIGN=DESIGN.md`
 
 ## Examples
 
 Validated examples live in [`examples/`](examples/). They show the minimum acceptable shape for trivial frontend work and for non-trivial frontend work that needs a planning brief.
+
+Use [`examples/golden-workflow/`](examples/golden-workflow/) for a complete flow from ticket to `DESIGN.md`, planning brief, QA plan, and PR note.

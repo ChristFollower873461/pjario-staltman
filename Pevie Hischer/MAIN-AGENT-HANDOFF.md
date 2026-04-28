@@ -24,7 +24,7 @@ It is designed for teams that want high UI taste and production scalability with
   - `qa-plan.md`
   - `garbage-collection.md`
 - `examples/`
-  - Validated sample trivial ticket, non-trivial ticket, and planning brief.
+  - Validated sample trivial ticket, non-trivial ticket, planning brief, and golden frontend workflow.
 - `tools/`
   - `review-packet.py`
   - `check-planning-brief.py`
@@ -40,6 +40,7 @@ It is designed for teams that want high UI taste and production scalability with
 
 - `make -f "Pevie Hischer/Makefile" test`
 - `make -f "Pevie Hischer/Makefile" validate-examples`
+- `make -f "Pevie Hischer/Makefile" design-lint-examples`
 - `make -f "Pevie Hischer/Makefile" review-packet`
 - `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
 - `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md`

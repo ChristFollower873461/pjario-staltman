@@ -44,6 +44,8 @@ Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
 
 - [ ] Copy `Pevie Hischer/`.
 - [ ] Run `make -f "Pevie Hischer/Makefile" test`.
+- [ ] Run `make -f "Pevie Hischer/Makefile" validate-examples`.
+- [ ] Run `make -f "Pevie Hischer/Makefile" design-lint-examples`.
 - [ ] Wire `frontend-implementation-agent.md` into implementation handoffs.
 - [ ] Wire `frontend-staff-reviewer.md` into frontend review.
 - [ ] Define accessibility and performance proof expectations.

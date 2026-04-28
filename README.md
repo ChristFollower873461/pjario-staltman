@@ -42,6 +42,8 @@ A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/READM
 7. Review with [`build-system/agents/software-engineer-reviewer.md`](build-system/agents/software-engineer-reviewer.md).
 8. Promote repeated review feedback with [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
 
+For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15-minutes.md).
+
 ## Commands
 
 ```bash
@@ -63,6 +65,7 @@ Frontend profile checks:
 ```bash
 make pevie-test
 make pevie-validate-examples
+make pevie-design-lint
 make pevie-review-packet
 ```
 
@@ -70,11 +73,14 @@ make pevie-review-packet
 
 Validated examples live in [`examples/`](examples/) and [`Pevie Hischer/examples/`](Pevie%20Hischer/examples/). They are intentionally small, but they show the expected difference between trivial work and non-trivial work that needs a planning brief.
 
+The complete frontend reference flow lives in [`Pevie Hischer/examples/golden-workflow/`](Pevie%20Hischer/examples/golden-workflow/).
+
 Run:
 
 ```bash
 make validate-examples
 make pevie-validate-examples
+make pevie-design-lint
 ```
 
 ## Repository Layout
@@ -86,6 +92,7 @@ make pevie-validate-examples
 │   ├── agents/
 │   ├── rules/
 │   └── templates/
+├── docs/
 ├── examples/
 ├── tools/
 ├── tests/
