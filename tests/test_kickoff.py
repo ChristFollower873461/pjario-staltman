@@ -49,6 +49,20 @@ class KickoffTests(unittest.TestCase):
             self.assertIn("design-lint", prompt)
             self.assertIn("frontend", prompt.lower())
 
+    def test_build_request_prompt_includes_request_and_coordinator_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write(root, "AGENTS.md", "# Rules\n")
+            self.write(root, "build-system/agents/build-coordinator.md", "# Coordinator\n")
+            request = self.write(root, "build-request.md", "# Build Request\n")
+
+            prompt = kickoff.build_request_prompt(root, request, "core", "main")
+
+            self.assertIn("# Build Request Kickoff", prompt)
+            self.assertIn("build-request.md", prompt)
+            self.assertIn("build-coordinator.md", prompt)
+            self.assertIn("Required Proof", prompt)
+
 
 if __name__ == "__main__":
     unittest.main()

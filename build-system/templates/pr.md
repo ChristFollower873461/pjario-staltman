@@ -19,6 +19,7 @@
 - Commands run:
 - Manual checks:
 - Screenshots/logs:
+- Proof matrix coverage:
 - Gaps:
 
 ## Review Agent Notes

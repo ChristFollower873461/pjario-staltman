@@ -44,6 +44,13 @@ class DoctorTests(unittest.TestCase):
             self.assertFalse(report.failures)
             self.assertTrue(report.passes)
 
+    def test_stack_hints_warn_without_failing(self):
+        report = doctor.Report()
+        doctor.add_stack_hints("web", report)
+        self.assertFalse(report.failures)
+        self.assertTrue(report.warnings)
+        self.assertIn("lint", report.warnings[0])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -27,6 +27,7 @@ class ExportSkillTests(unittest.TestCase):
 
             self.assertTrue((output / "SKILL.md").is_file())
             self.assertTrue((output / "references" / "core-workflow.md").is_file())
+            self.assertTrue((output / "references" / "completion-contract.md").is_file())
             self.assertTrue((output / "references" / "pevie-hischer.md").is_file())
             self.assertTrue((output / "references" / "proof-matrix.md").is_file())
             self.assertTrue((output / "agents" / "openai.yaml").is_file())

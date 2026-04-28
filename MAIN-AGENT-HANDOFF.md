@@ -40,10 +40,14 @@ This package is a portable release-quality workflow for agentic engineering:
   - Includes sensitive untracked-file filtering by default.
 - `tools/check-planning-brief.py`
   - Enforces planning brief for non-trivial tickets.
+- `tools/check-proof.py`
+  - Checks that QA/PR/completion evidence covers active ticket risks.
 - `tools/doctor.py`, `tools/kickoff.py`, `tools/export-skill.py`
   - Validate package/adoption shape, generate implementation-agent prompts, and export a compact Agent Skills artifact.
+- `tools/triage-review-finding.py`
+  - Converts review findings into garbage-collection records.
 - `tests/`
-  - Unit tests for both tool scripts.
+  - Unit tests for package tool scripts.
 - `Pevie Hischer/`
   - Frontend-focused profile for UI taste, Stitch-compatible `DESIGN.md`, accessibility, performance, observability, and frontend QA.
   - If adopting its nested workflow file, copy it into the host repo root `.github/workflows/` directory.
@@ -60,6 +64,9 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make review-packet`
 - `make doctor`
 - `make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
+- `make kickoff-build REQUEST=path/to/build-request.md`
+- `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md`
+- `make triage-review-finding FINDING=path/to/finding.md DECISION=test`
 - `make export-skill`
 - `make public-ready`
 - `make pevie-test`
@@ -115,6 +122,7 @@ Notes:
 - `make test-all` currently passes in this repository.
 - `make validate-examples` and `make pevie-validate-examples` currently pass.
 - `make doctor` checks package shape, public-readiness docs, root workflow placement, generated artifacts, and tracked privacy markers.
+- `make check-proof` validates the core golden workflow proof evidence.
 - `make review-packet` currently generates `.review-packet.md`.
 - Planning checker passes on valid non-trivial ticket + planning brief.
 - Pevie `DESIGN.md` template and example currently pass design-context validation.

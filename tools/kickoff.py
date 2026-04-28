@@ -55,9 +55,74 @@ def command_list(profile: str, ticket: str, plan: str | None, design: str | None
 
     return [
         f'make check-planning-brief TICKET="{ticket}"' + (f' PLAN="{plan}"' if plan else ""),
+        "make check-proof TICKET=<ticket> QA=<qa-plan> PR=<pr-note>",
         "make test",
         "make review-packet",
     ]
+
+
+def build_request_commands() -> list[str]:
+    return [
+        "make doctor",
+        "run every Required Proof command named in the build request",
+        "make review-packet",
+    ]
+
+
+def build_request_prompt(repo: Path, build_request: Path, profile: str, base: str) -> str:
+    read_text(build_request)
+    request_rel = rel(build_request, repo)
+    read_first = existing(
+        repo,
+        [
+            "AGENTS.md",
+            "build-system/agents/build-coordinator.md",
+            "build-system/agents/implementation-agent.md",
+            "build-system/rules/proof-matrix.md",
+        ],
+    )
+    if profile == "pevie":
+        read_first.extend(
+            existing(
+                repo,
+                [
+                    "Pevie Hischer/AGENTS.md",
+                    "Pevie Hischer/build-system/agents/frontend-implementation-agent.md",
+                    "Pevie Hischer/build-system/rules/frontend-proof-matrix.md",
+                    "Pevie Hischer/build-system/rules/frontend-production-readiness.md",
+                    "Pevie Hischer/build-system/rules/frontend-taste-and-review-standards.md",
+                ],
+            )
+        )
+
+    lines = [
+        "# Build Request Kickoff",
+        "",
+        f"Start in: `{repo.resolve()}`",
+        f"Base branch/ref: `{base}`",
+        f"Profile: `{profile}`",
+        "Frontend profile: `Pevie Hischer`" if profile == "pevie" else "Frontend profile: `not selected`",
+        "",
+        "## Read First",
+        *[f"- `{path}`" for path in read_first],
+        "",
+        "## Task Source",
+        f"- Build request: `{request_rel}`",
+        "",
+        "## Working Contract",
+        "- Treat the build request as the coordinator contract.",
+        "- Inspect the repo and current state before editing.",
+        "- Keep implementation scoped to the request's in-scope items.",
+        "- Run the request's Required Proof before reporting done.",
+        "- Capture artifacts, gaps, and the next coordinator action in the completion report.",
+        "",
+        "## Required Proof Commands",
+        *[f"- `{command}`" for command in build_request_commands()],
+        "",
+        "## Completion Report",
+        "Return changed files, commands run, proof status, artifacts, known gaps, and the next coordinator action.",
+    ]
+    return "\n".join(lines) + "\n"
 
 
 def build_prompt(
@@ -145,7 +210,8 @@ def build_prompt(
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path("."), help="Target repo path.")
-    parser.add_argument("--ticket", type=Path, required=True, help="Ticket markdown path.")
+    parser.add_argument("--ticket", type=Path, help="Ticket markdown path.")
+    parser.add_argument("--build-request", type=Path, help="Build request markdown path.")
     parser.add_argument("--planning-brief", type=Path, help="Planning brief markdown path.")
     parser.add_argument("--design", type=Path, help="DESIGN.md path for Pevie work.")
     parser.add_argument("--profile", choices=["core", "pevie"], default="core")
@@ -155,6 +221,19 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    if bool(args.ticket) == bool(args.build_request):
+        raise SystemExit("Provide exactly one of --ticket or --build-request.")
+    if args.build_request:
+        print(
+            build_request_prompt(
+                repo=args.repo,
+                build_request=args.build_request,
+                profile=args.profile,
+                base=args.base,
+            ),
+            end="",
+        )
+        return 0
     print(
         build_prompt(
             repo=args.repo,

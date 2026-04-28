@@ -12,7 +12,7 @@ This is the operating system for agentic engineering in this repo. It is based o
 1. **Ticket**: Define outcome, user impact, risk surfaces, acceptance criteria, expected proof, and implementation complexity (`trivial` or `non-trivial`).
 2. **Planning Brief**: For non-trivial work, fill `build-system/templates/planning-brief.md` before coding. Lock approach, non-goals, risk-to-proof mapping, and rollout/rollback plan.
 3. **Implementation**: An agent owns the patch end to end. It may plan privately, but it must optimize for a working, reviewed change.
-4. **Local Proof**: The agent runs tests, linters, smoke checks, or manual QA and records what happened.
+4. **Local Proof**: The agent runs tests, linters, smoke checks, or manual QA and records what happened. For non-trivial work, evidence should map back to the active ticket risks.
 5. **Review Agent**: A staff-engineer review agent checks the diff against repo rules, scale readiness, and the stated ticket.
 6. **Human Steering**: A human accepts, redirects, or escalates. The human should spend attention on product judgment, architecture, and risk.
 7. **Garbage Collection**: Repeated review feedback becomes a rule, test, lint, template, or tool.
@@ -46,6 +46,7 @@ Every implementation handoff should include:
 - Required evidence: tests, screenshots, logs, migration proof, load test, runbook, or manual QA.
 - Any explicit non-goals.
 - The planning brief when the task is non-trivial.
+- The completion report after implementation.
 
 ## Coordinator And Implementation Agent Build Contract
 
@@ -60,3 +61,7 @@ Bias toward accepting useful code that meets the ticket and has credible proof. 
 ## Optional Enforcement
 
 Use `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md` to enforce that non-trivial tickets include a filled planning brief.
+
+Use `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md` to check that proof evidence covers the ticket's active risk surfaces.
+
+Use `make kickoff-build REQUEST=path/to/build-request.md` when a coordinator starts from a build request instead of a ticket.

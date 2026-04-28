@@ -29,6 +29,7 @@ Decide and write down:
 - Ticket path.
 - Planning brief path.
 - Build request path.
+- QA plan, PR note, and completion report paths.
 - Review packet command.
 
 For frontend-heavy repos, also decide where `DESIGN.md` lives. Prefer the repo root.
@@ -73,10 +74,14 @@ Use this order:
 3. For UI work, confirm `DESIGN.md` is current.
 4. Implement the smallest scoped patch.
 5. Fill PR and QA notes.
-6. Generate a kickoff prompt with `make kickoff`.
-7. Generate a review packet.
-8. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
+6. Fill a completion report.
+7. Check proof with `make check-proof`.
+8. Generate a kickoff prompt with `make kickoff` or `make kickoff-build`.
+9. Generate a review packet.
+10. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
 
 ## Reference Example
+
+Use `examples/golden-workflow/` as the complete core example.
 
 Use `Pevie Hischer/examples/golden-workflow/` as the complete frontend example.

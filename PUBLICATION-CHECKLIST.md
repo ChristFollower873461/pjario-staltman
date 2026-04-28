@@ -14,6 +14,7 @@ Use this before making the repository public.
 
 - [ ] Run `make test-all`.
 - [ ] Run `make validate-examples`.
+- [ ] Run `make kickoff-build REQUEST=examples/golden-workflow/build-request.md`.
 - [ ] Run `make pevie-validate-examples`.
 - [ ] Run `make pevie-design-lint`.
 - [ ] Run `make doctor`.

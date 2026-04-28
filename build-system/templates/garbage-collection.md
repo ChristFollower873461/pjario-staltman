@@ -6,6 +6,12 @@ Use this weekly or after a painful review.
 
 - 
 
+## Source Review Finding
+
+- Priority:
+- File/path:
+- Finding summary:
+
 ## Failure Class
 
 What kind of problem is this?
@@ -31,6 +37,7 @@ Choose one:
 - Lint/source check:
 - Runtime guardrail:
 - Tooling:
+- Accepted non-rule:
 
 ## Acceptance Criteria
 

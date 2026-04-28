@@ -37,6 +37,7 @@ For non-trivial UI work, establish `DESIGN.md` before implementation. Treat it a
 
 - `references/core-workflow.md` - package workflow, commands, and completion contract.
 - `references/proof-matrix.md` - expected proof by work type.
+- `references/completion-contract.md` - exact completion report shape.
 - `references/pevie-hischer.md` - frontend-specific operating rules.
 
 ## Completion Contract
@@ -58,6 +59,8 @@ CORE_WORKFLOW_MD = """# Core Workflow
 ```bash
 make doctor
 make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make kickoff-build REQUEST=path/to/build-request.md
+make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md
 make test
 make validate-examples
 make review-packet
@@ -69,6 +72,20 @@ For trivial tickets, omit `PLAN`.
 ## Review Packet Rule
 
 The tracked diff is mandatory review context. If the diff cannot fit, narrow the diff or increase the packet budget rather than trimming the changes under review.
+"""
+
+COMPLETION_CONTRACT_MD = """# Completion Contract
+
+Every implementation handoff should include:
+
+- Changed files.
+- Commands run and pass/fail result.
+- Proof status mapped to the ticket or build request.
+- Artifact paths or identities when produced.
+- Known gaps or untested surfaces.
+- Next coordinator action.
+
+Prefer the host repo's `build-system/templates/completion-report.md` when available.
 """
 
 PEVIE_MD = """# Pevie Hischer
@@ -122,6 +139,7 @@ def export_skill(root: Path, output: Path, force: bool = False) -> None:
 
     write(output / "SKILL.md", SKILL_MD)
     write(output / "references" / "core-workflow.md", CORE_WORKFLOW_MD)
+    write(output / "references" / "completion-contract.md", COMPLETION_CONTRACT_MD)
     proof_matrix = read_optional(root / "build-system" / "rules" / "proof-matrix.md")
     if proof_matrix:
         write(output / "references" / "proof-matrix.md", proof_matrix)

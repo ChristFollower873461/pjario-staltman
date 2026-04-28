@@ -17,6 +17,7 @@ Use this checklist when installing Pjario Staltman into a target repository.
 - [ ] Pick the canonical ticket path.
 - [ ] Pick the canonical planning-brief path.
 - [ ] Pick where build requests live.
+- [ ] Pick where QA plans, PR notes, and completion reports live.
 - [ ] Decide whether planning briefs are mandatory in CI or soft-gated.
 
 ## 3. Wire Agent Workflow
@@ -35,6 +36,8 @@ Run and confirm:
 - [ ] `make doctor MODE=adopted PROFILE=core`
 - [ ] `make review-packet`
 - [ ] `make kickoff TICKET=<ticket> PLAN=<planning-brief>`
+- [ ] `make kickoff-build REQUEST=<build-request>`
+- [ ] `make check-proof TICKET=<ticket> QA=<qa-plan> PR=<pr-note> COMPLETION=<completion-report>`
 - [ ] `make check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
 
 For trivial tickets:
@@ -65,6 +68,7 @@ Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
 
 - [ ] Adopt the workflow on one product surface first.
 - [ ] Hold weekly garbage collection.
+- [ ] Use `make triage-review-finding FINDING=<finding> DECISION=<rule|template|test|lint|tooling|accepted-non-rule>` after repeated review friction.
 - [ ] Promote one repeated issue at a time into a durable rule, template, test, lint, or tool.
 
 ## Done Criteria
@@ -73,5 +77,6 @@ Adoption is complete when:
 
 - [ ] Non-trivial work consistently starts with a planning brief.
 - [ ] PR notes include risk and QA evidence.
+- [ ] Completion reports include changed files, commands, proof status, known gaps, and next coordinator action.
 - [ ] Review packets are used for meaningful changes.
 - [ ] At least one repeated review issue has been converted into a durable guardrail.

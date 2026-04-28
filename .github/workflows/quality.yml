@@ -31,6 +31,9 @@ jobs:
       - name: Validate examples
         run: make validate-examples pevie-validate-examples
 
+      - name: Generate build-request kickoff
+        run: make kickoff-build REQUEST=examples/golden-workflow/build-request.md
+
       - name: Lint DESIGN.md examples
         run: make pevie-design-lint
 

@@ -4,6 +4,9 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added a complete core golden workflow example with ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.
+- Added `make check-proof`, `make kickoff-build`, and `make triage-review-finding` for core proof enforcement, build-request handoff generation, and review-finding garbage collection.
+- Added `build-system/templates/completion-report.md` so implementation-agent closeouts have a stable shape.
 - Added `make doctor`, `make kickoff`, `make export-skill`, and `make public-ready` so package adoption, implementation handoff, skill packaging, and publication checks are deterministic.
 - Added core and Pevie proof matrices to make required evidence explicit by work type.
 - Added root research notes for current Agent Skills, DESIGN.md, GitHub workflow placement, and secret-protection conventions.

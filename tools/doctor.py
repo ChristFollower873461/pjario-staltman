@@ -23,12 +23,15 @@ CORE_REQUIRED_FILES = [
     "build-system/templates/ticket.md",
     "build-system/templates/planning-brief.md",
     "build-system/templates/build-request.md",
+    "build-system/templates/completion-report.md",
     "build-system/templates/pr.md",
     "build-system/templates/qa-plan.md",
     "build-system/templates/garbage-collection.md",
     "tools/check-planning-brief.py",
+    "tools/check-proof.py",
     "tools/kickoff.py",
     "tools/review-packet.py",
+    "tools/triage-review-finding.py",
     "Makefile",
 ]
 
@@ -93,6 +96,21 @@ SCAN_EXCLUDES = {
     ".DS_Store",
     ".review-packet.md",
     "Pevie Hischer/.review-packet.md",
+}
+
+STACK_HINTS = {
+    "web": [
+        "expected host proof: lint, typecheck, unit tests, e2e or browser smoke, accessibility, and performance budget where relevant",
+    ],
+    "ios": [
+        "expected host proof: simulator build/test, manual smoke path, screenshots/logs, signing or bundle identity when release-related",
+    ],
+    "macos": [
+        "expected host proof: build/test, launch smoke, logs, signing/notarization checks when distribution-related",
+    ],
+    "backend": [
+        "expected host proof: unit/integration tests, contract/schema checks, migration/rollback proof, and observability for risky paths",
+    ],
 }
 
 
@@ -253,7 +271,12 @@ def check_publication_docs(root: Path, report: Report) -> None:
         report.warn("License is intentionally undecided; keep private until reuse terms are chosen.")
 
 
-def run_checks(root: Path, mode: str, profile: str, public_ready: bool) -> Report:
+def add_stack_hints(stack: str, report: Report) -> None:
+    for hint in STACK_HINTS.get(stack, []):
+        report.warn(hint)
+
+
+def run_checks(root: Path, mode: str, profile: str, public_ready: bool, stack: str = "generic") -> Report:
     report = Report(passes=[], warnings=[], failures=[])
     require_files(root, CORE_REQUIRED_FILES, report, "Core workflow")
     if mode == "package":
@@ -267,6 +290,7 @@ def run_checks(root: Path, mode: str, profile: str, public_ready: bool) -> Repor
     scan_privacy(root, report)
     if public_ready and mode == "package":
         check_publication_docs(root, report)
+    add_stack_hints(stack, report)
     return report
 
 
@@ -288,6 +312,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--root", type=Path, default=Path("."), help="Package or target repo root.")
     parser.add_argument("--mode", choices=["package", "adopted"], default="package")
     parser.add_argument("--profile", choices=["core", "pevie", "both"], default="both")
+    parser.add_argument("--stack", choices=["generic", "web", "ios", "macos", "backend"], default="generic")
     parser.add_argument("--public-ready", action="store_true", help="Run publication-readiness checks too.")
     return parser.parse_args(argv)
 
@@ -297,7 +322,7 @@ def main(argv: list[str]) -> int:
     root = args.root.resolve()
     if not root.exists() or not root.is_dir():
         raise SystemExit(f"Root does not exist or is not a directory: {root}")
-    report = run_checks(root, args.mode, args.profile, args.public_ready)
+    report = run_checks(root, args.mode, args.profile, args.public_ready, stack=args.stack)
     print_report(report)
     return 1 if report.failures else 0
 
