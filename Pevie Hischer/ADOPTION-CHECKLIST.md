@@ -38,6 +38,8 @@ Run and confirm:
 - [ ] `make -f "Pevie Hischer/Makefile" test`
 - [ ] `make -f "Pevie Hischer/Makefile" validate-examples`
 - [ ] `make -f "Pevie Hischer/Makefile" design-lint-examples`
+- [ ] `make doctor MODE=adopted PROFILE=pevie`
+- [ ] `make kickoff PROFILE=pevie TICKET=<ticket> PLAN=<planning-brief> DESIGN=<design-file>`
 - [ ] `make -f "Pevie Hischer/Makefile" review-packet`
 - [ ] `make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
 

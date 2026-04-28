@@ -4,6 +4,9 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added `make doctor`, `make kickoff`, `make export-skill`, and `make public-ready` so package adoption, implementation handoff, skill packaging, and publication checks are deterministic.
+- Added core and Pevie proof matrices to make required evidence explicit by work type.
+- Added root research notes for current Agent Skills, DESIGN.md, GitHub workflow placement, and secret-protection conventions.
 - Added pinned official `@google/design.md` linting for Pevie `DESIGN.md` examples and CI.
 - Added a 15-minute adoption guide and a complete Pevie golden workflow example.
 - Added a Stitch-compatible `DESIGN.md` contract to the Pevie frontend profile.

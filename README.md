@@ -49,8 +49,12 @@ For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15
 ```bash
 make test
 make validate-examples
+make doctor
 make review-packet
 make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make export-skill
+make public-ready
 make test-all
 ```
 
@@ -66,6 +70,7 @@ Frontend profile checks:
 make pevie-test
 make pevie-validate-examples
 make pevie-design-lint
+make kickoff PROFILE=pevie TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md DESIGN=DESIGN.md
 make pevie-review-packet
 ```
 
@@ -113,6 +118,7 @@ make pevie-design-lint
 
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
+- `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
 - Non-trivial work should not start without scope, proof, and rollout thinking.
 - Review findings should block only when tied to correctness, user risk, production risk, security, privacy, scale, or maintainability.
 

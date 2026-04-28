@@ -31,6 +31,7 @@ This package is based on `Pjario Staltman`, with a tighter focus on:
 - A current `DESIGN.md` that captures brand, UX principles, design tokens, references, and forbidden patterns
 - WCAG-aligned accessibility checks for changed surfaces
 - Core Web Vitals and runtime error regressions treated as release risk
+- Proof selected from `build-system/rules/frontend-proof-matrix.md`
 - Tests cover the happy path and one important failure path
 - Risky launches include rollback/kill-switch details
 

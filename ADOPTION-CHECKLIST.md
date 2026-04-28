@@ -9,6 +9,7 @@ Use this checklist when installing Pjario Staltman into a target repository.
 - [ ] Copy `examples/`.
 - [ ] Copy `tools/`.
 - [ ] Copy `tests/`.
+- [ ] Copy `.github/workflows/quality.yml` into the target repo root workflow directory, or fold equivalent checks into existing CI.
 - [ ] Copy the relevant `Makefile` targets.
 
 ## 2. Define Local Conventions
@@ -31,7 +32,9 @@ Run and confirm:
 
 - [ ] `make test`
 - [ ] `make validate-examples`
+- [ ] `make doctor MODE=adopted PROFILE=core`
 - [ ] `make review-packet`
+- [ ] `make kickoff TICKET=<ticket> PLAN=<planning-brief>`
 - [ ] `make check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
 
 For trivial tickets:
@@ -46,6 +49,7 @@ Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
 - [ ] Run `make -f "Pevie Hischer/Makefile" test`.
 - [ ] Run `make -f "Pevie Hischer/Makefile" validate-examples`.
 - [ ] Run `make -f "Pevie Hischer/Makefile" design-lint-examples`.
+- [ ] After creating `DESIGN.md`, run `make doctor MODE=adopted PROFILE=pevie`.
 - [ ] Wire `frontend-implementation-agent.md` into implementation handoffs.
 - [ ] Wire `frontend-staff-reviewer.md` into frontend review.
 - [ ] Define accessibility and performance proof expectations.

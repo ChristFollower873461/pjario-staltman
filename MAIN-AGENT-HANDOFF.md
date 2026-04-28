@@ -19,6 +19,7 @@ This package is a portable release-quality workflow for agentic engineering:
 - `build-system/rules/`
   - `review-standards.md`
   - `scale-readiness.md`
+  - `proof-matrix.md`
 - `build-system/agents/`
   - `implementation-agent.md`
   - `software-engineer-reviewer.md`
@@ -39,10 +40,13 @@ This package is a portable release-quality workflow for agentic engineering:
   - Includes sensitive untracked-file filtering by default.
 - `tools/check-planning-brief.py`
   - Enforces planning brief for non-trivial tickets.
+- `tools/doctor.py`, `tools/kickoff.py`, `tools/export-skill.py`
+  - Validate package/adoption shape, generate implementation-agent prompts, and export a compact Agent Skills artifact.
 - `tests/`
   - Unit tests for both tool scripts.
 - `Pevie Hischer/`
   - Frontend-focused profile for UI taste, Stitch-compatible `DESIGN.md`, accessibility, performance, observability, and frontend QA.
+  - If adopting its nested workflow file, copy it into the host repo root `.github/workflows/` directory.
 - `.github/workflows/quality.yml`
   - Repository-level smoke and package checks.
 - `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`
@@ -54,6 +58,10 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make test-all`
 - `make validate-examples`
 - `make review-packet`
+- `make doctor`
+- `make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
+- `make export-skill`
+- `make public-ready`
 - `make pevie-test`
 - `make pevie-validate-examples`
 - `make pevie-design-lint`
@@ -83,13 +91,14 @@ Notes:
 
 1. Copy `AGENTS.md`, `build-system/`, `tools/`, `tests/`, `Makefile` targets.
 2. Run `make test` and confirm all checks pass.
-3. Pick canonical ticket and planning-brief paths in the target repo.
-4. Optionally add CI to run:
+3. Run `make doctor MODE=adopted` after copying the workflow into the host repo.
+4. Pick canonical ticket and planning-brief paths in the target repo.
+5. Optionally add CI to run:
    - `make test`
    - `make pevie-test`
    - `make check-planning-brief ...` on changed tickets
    - `make review-packet` sanity step
-5. Start with one team/project path and tune rules via weekly garbage collection.
+6. Start with one team/project path and tune rules via weekly garbage collection.
 
 ## Known Integration Decisions For Main Agent
 
@@ -105,6 +114,7 @@ Notes:
 
 - `make test-all` currently passes in this repository.
 - `make validate-examples` and `make pevie-validate-examples` currently pass.
+- `make doctor` checks package shape, public-readiness docs, root workflow placement, generated artifacts, and tracked privacy markers.
 - `make review-packet` currently generates `.review-packet.md`.
 - Planning checker passes on valid non-trivial ticket + planning brief.
 - Pevie `DESIGN.md` template and example currently pass design-context validation.

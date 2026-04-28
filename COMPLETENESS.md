@@ -19,6 +19,11 @@ This package is complete enough to use as a first working harness for agentic so
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.
 - A `check-planning-brief.py` validator and `make check-planning-brief` guard for non-trivial tickets.
+- A `make doctor` readiness check for package/adoption shape, workflow placement, generated artifacts, and tracked privacy markers.
+- A `make kickoff` prompt generator for compact implementation-agent handoffs.
+- A `make export-skill` target that emits a minimal Agent Skills-compatible artifact.
+- A `make public-ready` gate for tests, design linting, doctor checks, diff whitespace, and review packet generation.
+- A proof matrix that maps work types to expected evidence.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.
 - A Stitch-compatible Pevie `DESIGN.md` template plus validation for frontend design context.
 - A complete Pevie golden workflow example that connects ticket, `DESIGN.md`, planning brief, QA plan, and PR note.
@@ -28,7 +33,7 @@ This package is complete enough to use as a first working harness for agentic so
 
 ## Intentionally Not Included Yet
 
-- Language-specific linters, because there is no app stack in this repo yet.
+- Language-specific app linters, because there is no host app stack in this repo yet.
 - Stack-specific CI integrations, because target host app platforms are not known yet.
 - Project-specific runbooks, because there is no deployed service yet.
 - Actual reviewer automation in GitHub, because this package is tool-agnostic until a host repo exists.

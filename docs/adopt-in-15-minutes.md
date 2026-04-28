@@ -10,11 +10,13 @@ Copy:
 - `build-system/`
 - `tools/`
 - `tests/`
+- `.github/workflows/quality.yml` into the target repo root workflow directory
 - relevant `Makefile` targets
 
 Run:
 
 ```bash
+make doctor MODE=adopted PROFILE=core
 make test
 make validate-examples
 make review-packet
@@ -56,6 +58,7 @@ Pevie Hischer/build-system/templates/DESIGN.md
 Then run:
 
 ```bash
+make doctor MODE=adopted PROFILE=pevie
 make -f "Pevie Hischer/Makefile" design-lint DESIGN=DESIGN.md
 ```
 
@@ -70,8 +73,9 @@ Use this order:
 3. For UI work, confirm `DESIGN.md` is current.
 4. Implement the smallest scoped patch.
 5. Fill PR and QA notes.
-6. Generate a review packet.
-7. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
+6. Generate a kickoff prompt with `make kickoff`.
+7. Generate a review packet.
+8. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
 
 ## Reference Example
 

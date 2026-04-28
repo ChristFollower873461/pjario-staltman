@@ -21,7 +21,7 @@ This package is grounded in these external references and operating principles.
 - [Google Stitch: DESIGN.md](https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-ai-ui-design/)
   - Treat agent-readable design rules as portable context across design and coding tools.
 - [google-labs-code/design.md](https://github.com/google-labs-code/design.md)
-  - Use `DESIGN.md` as a structured visual identity contract with machine-readable tokens and human-readable rationale.
+  - Use `DESIGN.md` as a structured visual identity contract with machine-readable tokens, human-readable rationale, and official CLI validation.
 
 ## Synthesis For Pevie Hischer
 

@@ -1,4 +1,8 @@
-.PHONY: review-packet test check-planning-brief validate-examples pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
+.PHONY: review-packet test check-planning-brief validate-examples doctor kickoff export-skill public-ready pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
+
+PROFILE ?= both
+MODE ?= package
+OUT ?= .dist/pjario-staltman-skill
 
 review-packet:
 	python3 tools/review-packet.py --include-untracked --output .review-packet.md
@@ -22,7 +26,27 @@ pevie-validate-examples:
 pevie-design-lint:
 	$(MAKE) -f "Pevie Hischer/Makefile" design-lint-examples
 
+doctor:
+	python3 tools/doctor.py --mode "$(MODE)" --profile "$(PROFILE)" --public-ready
+
+kickoff:
+	@if [ -z "$(TICKET)" ]; then \
+		echo "TICKET is required"; \
+		exit 2; \
+	fi
+	python3 tools/kickoff.py --profile "$(if $(filter both,$(PROFILE)),core,$(PROFILE))" --ticket "$(TICKET)" $(if $(PLAN),--planning-brief "$(PLAN)") $(if $(DESIGN),--design "$(DESIGN)")
+
+export-skill:
+	python3 tools/export-skill.py --output "$(OUT)" --force
+
 test-all: test pevie-test validate-examples pevie-validate-examples
+
+public-ready: test-all pevie-design-lint doctor
+	git diff --check
+	tmpdir="$$(mktemp -d)"; $(MAKE) export-skill OUT="$$tmpdir/pjario-staltman"
+	$(MAKE) review-packet
+	$(MAKE) pevie-review-packet
+	rm -f .review-packet.md "Pevie Hischer/.review-packet.md"
 
 check-planning-brief:
 	@if [ -n "$(PLAN)" ]; then \

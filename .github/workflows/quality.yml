@@ -34,6 +34,15 @@ jobs:
       - name: Lint DESIGN.md examples
         run: make pevie-design-lint
 
+      - name: Run package doctor
+        run: make doctor
+
+      - name: Export skill artifact
+        run: |
+          outdir="$(mktemp -d)/pjario-staltman"
+          make export-skill OUT="$outdir"
+          test -f "$outdir/SKILL.md"
+
       - name: Build core review packet
         run: make review-packet
 
