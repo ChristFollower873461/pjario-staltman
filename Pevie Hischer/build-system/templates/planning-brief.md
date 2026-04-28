@@ -18,6 +18,14 @@ Out:
 
 - 
 
+## Design Context
+
+- Design file path (`DESIGN.md` or equivalent):
+- Relevant brand/tone constraints:
+- Existing components/tokens to use:
+- Explicit forbidden patterns:
+- Reference screenshots/links, if any:
+
 ## Dependencies And Unknowns
 
 Dependencies:
@@ -30,6 +38,7 @@ Unknowns:
 
 ## Risk-To-Proof Mapping
 
+- Design coherence ->
 - Accessibility -> 
 - Performance -> 
 - Data/API correctness -> 
@@ -61,6 +70,7 @@ Failure-path:
 ## Ready-To-Implement Gate
 
 - [ ] Scope and non-goals are explicit.
+- [ ] Design context is identified or explicitly not applicable.
 - [ ] Key risks are mapped to proof.
 - [ ] QA plan is concrete.
 - [ ] Rollout/rollback is realistic.

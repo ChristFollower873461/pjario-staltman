@@ -16,6 +16,7 @@ Rationale:
 
 - The checker gates non-trivial frontend work.
 - The change needs regression tests for empty sections and stale ready-gate checklists.
+- The change affects the front of the Pevie process by requiring design context before implementation.
 
 ## Scope
 
@@ -23,6 +24,7 @@ In:
 
 - Reject empty required planning sections.
 - Require the ready-to-implement gate from the template.
+- Require planning briefs to identify `DESIGN.md` or explicitly say design context is not applicable.
 - Add regression tests.
 
 Out:
@@ -32,6 +34,7 @@ Out:
 
 ## Risk Surfaces
 
+- Design coherence: Planning must identify the repo's `DESIGN.md` or equivalent design-context file.
 - Accessibility: Planning must map accessibility proof before implementation.
 - Performance: Planning must name performance evidence for user-facing changes.
 - Data/API correctness: Planning must map API-state proof where relevant.
@@ -42,6 +45,7 @@ Out:
 ## Acceptance Criteria
 
 - A non-trivial ticket with empty planning sections fails validation.
+- A non-trivial UI planning brief without design context fails validation.
 - A planning brief missing required ready-gate items fails validation.
 - Existing valid planning brief examples pass.
 

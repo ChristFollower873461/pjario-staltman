@@ -29,7 +29,7 @@ The core workflow for agentic engineering:
 
 ### Pevie Hischer
 
-A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/README.md). Use it when the work needs high-taste UI delivery, design-system discipline, accessibility, performance review, frontend observability, and production-grade QA evidence.
+A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/README.md). Use it when the work needs high-taste UI delivery, Stitch-compatible `DESIGN.md` discipline, accessibility, performance review, frontend observability, and production-grade QA evidence.
 
 ## Quick Start
 

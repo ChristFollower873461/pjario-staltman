@@ -56,6 +56,8 @@ def read_text(path: Path) -> str:
 def collect_rules(root: Path) -> list[tuple[str, str]]:
     package = root / "Pevie Hischer"
     paths = [
+        root / "DESIGN.md",
+        root / "docs" / "product" / "DESIGN.md",
         package / "AGENTS.md",
         package / "build-system" / "README.md",
     ]

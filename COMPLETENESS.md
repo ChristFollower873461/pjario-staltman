@@ -19,6 +19,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A `make review-packet` shortcut.
 - A `check-planning-brief.py` validator and `make check-planning-brief` guard for non-trivial tickets.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.
+- A Stitch-compatible Pevie `DESIGN.md` template plus validation for frontend design context.
 - Repository-level GitHub Actions quality workflow.
 - Public-facing `CONTRIBUTING.md`, `SECURITY.md`, and `CHANGELOG.md`.
 - Private-to-public publication checklist.

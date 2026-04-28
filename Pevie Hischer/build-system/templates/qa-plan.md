@@ -12,6 +12,14 @@
 
 - 
 
+## Design Checks
+
+- `DESIGN.md` reviewed:
+- Brand/tone alignment:
+- Token/component alignment:
+- Forbidden-pattern check:
+- Screenshot/reference comparison:
+
 ## Accessibility Checks
 
 - Keyboard navigation:

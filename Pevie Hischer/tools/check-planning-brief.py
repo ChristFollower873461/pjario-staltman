@@ -13,6 +13,7 @@ REQUIRED_SECTIONS = [
     "## Ticket Restatement",
     "## Scope And Non-Goals",
     "## Approach",
+    "## Design Context",
     "## Dependencies And Unknowns",
     "## Risk-To-Proof Mapping",
     "## QA Strategy",
@@ -22,6 +23,7 @@ REQUIRED_SECTIONS = [
 
 READY_GATE_CHECKS = [
     "- [ ] Scope and non-goals are explicit.",
+    "- [ ] Design context is identified or explicitly not applicable.",
     "- [ ] Key risks are mapped to proof.",
     "- [ ] QA plan is concrete.",
     "- [ ] Rollout/rollback is realistic.",

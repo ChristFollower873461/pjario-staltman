@@ -18,16 +18,21 @@ This package is grounded in these external references and operating principles.
   - Keep design-system consistency central to scaled product quality.
 - [Sentry frontend monitoring](https://sentry.io/for/frontend/)
   - Capture frontend errors/traces with release context to reduce production blind spots.
+- [Google Stitch: DESIGN.md](https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-ai-ui-design/)
+  - Treat agent-readable design rules as portable context across design and coding tools.
+- [google-labs-code/design.md](https://github.com/google-labs-code/design.md)
+  - Use `DESIGN.md` as a structured visual identity contract with machine-readable tokens and human-readable rationale.
 
 ## Synthesis For Pevie Hischer
 
 High-taste frontend teams at scale typically do all of the following:
 
 1. Standardize visual and interaction patterns with a design system and tokens.
-2. Treat accessibility as a product quality gate, not post-hoc cleanup.
-3. Manage performance with explicit budgets and regression checks.
-4. Require failure-state UX (loading/empty/error/retry) for core flows.
-5. Wire observability to frontend releases so regressions are diagnosable.
-6. Keep review quality focused on risk and user impact, not cosmetic preference.
+2. Put `DESIGN.md` at the start of UI work so agents inherit product taste before implementation.
+3. Treat accessibility as a product quality gate, not post-hoc cleanup.
+4. Manage performance with explicit budgets and regression checks.
+5. Require failure-state UX (loading/empty/error/retry) for core flows.
+6. Wire observability to frontend releases so regressions are diagnosable.
+7. Keep review quality focused on risk and user impact, not cosmetic preference.
 
 This package encodes those ideas into rules, templates, and agent prompts.

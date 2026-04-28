@@ -40,7 +40,7 @@ This package is a portable release-quality workflow for agentic engineering:
 - `tests/`
   - Unit tests for both tool scripts.
 - `Pevie Hischer/`
-  - Frontend-focused profile for UI taste, accessibility, performance, observability, and frontend QA.
+  - Frontend-focused profile for UI taste, Stitch-compatible `DESIGN.md`, accessibility, performance, observability, and frontend QA.
 - `.github/workflows/quality.yml`
   - Repository-level smoke and package checks.
 - `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`
@@ -55,6 +55,7 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make pevie-test`
 - `make pevie-validate-examples`
 - `make pevie-review-packet`
+- `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md`
 - `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
 
 Notes:
@@ -94,6 +95,7 @@ Notes:
 - Decide whether planning-brief enforcement should be mandatory in CI or soft-gated.
 - Decide whether to keep `scale-readiness.md` as-is or split by stack (web/backend/data/AI).
 - Decide whether `Pevie Hischer/` should be adopted as the default frontend profile.
+- For frontend-heavy repos, decide where the canonical `DESIGN.md` lives before implementation begins.
 - Add host-repo specific runbooks once deployed services exist.
 
 ## QA Snapshot
@@ -102,3 +104,4 @@ Notes:
 - `make validate-examples` and `make pevie-validate-examples` currently pass.
 - `make review-packet` currently generates `.review-packet.md`.
 - Planning checker passes on valid non-trivial ticket + planning brief.
+- Pevie `DESIGN.md` template and example currently pass design-context validation.

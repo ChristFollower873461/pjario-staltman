@@ -40,6 +40,13 @@ Out:
 ## Approach
 - Reuse proven operating loop.
 
+## Design Context
+- DESIGN.md path: DESIGN.md
+- Relevant brand/tone constraints: Quiet, exact, production-grade.
+- Existing components/tokens to use: Use declared design tokens and canonical components.
+- Explicit forbidden patterns: Generic AI gradients and one-off component forks.
+- Reference screenshots/links, if any: None for this package test.
+
 ## Dependencies And Unknowns
 Dependencies:
 - Existing agent workflow.
@@ -70,6 +77,7 @@ Failure-path:
 
 ## Ready-To-Implement Gate
 - [ ] Scope and non-goals are explicit.
+- [ ] Design context is identified or explicitly not applicable.
 - [ ] Key risks are mapped to proof.
 - [ ] QA plan is concrete.
 - [ ] Rollout/rollback is realistic.
@@ -131,6 +139,25 @@ Failure-path:
                     ["--ticket", str(ticket), "--planning-brief", str(plan)]
                 )
             self.assertIn("missing required section", str(exc.exception))
+
+    def test_missing_design_context_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ticket = self.write(
+                root,
+                "ticket.md",
+                "# Ticket\n\n## Implementation Complexity\n\nLevel: non-trivial\n",
+            )
+            plan = self.write(
+                root,
+                "plan.md",
+                self.valid_plan().replace("## Design Context", "## Design Notes"),
+            )
+            with self.assertRaises(SystemExit) as exc:
+                check_planning_brief.main(
+                    ["--ticket", str(ticket), "--planning-brief", str(plan)]
+                )
+            self.assertIn("Design Context", str(exc.exception))
 
     def test_empty_required_plan_section_fails(self):
         with tempfile.TemporaryDirectory() as tmp:

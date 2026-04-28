@@ -3,6 +3,7 @@
 ## What Good Looks Like
 
 - Solves the ticket with minimal unrelated churn.
+- Follows the repo's `DESIGN.md` for brand, tone, tokens, components, UX principles, references, and forbidden patterns.
 - Uses canonical components/tokens before introducing custom variants.
 - Preserves visual hierarchy, spacing rhythm, and interaction consistency.
 - Handles loading, empty, error, and success states coherently.
@@ -18,8 +19,10 @@
 
 ## Engineering Standards
 
+- Non-trivial UI work must have a current `DESIGN.md` or documented design-context equivalent.
 - No one-off color/spacing/typography literals where tokens exist.
 - No ad-hoc component forks when a shared component can be extended safely.
+- No unexplained drift from explicit `DESIGN.md` constraints.
 - Avoid deeply nested conditional rendering blocks; extract presentational units.
 - Keep state ownership clear and local where possible.
 - Make event/error telemetry actionable (include user/task context when safe).

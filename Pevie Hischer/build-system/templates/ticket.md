@@ -28,6 +28,7 @@ Out:
 
 ## Risk Surfaces
 
+- Design coherence:
 - Accessibility:
 - Performance:
 - Data/API correctness:

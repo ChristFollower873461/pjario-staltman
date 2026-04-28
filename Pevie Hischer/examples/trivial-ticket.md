@@ -29,6 +29,7 @@ Out:
 
 ## Risk Surfaces
 
+- Design coherence: Not applicable; documentation-only.
 - Accessibility: None.
 - Performance: None.
 - Data/API correctness: None.

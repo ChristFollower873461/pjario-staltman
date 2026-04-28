@@ -25,6 +25,14 @@ Out:
 - Treat placeholder-only sections as empty.
 - Fail when the ready gate has drifted from the template.
 
+## Design Context
+
+- DESIGN.md path: `Pevie Hischer/examples/DESIGN.md`.
+- Relevant brand/tone constraints: Quiet operational UI, precise hierarchy, no generic decoration.
+- Existing components/tokens to use: Declared colors, typography, spacing, radii, button, and card tokens.
+- Explicit forbidden patterns: Purple-blue gradients, novelty accents, one-off card styles.
+- Reference screenshots/links, if any: Not applicable for this package example.
+
 ## Dependencies And Unknowns
 
 Dependencies:
@@ -37,6 +45,7 @@ Unknowns:
 
 ## Risk-To-Proof Mapping
 
+- Design coherence -> Validate `DESIGN.md` and require planning briefs to identify design context.
 - Accessibility -> Require planning briefs to name accessibility proof for changed user flows.
 - Performance -> Require planning briefs to name performance evidence for user-facing changes.
 - Data/API correctness -> Require API-state proof where UI state depends on server behavior.
@@ -70,6 +79,7 @@ Failure-path:
 ## Ready-To-Implement Gate
 
 - [ ] Scope and non-goals are explicit.
+- [ ] Design context is identified or explicitly not applicable.
 - [ ] Key risks are mapped to proof.
 - [ ] QA plan is concrete.
 - [ ] Rollout/rollback is realistic.

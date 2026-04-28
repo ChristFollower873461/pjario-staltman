@@ -37,6 +37,9 @@ class PevieReviewPacketTests(unittest.TestCase):
             "# Rules\n", encoding="utf-8"
         )
 
+    def write_design_context(self, root: Path) -> None:
+        (root / "DESIGN.md").write_text("# DESIGN.md\n\n## Overview\nProduct taste.\n", encoding="utf-8")
+
     def args(self, **kwargs):
         base = {
             "base": None,
@@ -51,8 +54,10 @@ class PevieReviewPacketTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             self.init_repo(root)
+            self.write_design_context(root)
             docs = review_packet.collect_rules(root)
             names = [name for name, _ in docs]
+            self.assertIn("DESIGN.md", names)
             self.assertIn("Pevie Hischer/AGENTS.md", names)
             self.assertIn("Pevie Hischer/build-system/README.md", names)
 

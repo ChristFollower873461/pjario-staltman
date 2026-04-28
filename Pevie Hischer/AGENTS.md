@@ -5,6 +5,7 @@ Humans steer. Agents execute. The goal is maintainable frontend software with qu
 Before changing code:
 
 - Read the ticket and restate the outcome in working notes.
+- Read the repo's `DESIGN.md` or documented design-context file before changing user-facing UI. If it is missing for non-trivial UI work, create/update it from `build-system/templates/DESIGN.md` before implementation.
 - Read `build-system/README.md`.
 - Read relevant rules in `build-system/rules/`.
 - Keep the patch scoped to the requested outcome.
@@ -12,6 +13,7 @@ Before changing code:
 While working:
 
 - Prefer existing UI patterns and design-system components before creating new ones.
+- Treat `DESIGN.md` as the product taste contract: brand, tone, tokens, components, reference images, and forbidden patterns.
 - Treat accessibility, performance, and error handling as product requirements.
 - Add checks and tests proportional to risk.
 - Leave useful breadcrumbs in PR notes for the next agent or reviewer.
