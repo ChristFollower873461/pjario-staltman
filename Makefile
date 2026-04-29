@@ -1,9 +1,10 @@
-.PHONY: review-packet test check-planning-brief check-proof validate-examples doctor kickoff kickoff-build triage-review-finding export-skill public-ready pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
+.PHONY: review-packet test check-planning-brief check-proof validate-examples doctor kickoff kickoff-build triage-review-finding export-skill skill-budget public-ready pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
 
 PROFILE ?= both
 MODE ?= package
 STACK ?= generic
 OUT ?= .dist/pjario-staltman-skill
+SKILL_MODE ?= standard
 DECISION ?= test
 
 review-packet:
@@ -55,13 +56,18 @@ triage-review-finding:
 	python3 tools/triage-review-finding.py --finding "$(FINDING)" --decision "$(DECISION)"
 
 export-skill:
-	python3 tools/export-skill.py --output "$(OUT)" --force
+	python3 tools/export-skill.py --output "$(OUT)" --mode "$(SKILL_MODE)" --force
+
+skill-budget:
+	tmpdir="$$(mktemp -d)"; $(MAKE) export-skill OUT="$$tmpdir/standard" SKILL_MODE=standard; python3 tools/check-skill-budget.py --skill-dir "$$tmpdir/standard" --max-skill-words 300 --max-total-words 1000
+	tmpdir="$$(mktemp -d)"; $(MAKE) export-skill OUT="$$tmpdir/caveman" SKILL_MODE=caveman; python3 tools/check-skill-budget.py --skill-dir "$$tmpdir/caveman" --max-skill-words 140 --max-total-words 140
 
 test-all: test pevie-test validate-examples pevie-validate-examples
 
 public-ready: test-all pevie-design-lint doctor
 	git diff --check
 	$(MAKE) kickoff-build REQUEST=examples/golden-workflow/build-request.md >/tmp/pjario-staltman-kickoff.md
+	$(MAKE) skill-budget
 	tmpdir="$$(mktemp -d)"; $(MAKE) export-skill OUT="$$tmpdir/pjario-staltman"
 	$(MAKE) review-packet
 	$(MAKE) pevie-review-packet

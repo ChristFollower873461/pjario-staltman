@@ -27,7 +27,8 @@ This package is complete enough to use as a first working harness for agentic so
 - A `make kickoff-build` prompt generator for coordinator build requests.
 - A `make check-proof` guard for matching QA/PR/completion evidence to active ticket risks.
 - A `make triage-review-finding` helper for turning review findings into garbage-collection records.
-- A `make export-skill` target that emits a minimal Agent Skills-compatible artifact.
+- A `make export-skill` target that emits a minimal Agent Skills-compatible artifact, including a caveman mode for ultra-low-context installs.
+- A `make skill-budget` guard that fails when exported skill context grows too large.
 - A `make public-ready` gate for tests, design linting, doctor checks, diff whitespace, and review packet generation.
 - A proof matrix that maps work types to expected evidence.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.

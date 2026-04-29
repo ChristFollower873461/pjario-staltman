@@ -65,6 +65,8 @@ make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
 make kickoff-build REQUEST=path/to/build-request.md
 make triage-review-finding FINDING=path/to/finding.md DECISION=test
 make export-skill
+make export-skill SKILL_MODE=caveman
+make skill-budget
 make public-ready
 make test-all
 ```
@@ -133,6 +135,8 @@ make pevie-design-lint
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
 - `make check-proof` checks that active ticket risks are represented in QA/PR/completion evidence.
+- `make skill-budget` keeps the exported skill small enough for agent context.
+- `SKILL_MODE=caveman` exports the lowest-context loop for agents that only need the operating pattern.
 - Oh Shucksenburg requires accepted debt to have an owner, trigger, and removal path.
 - Non-trivial work should not start without scope, proof, and rollout thinking.
 - Review findings should block only when tied to correctness, user risk, production risk, security, privacy, scale, or maintainability.

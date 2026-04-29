@@ -70,6 +70,8 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md`
 - `make triage-review-finding FINDING=path/to/finding.md DECISION=test`
 - `make export-skill`
+- `make export-skill SKILL_MODE=caveman`
+- `make skill-budget`
 - `make public-ready`
 - `make pevie-test`
 - `make pevie-validate-examples`

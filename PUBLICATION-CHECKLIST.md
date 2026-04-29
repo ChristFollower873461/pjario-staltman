@@ -19,6 +19,8 @@ Use this before making the repository public.
 - [ ] Run `make pevie-design-lint`.
 - [ ] Run `make doctor`.
 - [ ] Run `make export-skill OUT="$(mktemp -d)/pjario-staltman"`.
+- [ ] Run `make export-skill SKILL_MODE=caveman OUT="$(mktemp -d)/pjario-staltman-caveman"`.
+- [ ] Run `make skill-budget`.
 - [ ] Run `make public-ready`.
 - [ ] Run `make review-packet`.
 - [ ] Run `make pevie-review-packet`.

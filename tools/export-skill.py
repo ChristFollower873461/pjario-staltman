@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 
-SKILL_MD = """---
+STANDARD_SKILL_MD = """---
 name: pjario-staltman
 description: Use when planning, coordinating, implementing, proving, or reviewing agent-built software with tickets, planning briefs, QA evidence, review packets, durable rule promotion, or the Pevie Hischer frontend quality profile.
 ---
@@ -130,6 +130,26 @@ make -f "Pevie Hischer/Makefile" review-packet
 Block on broken flows, inaccessible UI, unmanaged design drift, performance regressions, missing failure states, or unproved rollout risk. Do not block on subjective taste unless it contradicts `DESIGN.md` or the product quality bar.
 """
 
+CAVEMAN_SKILL_MD = """---
+name: pjario-staltman
+description: Use when an agent needs the smallest useful Pjario loop: ticket, plan if non-trivial, proof, review, debt note, and cleanup.
+---
+
+# Pjario Staltman: Caveman Mode
+
+Do the smallest durable loop:
+
+1. Ticket: outcome, scope, risks, proof.
+2. Plan only if non-trivial.
+3. Build the scoped change.
+4. Prove it with commands, QA, artifacts, or screenshots.
+5. Review the diff.
+6. Name debt with Oh Shucksenburg: owner, trigger, removal path.
+7. Convert repeated friction into a rule, test, template, lint, or tool.
+
+For frontend work, establish `DESIGN.md` before implementation.
+"""
+
 OPENAI_YAML = """interface:
   display_name: "Pjario Staltman"
   short_description: "Agentic build workflow with tickets, proof, review, and Pevie frontend checks."
@@ -146,14 +166,19 @@ def read_optional(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.is_file() else ""
 
 
-def export_skill(root: Path, output: Path, force: bool = False) -> None:
+def export_skill(root: Path, output: Path, force: bool = False, mode: str = "standard") -> None:
     if output.exists():
         if not force:
             raise SystemExit(f"Output already exists: {output}. Rerun with --force to replace it.")
         shutil.rmtree(output)
     output.mkdir(parents=True)
 
-    write(output / "SKILL.md", SKILL_MD)
+    if mode == "caveman":
+        write(output / "SKILL.md", CAVEMAN_SKILL_MD)
+        write(output / "agents" / "openai.yaml", OPENAI_YAML)
+        return
+
+    write(output / "SKILL.md", STANDARD_SKILL_MD)
     write(output / "references" / "core-workflow.md", CORE_WORKFLOW_MD)
     write(output / "references" / "completion-contract.md", COMPLETION_CONTRACT_MD)
     write(output / "references" / "technical-debt.md", TECHNICAL_DEBT_MD)
@@ -169,12 +194,13 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--root", type=Path, default=Path("."), help="Source package root.")
     parser.add_argument("--output", type=Path, required=True, help="Output skill directory.")
     parser.add_argument("--force", action="store_true", help="Replace the output directory if it exists.")
+    parser.add_argument("--mode", choices=["standard", "caveman"], default="standard")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
-    export_skill(args.root.resolve(), args.output.resolve(), force=args.force)
+    export_skill(args.root.resolve(), args.output.resolve(), force=args.force, mode=args.mode)
     print(f"Exported skill to {args.output.resolve()}")
     return 0
 

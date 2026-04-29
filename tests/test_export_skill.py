@@ -35,6 +35,19 @@ class ExportSkillTests(unittest.TestCase):
             self.assertFalse((output / "README.md").exists())
             self.assertIn("name: pjario-staltman", (output / "SKILL.md").read_text(encoding="utf-8"))
 
+    def test_caveman_export_has_no_references(self):
+        source_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "pjario-staltman-caveman"
+            export_skill.export_skill(source_root, output, mode="caveman")
+
+            skill_text = (output / "SKILL.md").read_text(encoding="utf-8")
+            self.assertTrue((output / "SKILL.md").is_file())
+            self.assertTrue((output / "agents" / "openai.yaml").is_file())
+            self.assertFalse((output / "references").exists())
+            self.assertIn("Caveman Mode", skill_text)
+            self.assertLessEqual(len(skill_text.split()), 140)
+
 
 if __name__ == "__main__":
     unittest.main()
