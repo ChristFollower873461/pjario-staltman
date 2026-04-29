@@ -140,7 +140,8 @@ Before making the repository public:
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
 4. Run `make local-ready`.
 5. Run `make public-ready`.
-6. Confirm GitHub Actions passes on the default branch.
+6. Confirm the adoption and removal paths are understandable from `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md`.
+7. Confirm GitHub Actions passes on the default branch.
 
 The root GitHub Actions quality workflow runs `make public-ready`, so the badge and the local public-release gate represent the same contract.
 

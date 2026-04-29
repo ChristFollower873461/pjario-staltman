@@ -73,6 +73,13 @@ Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
 - [ ] Use `make triage-review-finding FINDING=<finding> DECISION=<rule|template|test|lint|tooling|accepted-non-rule>` after repeated review friction.
 - [ ] Promote one repeated issue at a time into a durable rule, template, test, lint, or tool.
 
+## 8. Define A Backout Path
+
+- [ ] Read `docs/remove-from-target-repo.md`.
+- [ ] Decide which copied package files are owned by the host repo.
+- [ ] Decide which generated project artifacts should be kept if the package is removed.
+- [ ] Confirm Pjario-specific CI steps can be removed without breaking host checks.
+
 ## Done Criteria
 
 Adoption is complete when:
@@ -82,3 +89,4 @@ Adoption is complete when:
 - [ ] Completion reports include changed files, commands, proof status, known gaps, and next coordinator action.
 - [ ] Review packets are used for meaningful changes.
 - [ ] At least one repeated review issue has been converted into a durable guardrail.
+- [ ] The team knows how to remove the package without losing useful project history.

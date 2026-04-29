@@ -64,7 +64,7 @@ A technical-debt control profile in [`build-system/rules/oh-shucksenburg-technic
 8. Review with [`build-system/agents/software-engineer-reviewer.md`](build-system/agents/software-engineer-reviewer.md).
 9. Promote repeated review feedback with [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
 
-For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15-minutes.md).
+For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15-minutes.md). For rollback or removal from a target repo, use [`docs/remove-from-target-repo.md`](docs/remove-from-target-repo.md).
 
 ## Commands
 

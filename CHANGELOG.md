@@ -4,6 +4,7 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added a target-repo removal guide so adoption has a documented backout path.
 - Added `make local-ready` as a local-only preflight before npm-based Pevie design linting.
 - Updated GitHub Actions to run the same `make public-ready` gate documented for public evaluation.
 - Added a trust contract documenting command behavior, file writes, git-state reads, network use, cold-start proof, and the public-release gate.

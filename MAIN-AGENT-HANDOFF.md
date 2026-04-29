@@ -36,6 +36,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Validated sample trivial ticket, non-trivial ticket, planning brief, and build request.
 - `docs/adopt-in-15-minutes.md`
   - Fast target-repo adoption path.
+- `docs/remove-from-target-repo.md`
+  - Reversible target-repo removal path.
 - `docs/trust-contract.md`
   - Safety, command behavior, network use, generated files, and public-release gate.
 - `tools/review-packet.py`

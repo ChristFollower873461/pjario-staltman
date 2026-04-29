@@ -85,3 +85,7 @@ Use this order:
 Use `examples/golden-workflow/` as the complete core example.
 
 Use `Pevie Hischer/examples/golden-workflow/` as the complete frontend example.
+
+## Backout
+
+If the workflow is not a fit for the target repo, use `docs/remove-from-target-repo.md` to remove copied package files and keep any project artifacts that still matter.

@@ -41,6 +41,7 @@ PACKAGE_REQUIRED_FILES = [
     "CHANGELOG.md",
     "COMPLETENESS.md",
     "CONTRIBUTING.md",
+    "docs/remove-from-target-repo.md",
     "docs/trust-contract.md",
     "PUBLICATION-CHECKLIST.md",
     "RESEARCH-NOTES.md",
@@ -262,7 +263,13 @@ def check_generated_artifacts_not_tracked(root: Path, report: Report) -> None:
 
 
 def check_publication_docs(root: Path, report: Report) -> None:
-    docs = ["PUBLICATION-CHECKLIST.md", "SECURITY.md", "CONTRIBUTING.md", "docs/trust-contract.md"]
+    docs = [
+        "PUBLICATION-CHECKLIST.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "docs/remove-from-target-repo.md",
+        "docs/trust-contract.md",
+    ]
     missing = [rel for rel in docs if not (root / rel).is_file()]
     if missing:
         report.fail("Publication-ready docs are incomplete: " + ", ".join(missing))

@@ -65,6 +65,7 @@ class DoctorTests(unittest.TestCase):
             self.assertIn("docs/trust-contract.md", report.failures[0])
 
             (root / "docs").mkdir()
+            (root / "docs" / "remove-from-target-repo.md").write_text("# Remove\n", encoding="utf-8")
             (root / "docs" / "trust-contract.md").write_text("Run make public-ready.\n", encoding="utf-8")
             report = doctor.Report(passes=[], warnings=[], failures=[])
             doctor.check_publication_docs(root, report)
