@@ -20,6 +20,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A complete core golden workflow example that connects ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.
 - A 15-minute adoption guide for first-time target repos.
 - A target-repo removal guide for reversible adoption.
+- A prerequisites guide for local tools, full public-ready tools, and the npm-only lint path.
 - A trust contract that documents command behavior, write paths, network use, cold-start proof, and public-release gates.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.

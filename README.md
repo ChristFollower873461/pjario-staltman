@@ -18,6 +18,8 @@ This repository is private while the system is being refined. It is structured s
 
 If you are evaluating this package cold, start with [`docs/trust-contract.md`](docs/trust-contract.md). It explains what the package does, what it does not do, which commands write files, which commands read git state, which command path uses network, and the exact cold-start proof command sequence.
 
+Runtime requirements are listed in [`docs/prerequisites.md`](docs/prerequisites.md).
+
 The public-readiness gate is:
 
 ```bash
@@ -147,6 +149,7 @@ make pevie-design-lint
 ## Safety Defaults
 
 - [`docs/trust-contract.md`](docs/trust-contract.md) documents the local command behavior and public-release gate.
+- [`docs/prerequisites.md`](docs/prerequisites.md) documents required local tools and the npm-only lint path.
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.

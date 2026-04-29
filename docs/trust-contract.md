@@ -10,6 +10,8 @@ Use this page to decide whether Pjario Staltman is safe to inspect, clone, run, 
 - Network access: only Pevie's optional `design-lint` path and the full `make public-ready` gate use npm through `npx`.
 - Destructive behavior: no tracked-source destructive behavior is part of the normal workflow.
 
+Runtime prerequisites are listed in `docs/prerequisites.md`.
+
 ## What This Package Does
 
 Pjario Staltman gives agents and humans a repeatable build loop:
@@ -138,10 +140,11 @@ Before making the repository public:
 1. Complete `PUBLICATION-CHECKLIST.md`.
 2. Choose a license or keep the repository private.
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
-4. Run `make local-ready`.
-5. Run `make public-ready`.
-6. Confirm the adoption and removal paths are understandable from `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md`.
-7. Confirm GitHub Actions passes on the default branch.
+4. Confirm `docs/prerequisites.md` matches the tested toolchain.
+5. Run `make local-ready`.
+6. Run `make public-ready`.
+7. Confirm the adoption and removal paths are understandable from `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md`.
+8. Confirm GitHub Actions passes on the default branch.
 
 The root GitHub Actions quality workflow runs `make public-ready`, so the badge and the local public-release gate represent the same contract.
 

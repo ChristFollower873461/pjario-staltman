@@ -51,6 +51,29 @@ class DoctorTests(unittest.TestCase):
         self.assertTrue(report.warnings)
         self.assertIn("lint", report.warnings[0])
 
+    def test_runtime_tools_report_missing_required_command(self):
+        original_which = doctor.shutil.which
+        try:
+            doctor.shutil.which = lambda command: None if command == "git" else f"/usr/bin/{command}"
+            report = doctor.Report()
+            doctor.check_runtime_tools(report, public_ready=False, profile="core")
+            self.assertTrue(report.failures)
+            self.assertIn("git", report.failures[0])
+        finally:
+            doctor.shutil.which = original_which
+
+    def test_runtime_tools_warn_when_pevie_npx_missing(self):
+        original_which = doctor.shutil.which
+        try:
+            doctor.shutil.which = lambda command: None if command == "npx" else f"/usr/bin/{command}"
+            report = doctor.Report()
+            doctor.check_runtime_tools(report, public_ready=True, profile="pevie")
+            self.assertFalse(report.failures)
+            self.assertTrue(report.warnings)
+            self.assertIn("npx", report.warnings[0])
+        finally:
+            doctor.shutil.which = original_which
+
     def test_publication_docs_require_trust_contract_and_public_ready_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -62,9 +85,11 @@ class DoctorTests(unittest.TestCase):
             report = doctor.Report(passes=[], warnings=[], failures=[])
             doctor.check_publication_docs(root, report)
             self.assertTrue(report.failures)
+            self.assertIn("docs/prerequisites.md", report.failures[0])
             self.assertIn("docs/trust-contract.md", report.failures[0])
 
             (root / "docs").mkdir()
+            (root / "docs" / "prerequisites.md").write_text("# Prerequisites\n", encoding="utf-8")
             (root / "docs" / "remove-from-target-repo.md").write_text("# Remove\n", encoding="utf-8")
             (root / "docs" / "trust-contract.md").write_text("Run make public-ready.\n", encoding="utf-8")
             report = doctor.Report(passes=[], warnings=[], failures=[])

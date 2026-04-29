@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import sys
 import subprocess
 from pathlib import Path
@@ -41,6 +42,7 @@ PACKAGE_REQUIRED_FILES = [
     "CHANGELOG.md",
     "COMPLETENESS.md",
     "CONTRIBUTING.md",
+    "docs/prerequisites.md",
     "docs/remove-from-target-repo.md",
     "docs/trust-contract.md",
     "PUBLICATION-CHECKLIST.md",
@@ -117,6 +119,10 @@ STACK_HINTS = {
     ],
 }
 
+MIN_PYTHON_VERSION = (3, 11)
+REQUIRED_COMMANDS = ["git", "make"]
+PEVIE_NETWORK_COMMANDS = ["npx"]
+
 
 class Report:
     def __init__(self, passes: list[str] | None = None, warnings: list[str] | None = None, failures: list[str] | None = None) -> None:
@@ -179,6 +185,31 @@ def require_files(root: Path, rels: list[str], report: Report, label: str) -> No
         report.fail(f"{label} missing files: {', '.join(missing)}")
     else:
         report.pass_(f"{label} required files are present.")
+
+
+def check_runtime_tools(report: Report, public_ready: bool, profile: str) -> None:
+    missing = [command for command in REQUIRED_COMMANDS if shutil.which(command) is None]
+    if missing:
+        report.fail("Required local commands are missing: " + ", ".join(missing))
+    else:
+        report.pass_("Required local commands are available.")
+
+    if sys.version_info < MIN_PYTHON_VERSION:
+        required = ".".join(str(part) for part in MIN_PYTHON_VERSION)
+        current = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        report.fail(f"Python {required}+ is required; current runtime is {current}.")
+    else:
+        report.pass_("Python runtime is supported.")
+
+    if profile in {"pevie", "both"}:
+        missing_network = [command for command in PEVIE_NETWORK_COMMANDS if shutil.which(command) is None]
+        if missing_network:
+            report.warn(
+                "Pevie design linting and make public-ready need npm/npx; missing: "
+                + ", ".join(missing_network)
+            )
+        elif public_ready:
+            report.pass_("Pevie npm/npx lint command is available.")
 
 
 def require_gitignore(root: Path, report: Report) -> None:
@@ -267,6 +298,7 @@ def check_publication_docs(root: Path, report: Report) -> None:
         "PUBLICATION-CHECKLIST.md",
         "SECURITY.md",
         "CONTRIBUTING.md",
+        "docs/prerequisites.md",
         "docs/remove-from-target-repo.md",
         "docs/trust-contract.md",
     ]
@@ -291,6 +323,7 @@ def add_stack_hints(stack: str, report: Report) -> None:
 
 def run_checks(root: Path, mode: str, profile: str, public_ready: bool, stack: str = "generic") -> Report:
     report = Report(passes=[], warnings=[], failures=[])
+    check_runtime_tools(report, public_ready, profile)
     require_files(root, CORE_REQUIRED_FILES, report, "Core workflow")
     if mode == "package":
         require_files(root, PACKAGE_REQUIRED_FILES, report, "Package polish")

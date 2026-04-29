@@ -13,6 +13,7 @@ Use this before making the repository public.
 ## Repository Polish
 
 - [ ] Review `docs/trust-contract.md` from the perspective of a cold outside evaluator.
+- [ ] Review `docs/prerequisites.md` against the current GitHub Actions toolchain.
 - [ ] Review `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md` for reversible adoption.
 - [ ] Run `make test-all`.
 - [ ] Run `make validate-examples`.

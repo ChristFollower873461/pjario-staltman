@@ -38,6 +38,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Fast target-repo adoption path.
 - `docs/remove-from-target-repo.md`
   - Reversible target-repo removal path.
+- `docs/prerequisites.md`
+  - Local toolchain requirements and npm-based linting path.
 - `docs/trust-contract.md`
   - Safety, command behavior, network use, generated files, and public-release gate.
 - `tools/review-packet.py`
