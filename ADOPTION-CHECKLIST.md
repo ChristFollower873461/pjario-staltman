@@ -19,12 +19,14 @@ Use this checklist when installing Pjario Staltman into a target repository.
 - [ ] Pick where build requests live.
 - [ ] Pick where QA plans, PR notes, and completion reports live.
 - [ ] Decide whether planning briefs are mandatory in CI or soft-gated.
+- [ ] Decide where accepted technical debt follow-ups live.
 
 ## 3. Wire Agent Workflow
 
 - [ ] Implementation agents read `AGENTS.md`.
 - [ ] Implementation agents read `build-system/agents/implementation-agent.md`.
 - [ ] Review agents read `build-system/agents/software-engineer-reviewer.md`.
+- [ ] Agents use `build-system/rules/oh-shucksenburg-technical-debt.md` when debt is introduced or paid down.
 - [ ] Coordinators use `build-system/templates/build-request.md`.
 
 ## 4. Enable Local Checks

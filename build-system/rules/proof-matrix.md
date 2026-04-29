@@ -15,6 +15,7 @@ Use this matrix to choose the minimum proof expected before an implementation ag
 | UI-visible frontend | Screenshot or viewport proof; accessibility check; `DESIGN.md` alignment | Cross-browser/mobile evidence and interaction trace |
 | Performance-sensitive change | Baseline and after measurement for the affected path | Budget threshold in CI or monitoring |
 | Observability change | Event/log/span names and a local or staging proof sample | Dashboard or alert link once deployed |
+| Technical debt or maintainability | Debt introduced/paid-down note; complexity, duplication, ownership, and future-change impact stated | Small cleanup plan, issue link, or targeted refactor test |
 | Agent workflow/tooling | Unit tests plus a real command invocation | Golden fixture covering a failure case |
 
 If the work does not fit a row, state the risk explicitly and choose the closest proof shape. Missing proof is acceptable only when the completion report names the gap and the coordinator accepts it.

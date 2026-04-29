@@ -30,6 +30,7 @@ Use this checklist to install and operationalize `Pevie Hischer` in a target rep
 - [ ] Team references:
   - [ ] `Pevie Hischer/AGENTS.md`
   - [ ] `Pevie Hischer/build-system/README.md`
+  - [ ] `Pevie Hischer/build-system/rules/oh-shucksenburg-frontend-debt.md`
 
 ## 4) Enable Local Commands
 

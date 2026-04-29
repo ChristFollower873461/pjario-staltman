@@ -11,6 +11,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A build-coordinator prompt for handing concrete build and release work to an implementation agent.
 - Scale-readiness rules derived from the supplied PDF.
 - Review standards that separate blocking risk from taste.
+- Oh Shucksenburg technical-debt control rules for accepted debt, coupling, duplication, and maintainability.
 - Ticket, PR note, QA plan, and garbage-collection templates.
 - A completion-report template for implementation-agent closeout.
 - A planning-brief template to force pre-implementation scope, risk-to-proof mapping, and rollout planning.

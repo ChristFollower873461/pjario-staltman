@@ -56,6 +56,7 @@ Mark any that apply and add notes:
 - LLM/AI: Kickoff and review packet prompts feed agent work.
 - PII/privacy: Run package doctor privacy scan.
 - Billing/cost: None.
+- Technical debt/maintainability: Keep the workflow lightweight and backed by validation.
 - Store/release review: None.
 - Rollout/rollback: Revert commit if package checks fail.
 

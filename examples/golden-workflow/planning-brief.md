@@ -52,6 +52,7 @@ Map each relevant risk surface to concrete evidence required before review.
 - LLM/AI validation -> `make kickoff-build`, review packet generation, and proof checker tests.
 - PII/privacy -> `make doctor` privacy scan inside `make public-ready`.
 - Billing/cost -> Not applicable.
+- Technical debt/maintainability -> Oh Shucksenburg debt note in PR/completion evidence plus tests for new tooling.
 - Rollout/rollback -> GitHub Actions success and revertable package commit.
 
 ## Test And QA Plan

@@ -38,6 +38,7 @@ For non-trivial UI work, establish `DESIGN.md` before implementation. Treat it a
 - `references/core-workflow.md` - package workflow, commands, and completion contract.
 - `references/proof-matrix.md` - expected proof by work type.
 - `references/completion-contract.md` - exact completion report shape.
+- `references/technical-debt.md` - Oh Shucksenburg debt-control profile.
 - `references/pevie-hischer.md` - frontend-specific operating rules.
 
 ## Completion Contract
@@ -86,6 +87,21 @@ Every implementation handoff should include:
 - Next coordinator action.
 
 Prefer the host repo's `build-system/templates/completion-report.md` when available.
+"""
+
+TECHNICAL_DEBT_MD = """# Oh Shucksenburg
+
+Use this profile when a change risks adding shortcuts, duplicated logic, hidden coupling, stale TODOs, weak ownership, or future maintenance cost.
+
+## Rules
+
+- Name debt explicitly in the ticket, planning brief, PR note, or completion report.
+- Separate acceptable debt from accidental debt.
+- If debt is accepted, state owner, trigger, and removal path.
+- If debt is paid down, state the simplification and proof that behavior still holds.
+- Do not add a new abstraction unless it removes real duplication, risk, or cognitive load.
+
+For frontend work, also check for one-off components, token bypasses, missing UI states, accessibility debt, and performance debt.
 """
 
 PEVIE_MD = """# Pevie Hischer
@@ -140,6 +156,7 @@ def export_skill(root: Path, output: Path, force: bool = False) -> None:
     write(output / "SKILL.md", SKILL_MD)
     write(output / "references" / "core-workflow.md", CORE_WORKFLOW_MD)
     write(output / "references" / "completion-contract.md", COMPLETION_CONTRACT_MD)
+    write(output / "references" / "technical-debt.md", TECHNICAL_DEBT_MD)
     proof_matrix = read_optional(root / "build-system" / "rules" / "proof-matrix.md")
     if proof_matrix:
         write(output / "references" / "proof-matrix.md", proof_matrix)

@@ -32,6 +32,7 @@
 - LLM/AI: Kickoff-build and review packet generation prove agent prompt context.
 - PII/privacy: `make doctor` privacy scan runs inside `make public-ready`.
 - Billing/cost: Not applicable.
+- Technical debt/maintainability: Oh Shucksenburg debt check shows the workflow adds validation-backed commands instead of loose process.
 - Rollout/rollback: Rollback path is to revert the package commit.
 
 ## Artifacts

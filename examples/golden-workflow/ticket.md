@@ -43,6 +43,7 @@ Mark any that apply and add notes:
 - LLM/AI: Review packet and kickoff prompts feed agent work, so missing evidence weakens reviewer accuracy.
 - PII/privacy: Package publication needs privacy scanning before handoff.
 - Billing/cost: None.
+- Technical debt/maintainability: The new workflow should not add process weight without mechanical enforcement.
 - Rollout/rollback: Revert the package commit if validation or CI fails.
 
 ## Acceptance Criteria
@@ -51,6 +52,7 @@ Mark any that apply and add notes:
 - Proof checker rejects missing active risk evidence.
 - Build-request kickoff prompt names the request and required proof posture.
 - Completion report captures changed files, proof status, artifacts, gaps, and next coordinator action.
+- Technical debt impact is explicitly recorded.
 
 ## Required Proof
 

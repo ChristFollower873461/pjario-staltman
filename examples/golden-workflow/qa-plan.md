@@ -16,11 +16,13 @@
 
 - Inspect `make kickoff-build REQUEST=examples/golden-workflow/build-request.md` output for clear LLM/AI implementation context.
 - Confirm proof notes mention privacy scan coverage and rollback path.
+- Confirm Oh Shucksenburg technical debt notes describe maintainability impact.
 
 ## Failure Cases
 
 - Missing LLM/AI proof should fail proof checking.
 - Missing privacy evidence should fail proof checking.
+- Missing technical debt/maintainability evidence should fail proof checking.
 - Missing rollback evidence should fail proof checking.
 
 ## Evidence To Attach

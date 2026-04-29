@@ -53,6 +53,7 @@ Mark any that apply and add notes:
 - LLM/AI:
 - PII/privacy:
 - Billing/cost:
+- Technical debt/maintainability:
 - Store/release review:
 - Rollout/rollback:
 

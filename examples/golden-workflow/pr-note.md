@@ -15,6 +15,7 @@
 ## Risk And Rollout
 
 - Risk level: Medium, because workflow commands and package examples changed.
+- Debt introduced or paid down: Paid down core maintainability debt by replacing informal proof expectations with `make check-proof`, `make kickoff-build`, and a completion-report template.
 - Feature flag or rollback path: No flag; rollback by reverting the package commit.
 - Migration/backward compatibility: Existing commands keep working.
 
@@ -27,6 +28,7 @@
 - Manual checks:
   - Inspected kickoff output for LLM/AI review context.
   - Confirmed privacy proof is covered by `make doctor`.
+  - Confirmed technical debt/maintainability impact is documented through Oh Shucksenburg guidance.
   - Confirmed rollback path is documented as revert commit.
 - Screenshots/logs:
   - GitHub Actions success after push.

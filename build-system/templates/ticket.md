@@ -38,6 +38,7 @@ Mark any that apply and add notes:
 - LLM/AI:
 - PII/privacy:
 - Billing/cost:
+- Technical debt/maintainability:
 - Rollout/rollback:
 
 ## Acceptance Criteria

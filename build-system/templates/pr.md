@@ -11,6 +11,7 @@
 ## Risk And Rollout
 
 - Risk level:
+- Debt introduced or paid down:
 - Feature flag or rollback path:
 - Migration/backward compatibility:
 

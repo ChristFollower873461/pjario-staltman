@@ -42,6 +42,7 @@ Map each relevant risk surface to concrete evidence required before review.
 - LLM/AI validation -> 
 - PII/privacy -> 
 - Billing/cost -> 
+- Technical debt/maintainability ->
 - Rollout/rollback -> 
 
 ## Test And QA Plan

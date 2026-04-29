@@ -24,6 +24,7 @@
 - LLM/AI:
 - PII/privacy:
 - Billing/cost:
+- Technical debt/maintainability:
 - Rollout/rollback:
 
 ## Artifacts

@@ -20,6 +20,7 @@ This package is a portable release-quality workflow for agentic engineering:
   - `review-standards.md`
   - `scale-readiness.md`
   - `proof-matrix.md`
+  - `oh-shucksenburg-technical-debt.md`
 - `build-system/agents/`
   - `implementation-agent.md`
   - `software-engineer-reviewer.md`
@@ -50,6 +51,7 @@ This package is a portable release-quality workflow for agentic engineering:
   - Unit tests for package tool scripts.
 - `Pevie Hischer/`
   - Frontend-focused profile for UI taste, Stitch-compatible `DESIGN.md`, accessibility, performance, observability, and frontend QA.
+  - Includes Oh Shucksenburg frontend-debt control for one-off components, token bypasses, UI state debt, accessibility debt, and performance debt.
   - If adopting its nested workflow file, copy it into the host repo root `.github/workflows/` directory.
 - `.github/workflows/quality.yml`
   - Repository-level smoke and package checks.

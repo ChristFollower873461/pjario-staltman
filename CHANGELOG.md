@@ -4,6 +4,7 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added Oh Shucksenburg technical-debt control across core and Pevie templates, proof matrices, exported skill references, and doctor-required files.
 - Added a complete core golden workflow example with ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.
 - Added `make check-proof`, `make kickoff-build`, and `make triage-review-finding` for core proof enforcement, build-request handoff generation, and review-finding garbage collection.
 - Added `build-system/templates/completion-report.md` so implementation-agent closeouts have a stable shape.

@@ -26,12 +26,17 @@ The core workflow for agentic engineering:
 - build-request handoffs for coordinated build/release work
 - staff-level review prompts
 - proof checks that map ticket risks to QA/PR evidence
+- Oh Shucksenburg technical-debt control for shortcuts, coupling, duplication, and accepted cleanup debt
 - review packet generation
 - rule promotion when review feedback repeats
 
 ### Pevie Hischer
 
 A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/README.md). Use it when the work needs high-taste UI delivery, Stitch-compatible `DESIGN.md` discipline, accessibility, performance review, frontend observability, and production-grade QA evidence.
+
+### Oh Shucksenburg
+
+A technical-debt control profile in [`build-system/rules/oh-shucksenburg-technical-debt.md`](build-system/rules/oh-shucksenburg-technical-debt.md). Use it when work risks adding shortcuts, duplicated logic, hidden coupling, stale TODOs, or future maintenance cost.
 
 ## Quick Start
 
@@ -128,6 +133,7 @@ make pevie-design-lint
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
 - `make check-proof` checks that active ticket risks are represented in QA/PR/completion evidence.
+- Oh Shucksenburg requires accepted debt to have an owner, trigger, and removal path.
 - Non-trivial work should not start without scope, proof, and rollout thinking.
 - Review findings should block only when tied to correctness, user risk, production risk, security, privacy, scale, or maintainability.
 

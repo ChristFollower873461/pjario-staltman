@@ -44,6 +44,7 @@ Every implementation handoff should include:
 - Relevant files, APIs, or user flows.
 - Risk surfaces: data, authz, tenancy, async, external calls, LLMs, privacy, rollout.
 - Required evidence: tests, screenshots, logs, migration proof, load test, runbook, or manual QA.
+- Debt posture: debt introduced, paid down, or explicitly not applicable.
 - Any explicit non-goals.
 - The planning brief when the task is non-trivial.
 - The completion report after implementation.
@@ -65,3 +66,5 @@ Use `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-br
 Use `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md` to check that proof evidence covers the ticket's active risk surfaces.
 
 Use `make kickoff-build REQUEST=path/to/build-request.md` when a coordinator starts from a build request instead of a ticket.
+
+Use `build-system/rules/oh-shucksenburg-technical-debt.md` when a change risks accepted debt, coupling, duplication, unclear ownership, or future maintenance cost.

@@ -32,6 +32,7 @@ This package is based on `Pjario Staltman`, with a tighter focus on:
 - WCAG-aligned accessibility checks for changed surfaces
 - Core Web Vitals and runtime error regressions treated as release risk
 - Proof selected from `build-system/rules/frontend-proof-matrix.md`
+- Oh Shucksenburg frontend-debt checks for one-off components, token bypasses, missing UI states, accessibility debt, and performance debt
 - Tests cover the happy path and one important failure path
 - Risky launches include rollback/kill-switch details
 

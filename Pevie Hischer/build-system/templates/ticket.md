@@ -34,6 +34,7 @@ Out:
 - Data/API correctness:
 - External dependencies:
 - Privacy/PII:
+- Frontend debt/maintainability:
 - Rollout/rollback:
 
 ## Acceptance Criteria

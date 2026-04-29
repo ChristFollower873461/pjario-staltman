@@ -44,6 +44,7 @@ Unknowns:
 - Data/API correctness -> 
 - External dependency reliability -> 
 - Privacy/PII -> 
+- Frontend debt/maintainability ->
 - Rollout/rollback -> 
 
 ## QA Strategy

@@ -29,6 +29,16 @@ RISK_KEYWORDS = {
     "LLM/AI": ["llm", "ai", "model", "prompt", "review packet"],
     "PII/privacy": ["pii", "privacy", "sensitive", "redaction", "secret"],
     "Billing/cost": ["billing", "cost", "invoice", "quota", "meter"],
+    "Technical debt/maintainability": [
+        "debt",
+        "maintainability",
+        "duplication",
+        "complexity",
+        "architecture",
+        "coupling",
+        "cleanup",
+        "todo",
+    ],
     "Rollout/rollback": ["rollout", "rollback", "revert", "feature flag", "kill switch"],
 }
 
