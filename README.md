@@ -14,6 +14,18 @@ This repository is private while the system is being refined. It is structured s
 - Public-readiness: staged for later review with [`PUBLICATION-CHECKLIST.md`](PUBLICATION-CHECKLIST.md)
 - License: intentionally undecided until public reuse is approved
 
+## Trust Path
+
+If you are evaluating this package cold, start with [`docs/trust-contract.md`](docs/trust-contract.md). It explains what the package does, what it does not do, which commands write files, which commands read git state, which command path uses network, and the exact cold-start proof command sequence.
+
+The public-readiness gate is:
+
+```bash
+make public-ready
+```
+
+That target runs the package tests, examples, Pevie design linting, doctor checks, skill export budget checks, review packet generation, and generated-artifact cleanup.
+
 ## Profiles
 
 ### Pjario Staltman
@@ -131,6 +143,7 @@ make pevie-design-lint
 
 ## Safety Defaults
 
+- [`docs/trust-contract.md`](docs/trust-contract.md) documents the local command behavior and public-release gate.
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.

@@ -4,6 +4,7 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added a trust contract documenting command behavior, file writes, git-state reads, network use, cold-start proof, and the public-release gate.
 - Added `SKILL_MODE=caveman` and `make skill-budget` to keep exported agent context intentionally small.
 - Added Oh Shucksenburg technical-debt control across core and Pevie templates, proof matrices, exported skill references, and doctor-required files.
 - Added a complete core golden workflow example with ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.

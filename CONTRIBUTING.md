@@ -18,9 +18,7 @@ Every meaningful change should preserve the operating loop:
 Run the package checks before proposing a change:
 
 ```bash
-make test-all
-make review-packet
-make pevie-review-packet
+make public-ready
 ```
 
 For template or example changes, also run:

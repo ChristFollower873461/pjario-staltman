@@ -19,6 +19,7 @@ This package is complete enough to use as a first working harness for agentic so
 - Validated examples for trivial tickets, non-trivial tickets, planning briefs, and build requests.
 - A complete core golden workflow example that connects ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.
 - A 15-minute adoption guide for first-time target repos.
+- A trust contract that documents command behavior, write paths, network use, cold-start proof, and public-release gates.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.
 - A `check-planning-brief.py` validator and `make check-planning-brief` guard for non-trivial tickets.

@@ -51,6 +51,31 @@ class DoctorTests(unittest.TestCase):
         self.assertTrue(report.warnings)
         self.assertIn("lint", report.warnings[0])
 
+    def test_publication_docs_require_trust_contract_and_public_ready_gate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "README.md").write_text("# Package\n", encoding="utf-8")
+            (root / "PUBLICATION-CHECKLIST.md").write_text("# Checklist\n", encoding="utf-8")
+            (root / "SECURITY.md").write_text("# Security\n", encoding="utf-8")
+            (root / "CONTRIBUTING.md").write_text("# Contributing\n", encoding="utf-8")
+
+            report = doctor.Report(passes=[], warnings=[], failures=[])
+            doctor.check_publication_docs(root, report)
+            self.assertTrue(report.failures)
+            self.assertIn("docs/trust-contract.md", report.failures[0])
+
+            (root / "docs").mkdir()
+            (root / "docs" / "trust-contract.md").write_text("Run make public-ready.\n", encoding="utf-8")
+            report = doctor.Report(passes=[], warnings=[], failures=[])
+            doctor.check_publication_docs(root, report)
+            self.assertTrue(report.failures)
+            self.assertIn("public-ready gate", report.failures[0])
+
+            (root / "README.md").write_text("Run make public-ready.\n", encoding="utf-8")
+            report = doctor.Report(passes=[], warnings=[], failures=[])
+            doctor.check_publication_docs(root, report)
+            self.assertFalse(report.failures)
+
 
 if __name__ == "__main__":
     unittest.main()

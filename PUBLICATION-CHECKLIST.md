@@ -12,6 +12,7 @@ Use this before making the repository public.
 
 ## Repository Polish
 
+- [ ] Review `docs/trust-contract.md` from the perspective of a cold outside evaluator.
 - [ ] Run `make test-all`.
 - [ ] Run `make validate-examples`.
 - [ ] Run `make kickoff-build REQUEST=examples/golden-workflow/build-request.md`.
@@ -26,7 +27,7 @@ Use this before making the repository public.
 - [ ] Run `make pevie-review-packet`.
 - [ ] Confirm generated `.review-packet.md` files are ignored.
 - [ ] Confirm GitHub Actions passes on the default branch.
-- [ ] Review `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `ADOPTION-CHECKLIST.md`, and `MAIN-AGENT-HANDOFF.md` for public clarity.
+- [ ] Review `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `ADOPTION-CHECKLIST.md`, `MAIN-AGENT-HANDOFF.md`, and `docs/trust-contract.md` for public clarity.
 
 ## Public Launch
 

@@ -41,6 +41,7 @@ PACKAGE_REQUIRED_FILES = [
     "CHANGELOG.md",
     "COMPLETENESS.md",
     "CONTRIBUTING.md",
+    "docs/trust-contract.md",
     "PUBLICATION-CHECKLIST.md",
     "RESEARCH-NOTES.md",
     "SECURITY.md",
@@ -261,14 +262,17 @@ def check_generated_artifacts_not_tracked(root: Path, report: Report) -> None:
 
 
 def check_publication_docs(root: Path, report: Report) -> None:
-    docs = ["PUBLICATION-CHECKLIST.md", "SECURITY.md", "CONTRIBUTING.md"]
+    docs = ["PUBLICATION-CHECKLIST.md", "SECURITY.md", "CONTRIBUTING.md", "docs/trust-contract.md"]
     missing = [rel for rel in docs if not (root / rel).is_file()]
     if missing:
         report.fail("Publication-ready docs are incomplete: " + ", ".join(missing))
     else:
-        report.pass_("Publication, security, and contribution docs are present.")
+        report.pass_("Publication, security, contribution, and trust docs are present.")
 
     readme = (root / "README.md").read_text(encoding="utf-8") if (root / "README.md").is_file() else ""
+    trust = (root / "docs" / "trust-contract.md").read_text(encoding="utf-8") if (root / "docs" / "trust-contract.md").is_file() else ""
+    if "make public-ready" not in readme or "make public-ready" not in trust:
+        report.fail("README.md and docs/trust-contract.md must document the public-ready gate.")
     if "License: intentionally undecided" in readme:
         report.warn("License is intentionally undecided; keep private until reuse terms are chosen.")
 
