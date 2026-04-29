@@ -7,7 +7,7 @@ Use this page to decide whether Pjario Staltman is safe to inspect, clone, run, 
 - Safe to inspect: yes.
 - Safe to run locally: yes, after cloning into a normal development sandbox and reviewing the commands below.
 - Ready for public reuse: not until a license is chosen.
-- Network access: only Pevie's optional `design-lint` path uses npm through `npx`.
+- Network access: only Pevie's optional `design-lint` path and the full `make public-ready` gate use npm through `npx`.
 - Destructive behavior: no tracked-source destructive behavior is part of the normal workflow.
 
 ## What This Package Does
@@ -47,7 +47,7 @@ make export-skill SKILL_MODE=caveman
 make triage-review-finding FINDING=path/to/finding.md DECISION=test
 ```
 
-`make public-ready` also generates review packets and temporary skill exports, then removes the generated review packets from the package root.
+`make local-ready` and `make public-ready` also generate review packets and temporary skill exports, then remove the generated review packets from the package root.
 
 Generated review packets and `.dist/` exports are ignored so they are not committed by accident.
 
@@ -59,6 +59,7 @@ These commands inspect local git state:
 make review-packet
 make pevie-review-packet
 make doctor
+make local-ready
 make public-ready
 ```
 
@@ -73,9 +74,10 @@ Pevie design linting uses npm:
 ```bash
 make pevie-design-lint
 make -f "Pevie Hischer/Makefile" design-lint DESIGN=DESIGN.md
+make public-ready
 ```
 
-Those commands execute:
+Those Pevie lint paths execute:
 
 ```bash
 npx -y @google/design.md@0.1.1 lint DESIGN.md
@@ -88,9 +90,28 @@ make pevie-validate-examples
 make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md
 ```
 
+## Local-Only Preflight
+
+To validate without npm/network access, run:
+
+```bash
+make local-ready
+```
+
+Expected result:
+
+- unit tests pass
+- core examples validate
+- Pevie examples validate through local checks
+- package doctor reports no failures
+- skill exports build
+- skill context budgets pass
+- review packets build without dropping the diff
+- generated review packets are removed
+
 ## Cold-Start Proof
 
-For a clean package checkout, run:
+For the full clean package proof, run:
 
 ```bash
 make doctor
@@ -117,7 +138,10 @@ Before making the repository public:
 1. Complete `PUBLICATION-CHECKLIST.md`.
 2. Choose a license or keep the repository private.
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
-4. Run `make public-ready`.
-5. Confirm GitHub Actions passes on the default branch.
+4. Run `make local-ready`.
+5. Run `make public-ready`.
+6. Confirm GitHub Actions passes on the default branch.
+
+The root GitHub Actions quality workflow runs `make public-ready`, so the badge and the local public-release gate represent the same contract.
 
 If any of those fail, the repository is not public-ready yet.

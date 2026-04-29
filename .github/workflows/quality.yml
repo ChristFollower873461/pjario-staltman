@@ -22,35 +22,8 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Run core tests
-        run: make test
-
-      - name: Run frontend profile tests
-        run: make pevie-test
-
-      - name: Validate examples
-        run: make validate-examples pevie-validate-examples
-
-      - name: Generate build-request kickoff
-        run: make kickoff-build REQUEST=examples/golden-workflow/build-request.md
-
-      - name: Lint DESIGN.md examples
-        run: make pevie-design-lint
-
-      - name: Run package doctor
-        run: make doctor
-
-      - name: Export skill artifact
-        run: |
-          outdir="$(mktemp -d)/pjario-staltman"
-          make export-skill OUT="$outdir"
-          test -f "$outdir/SKILL.md"
-
-      - name: Build core review packet
-        run: make review-packet
-
-      - name: Build frontend review packet
-        run: make pevie-review-packet
+      - name: Run public readiness gate
+        run: make public-ready
 
       - name: Validate trivial ticket shape sample
         run: |

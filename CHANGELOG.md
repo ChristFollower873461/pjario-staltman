@@ -4,6 +4,8 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added `make local-ready` as a local-only preflight before npm-based Pevie design linting.
+- Updated GitHub Actions to run the same `make public-ready` gate documented for public evaluation.
 - Added a trust contract documenting command behavior, file writes, git-state reads, network use, cold-start proof, and the public-release gate.
 - Added `SKILL_MODE=caveman` and `make skill-budget` to keep exported agent context intentionally small.
 - Added Oh Shucksenburg technical-debt control across core and Pevie templates, proof matrices, exported skill references, and doctor-required files.

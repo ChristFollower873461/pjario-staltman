@@ -30,6 +30,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A `make triage-review-finding` helper for turning review findings into garbage-collection records.
 - A `make export-skill` target that emits a minimal Agent Skills-compatible artifact, including a caveman mode for ultra-low-context installs.
 - A `make skill-budget` guard that fails when exported skill context grows too large.
+- A `make local-ready` gate for local-only validation before npm-based design linting.
 - A `make public-ready` gate for tests, design linting, doctor checks, diff whitespace, and review packet generation.
 - A proof matrix that maps work types to expected evidence.
 - A frontend-focused `Pevie Hischer/` profile with frontend implementation and review prompts.

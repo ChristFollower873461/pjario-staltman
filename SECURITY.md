@@ -22,7 +22,7 @@ Examples of files that must not be committed:
 
 ## Command Behavior
 
-Core Pjario tooling is local. It validates files, reads git state, generates review packets, exports skills, and writes explicit output files.
+Core Pjario tooling is local. It validates files, reads git state, generates review packets, exports skills, and writes explicit output files. Use `make local-ready` for a local-only preflight before any npm-based linting.
 
 Pevie design linting can use network because it runs:
 
@@ -40,5 +40,6 @@ Before making the repository public:
 
 - Run the privacy scan from `PUBLICATION-CHECKLIST.md`.
 - Review `docs/trust-contract.md`.
+- Run `make local-ready`.
 - Confirm generated `.review-packet.md` files are ignored and absent from the tracked tree.
 - Confirm the chosen license and disclosure channel match the intended audience.

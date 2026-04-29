@@ -24,7 +24,9 @@ The public-readiness gate is:
 make public-ready
 ```
 
-That target runs the package tests, examples, Pevie design linting, doctor checks, skill export budget checks, review packet generation, and generated-artifact cleanup.
+That target runs the package tests, examples, Pevie design linting, doctor checks, skill export budget checks, review packet generation, and generated-artifact cleanup. For a local-only preflight that avoids npm/network access, run `make local-ready` first.
+
+The repository quality workflow runs the same `make public-ready` gate on pushes and pull requests.
 
 ## Profiles
 
@@ -79,6 +81,7 @@ make triage-review-finding FINDING=path/to/finding.md DECISION=test
 make export-skill
 make export-skill SKILL_MODE=caveman
 make skill-budget
+make local-ready
 make public-ready
 make test-all
 ```
@@ -147,6 +150,7 @@ make pevie-design-lint
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
+- `make local-ready` provides an offline/local preflight before running npm-based design linting.
 - `make check-proof` checks that active ticket risks are represented in QA/PR/completion evidence.
 - `make skill-budget` keeps the exported skill small enough for agent context.
 - `SKILL_MODE=caveman` exports the lowest-context loop for agents that only need the operating pattern.

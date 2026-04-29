@@ -1,4 +1,4 @@
-.PHONY: review-packet test check-planning-brief check-proof validate-examples doctor kickoff kickoff-build triage-review-finding export-skill skill-budget public-ready pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
+.PHONY: review-packet test check-planning-brief check-proof validate-examples doctor kickoff kickoff-build triage-review-finding export-skill skill-budget local-ready public-ready pevie-test pevie-review-packet pevie-validate-examples pevie-design-lint test-all
 
 PROFILE ?= both
 MODE ?= package
@@ -64,7 +64,7 @@ skill-budget:
 
 test-all: test pevie-test validate-examples pevie-validate-examples
 
-public-ready: test-all pevie-design-lint doctor
+local-ready: test-all doctor
 	git diff --check
 	$(MAKE) kickoff-build REQUEST=examples/golden-workflow/build-request.md >/tmp/pjario-staltman-kickoff.md
 	$(MAKE) skill-budget
@@ -72,6 +72,9 @@ public-ready: test-all pevie-design-lint doctor
 	$(MAKE) review-packet
 	$(MAKE) pevie-review-packet
 	rm -f .review-packet.md "Pevie Hischer/.review-packet.md"
+
+public-ready: local-ready
+	$(MAKE) pevie-design-lint
 
 check-planning-brief:
 	@if [ -n "$(PLAN)" ]; then \

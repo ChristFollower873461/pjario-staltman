@@ -74,6 +74,7 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make export-skill`
 - `make export-skill SKILL_MODE=caveman`
 - `make skill-budget`
+- `make local-ready`
 - `make public-ready`
 - `make pevie-test`
 - `make pevie-validate-examples`

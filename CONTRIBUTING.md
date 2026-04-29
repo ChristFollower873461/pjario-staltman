@@ -18,6 +18,7 @@ Every meaningful change should preserve the operating loop:
 Run the package checks before proposing a change:
 
 ```bash
+make local-ready
 make public-ready
 ```
 
