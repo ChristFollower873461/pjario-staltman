@@ -12,6 +12,8 @@ Use this page to decide whether Pjario Staltman is safe to inspect, clone, run, 
 
 Runtime prerequisites are listed in `docs/prerequisites.md`.
 
+External tool pinning and network touchpoints are listed in `docs/supply-chain.md`.
+
 ## What This Package Does
 
 Pjario Staltman gives agents and humans a repeatable build loop:
@@ -141,10 +143,11 @@ Before making the repository public:
 2. Resolve `docs/license-posture.md`: choose a license, publish only for inspection, split a generic package, or keep the repository private.
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
 4. Confirm `docs/prerequisites.md` matches the tested toolchain.
-5. Run `make local-ready`.
-6. Run `make public-ready`.
-7. Confirm the adoption and removal paths are understandable from `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md`.
-8. Confirm GitHub Actions passes on the default branch.
+5. Confirm `docs/supply-chain.md` matches the external tools in use.
+6. Run `make local-ready`.
+7. Run `make public-ready`.
+8. Confirm the adoption and removal paths are understandable from `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md`.
+9. Confirm GitHub Actions passes on the default branch.
 
 The root GitHub Actions quality workflow runs `make public-ready`, so the badge and the local public-release gate represent the same contract.
 

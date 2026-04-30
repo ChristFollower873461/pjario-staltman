@@ -4,6 +4,7 @@ All notable changes to this package should be documented here.
 
 ## Unreleased
 
+- Added a supply-chain posture guide and doctor checks for external tool pins.
 - Added a license-posture guide so public-readiness remains separate from public reuse approval.
 - Added prerequisites documentation and runtime checks for the local toolchain.
 - Added a target-repo removal guide so adoption has a documented backout path.

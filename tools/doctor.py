@@ -45,6 +45,7 @@ PACKAGE_REQUIRED_FILES = [
     "docs/license-posture.md",
     "docs/prerequisites.md",
     "docs/remove-from-target-repo.md",
+    "docs/supply-chain.md",
     "docs/trust-contract.md",
     "PUBLICATION-CHECKLIST.md",
     "RESEARCH-NOTES.md",
@@ -242,6 +243,36 @@ def require_workflow_root(root: Path, report: Report) -> None:
         report.warn("Nested Pevie workflow exists, but root-copy guidance was not found in MAIN-AGENT-HANDOFF.md.")
 
 
+def check_supply_chain_pins(root: Path, report: Report) -> None:
+    pevie_makefile = root / "Pevie Hischer" / "Makefile"
+    workflow = root / ".github" / "workflows" / "quality.yml"
+    supply_chain = root / "docs" / "supply-chain.md"
+    missing = [path.relative_to(root).as_posix() for path in [pevie_makefile, workflow, supply_chain] if not path.is_file()]
+    if missing:
+        report.fail("Supply-chain pin check missing files: " + ", ".join(missing))
+        return
+
+    pevie_text = pevie_makefile.read_text(encoding="utf-8")
+    workflow_text = workflow.read_text(encoding="utf-8")
+    supply_text = supply_chain.read_text(encoding="utf-8")
+    failures: list[str] = []
+    if not re.search(r"^DESIGN_MD_VERSION\s*\?=\s*\d+\.\d+\.\d+\s*$", pevie_text, re.MULTILINE):
+        failures.append("Pevie DESIGN_MD_VERSION must be pinned to an exact semantic version.")
+    if "@google/design.md@$(DESIGN_MD_VERSION)" not in pevie_text:
+        failures.append("Pevie design lint must use the pinned DESIGN_MD_VERSION.")
+    if 'python-version: "3.11"' not in workflow_text:
+        failures.append("GitHub Actions Python runtime must stay pinned to 3.11.")
+    if 'node-version: "24"' not in workflow_text:
+        failures.append("GitHub Actions Node runtime must stay pinned to 24.")
+    if "@google/design.md" not in supply_text or "0.1.1" not in supply_text:
+        failures.append("docs/supply-chain.md must document the pinned @google/design.md version.")
+    if failures:
+        for failure in failures:
+            report.fail(failure)
+    else:
+        report.pass_("Supply-chain external tool pins are documented and enforced.")
+
+
 def require_pevie_design(root: Path, report: Report, mode: str) -> None:
     if mode == "package":
         example_designs = [
@@ -302,6 +333,7 @@ def check_publication_docs(root: Path, report: Report) -> None:
         "docs/license-posture.md",
         "docs/prerequisites.md",
         "docs/remove-from-target-repo.md",
+        "docs/supply-chain.md",
         "docs/trust-contract.md",
     ]
     missing = [rel for rel in docs if not (root / rel).is_file()]
@@ -333,6 +365,8 @@ def run_checks(root: Path, mode: str, profile: str, public_ready: bool, stack: s
         require_files(root, PEVIE_REQUIRED_FILES, report, "Pevie workflow")
         require_pevie_design(root, report, mode)
     require_workflow_root(root, report)
+    if mode == "package":
+        check_supply_chain_pins(root, report)
     require_gitignore(root, report)
     check_generated_artifacts_not_tracked(root, report)
     scan_privacy(root, report)

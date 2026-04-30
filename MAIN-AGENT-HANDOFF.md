@@ -42,6 +42,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Reversible target-repo removal path.
 - `docs/prerequisites.md`
   - Local toolchain requirements and npm-based linting path.
+- `docs/supply-chain.md`
+  - External tool pins, dependency posture, and network touchpoints.
 - `docs/trust-contract.md`
   - Safety, command behavior, network use, generated files, and public-release gate.
 - `tools/review-packet.py`

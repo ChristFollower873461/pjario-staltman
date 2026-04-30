@@ -22,6 +22,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A target-repo removal guide for reversible adoption.
 - A prerequisites guide for local tools, full public-ready tools, and the npm-only lint path.
 - A license-posture guide so public-readiness does not imply public reuse rights.
+- A supply-chain guide for external tool pins, dependency posture, and network touchpoints.
 - A trust contract that documents command behavior, write paths, network use, cold-start proof, and public-release gates.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
 - A `make review-packet` shortcut.

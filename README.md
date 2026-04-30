@@ -22,6 +22,8 @@ Runtime requirements are listed in [`docs/prerequisites.md`](docs/prerequisites.
 
 The license and reuse posture is documented in [`docs/license-posture.md`](docs/license-posture.md).
 
+External tool and dependency posture is documented in [`docs/supply-chain.md`](docs/supply-chain.md).
+
 The public-readiness gate is:
 
 ```bash
@@ -152,6 +154,7 @@ make pevie-design-lint
 
 - [`docs/trust-contract.md`](docs/trust-contract.md) documents the local command behavior and public-release gate.
 - [`docs/prerequisites.md`](docs/prerequisites.md) documents required local tools and the npm-only lint path.
+- [`docs/supply-chain.md`](docs/supply-chain.md) documents external tool pins and network touchpoints.
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.

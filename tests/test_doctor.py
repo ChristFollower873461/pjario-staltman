@@ -93,6 +93,7 @@ class DoctorTests(unittest.TestCase):
             (root / "docs" / "license-posture.md").write_text("# License\n", encoding="utf-8")
             (root / "docs" / "prerequisites.md").write_text("# Prerequisites\n", encoding="utf-8")
             (root / "docs" / "remove-from-target-repo.md").write_text("# Remove\n", encoding="utf-8")
+            (root / "docs" / "supply-chain.md").write_text("# Supply\n", encoding="utf-8")
             (root / "docs" / "trust-contract.md").write_text("Run make public-ready.\n", encoding="utf-8")
             report = doctor.Report(passes=[], warnings=[], failures=[])
             doctor.check_publication_docs(root, report)
@@ -103,6 +104,36 @@ class DoctorTests(unittest.TestCase):
             report = doctor.Report(passes=[], warnings=[], failures=[])
             doctor.check_publication_docs(root, report)
             self.assertFalse(report.failures)
+
+    def test_supply_chain_pins_require_exact_design_md_version(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "Pevie Hischer").mkdir()
+            (root / ".github" / "workflows").mkdir(parents=True)
+            (root / "docs").mkdir()
+            (root / "Pevie Hischer" / "Makefile").write_text(
+                "DESIGN_MD_VERSION ?= latest\n"
+                "design-lint:\n"
+                "\tnpx -y @google/design.md@$(DESIGN_MD_VERSION) lint \"$(DESIGN)\"\n",
+                encoding="utf-8",
+            )
+            (root / ".github" / "workflows" / "quality.yml").write_text(
+                'python-version: "3.11"\nnode-version: "24"\n',
+                encoding="utf-8",
+            )
+            (root / "docs" / "supply-chain.md").write_text("@google/design.md 0.1.1\n", encoding="utf-8")
+
+            report = doctor.Report()
+            doctor.check_supply_chain_pins(root, report)
+            self.assertTrue(report.failures)
+            self.assertIn("exact semantic version", report.failures[0])
+
+    def test_supply_chain_pins_pass_for_current_shape(self):
+        root = Path(__file__).resolve().parents[1]
+        report = doctor.Report()
+        doctor.check_supply_chain_pins(root, report)
+        self.assertFalse(report.failures)
+        self.assertTrue(report.passes)
 
 
 if __name__ == "__main__":

@@ -12,6 +12,8 @@ Pjario Staltman is intentionally light. Core commands use the local shell, Git, 
 
 The GitHub Actions quality workflow uses Python 3.11 and Node 24.
 
+External tool pinning is documented in `docs/supply-chain.md`.
+
 ## Local-Only Use
 
 For a local-only preflight that avoids npm and network access, run:
