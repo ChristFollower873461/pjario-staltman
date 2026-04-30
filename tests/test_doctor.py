@@ -85,10 +85,12 @@ class DoctorTests(unittest.TestCase):
             report = doctor.Report(passes=[], warnings=[], failures=[])
             doctor.check_publication_docs(root, report)
             self.assertTrue(report.failures)
+            self.assertIn("docs/license-posture.md", report.failures[0])
             self.assertIn("docs/prerequisites.md", report.failures[0])
             self.assertIn("docs/trust-contract.md", report.failures[0])
 
             (root / "docs").mkdir()
+            (root / "docs" / "license-posture.md").write_text("# License\n", encoding="utf-8")
             (root / "docs" / "prerequisites.md").write_text("# Prerequisites\n", encoding="utf-8")
             (root / "docs" / "remove-from-target-repo.md").write_text("# Remove\n", encoding="utf-8")
             (root / "docs" / "trust-contract.md").write_text("Run make public-ready.\n", encoding="utf-8")

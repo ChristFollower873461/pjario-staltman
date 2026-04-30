@@ -12,13 +12,15 @@ This repository is private while the system is being refined. It is structured s
 
 - Visibility: private
 - Public-readiness: staged for later review with [`PUBLICATION-CHECKLIST.md`](PUBLICATION-CHECKLIST.md)
-- License: intentionally undecided until public reuse is approved
+- License: intentionally undecided until public reuse is approved; see [`docs/license-posture.md`](docs/license-posture.md)
 
 ## Trust Path
 
 If you are evaluating this package cold, start with [`docs/trust-contract.md`](docs/trust-contract.md). It explains what the package does, what it does not do, which commands write files, which commands read git state, which command path uses network, and the exact cold-start proof command sequence.
 
 Runtime requirements are listed in [`docs/prerequisites.md`](docs/prerequisites.md).
+
+The license and reuse posture is documented in [`docs/license-posture.md`](docs/license-posture.md).
 
 The public-readiness gate is:
 

@@ -6,13 +6,14 @@ Use this before making the repository public.
 
 - [ ] Confirm there are no personal paths, private company names, credentials, tokens, keys, screenshots, or customer data.
 - [ ] Confirm package docs describe generic agent workflows, not private internal operations.
-- [ ] Decide whether to include a license. Until then, keep the repository private.
+- [ ] Resolve `docs/license-posture.md`. Until then, keep the repository private.
 - [ ] Decide whether to keep `Pevie Hischer/` in this repository or split it into a separate package later.
 - [ ] Confirm `SECURITY.md` has the right public reporting channel before opening the repo.
 
 ## Repository Polish
 
 - [ ] Review `docs/trust-contract.md` from the perspective of a cold outside evaluator.
+- [ ] Review `docs/license-posture.md` and confirm the current visibility/reuse stance is intentional.
 - [ ] Review `docs/prerequisites.md` against the current GitHub Actions toolchain.
 - [ ] Review `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md` for reversible adoption.
 - [ ] Run `make test-all`.

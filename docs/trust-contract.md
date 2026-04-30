@@ -6,7 +6,7 @@ Use this page to decide whether Pjario Staltman is safe to inspect, clone, run, 
 
 - Safe to inspect: yes.
 - Safe to run locally: yes, after cloning into a normal development sandbox and reviewing the commands below.
-- Ready for public reuse: not until a license is chosen.
+- Ready for public reuse: not until a license is chosen; see `docs/license-posture.md`.
 - Network access: only Pevie's optional `design-lint` path and the full `make public-ready` gate use npm through `npx`.
 - Destructive behavior: no tracked-source destructive behavior is part of the normal workflow.
 
@@ -138,7 +138,7 @@ Expected result:
 Before making the repository public:
 
 1. Complete `PUBLICATION-CHECKLIST.md`.
-2. Choose a license or keep the repository private.
+2. Resolve `docs/license-posture.md`: choose a license, publish only for inspection, split a generic package, or keep the repository private.
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
 4. Confirm `docs/prerequisites.md` matches the tested toolchain.
 5. Run `make local-ready`.

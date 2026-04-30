@@ -36,6 +36,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Validated sample trivial ticket, non-trivial ticket, planning brief, and build request.
 - `docs/adopt-in-15-minutes.md`
   - Fast target-repo adoption path.
+- `docs/license-posture.md`
+  - Current visibility, reuse, and public-launch license decision gate.
 - `docs/remove-from-target-repo.md`
   - Reversible target-repo removal path.
 - `docs/prerequisites.md`
