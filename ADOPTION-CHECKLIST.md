@@ -41,6 +41,7 @@ Run and confirm:
 - [ ] `make kickoff-build REQUEST=<build-request>`
 - [ ] `make check-proof TICKET=<ticket> QA=<qa-plan> PR=<pr-note> COMPLETION=<completion-report>`
 - [ ] `make check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
+- [ ] `python3 tools/quiet-aggregate.py --help`
 
 For trivial tickets:
 
@@ -71,6 +72,7 @@ Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
 - [ ] Adopt the workflow on one product surface first.
 - [ ] Hold weekly garbage collection.
 - [ ] Use `make triage-review-finding FINDING=<finding> DECISION=<rule|template|test|lint|tooling|accepted-non-rule>` after repeated review friction.
+- [ ] Use Quiet Aggregate when recurrence needs an auditable history across independent reviews.
 - [ ] Promote one repeated issue at a time into a durable rule, template, test, lint, or tool.
 
 ## 8. Define A Backout Path

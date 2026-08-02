@@ -28,6 +28,7 @@ class TriageReviewFindingTests(unittest.TestCase):
         self.assertIn("P2 Missing rollback proof", record)
         self.assertIn("Decision: template", record)
         self.assertIn("Missing template field", record)
+        self.assertIn("tools/quiet-aggregate.py", record)
 
     def test_accepted_non_rule_has_explicit_rationale(self):
         record = triage.build_record("Cosmetic suggestion only.", "accepted-non-rule")

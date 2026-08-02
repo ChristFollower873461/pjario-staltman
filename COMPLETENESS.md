@@ -32,6 +32,8 @@ This package is complete enough to use as a first working harness for agentic so
 - A `make kickoff-build` prompt generator for coordinator build requests.
 - A `make check-proof` guard for matching QA/PR/completion evidence to active ticket risks.
 - A `make triage-review-finding` helper for turning review findings into garbage-collection records.
+- A Quiet Aggregate ledger for verified review findings, deterministic recurrence detection across independent sources, and non-mutating guardrail proposals.
+- A documented adapter boundary for maintained structured autoreview output without vendoring or silently invoking an LLM reviewer.
 - A `make export-skill` target that emits a minimal Agent Skills-compatible artifact, including a caveman mode for ultra-low-context installs.
 - A `make skill-budget` guard that fails when exported skill context grows too large.
 - A `make local-ready` gate for local-only validation before npm-based design linting.
@@ -49,7 +51,8 @@ This package is complete enough to use as a first working harness for agentic so
 - Language-specific app linters, because there is no host app stack in this repo yet.
 - Stack-specific CI integrations, because target host app platforms are not known yet.
 - Project-specific runbooks, because there is no deployed service yet.
-- Actual reviewer automation in GitHub, because this package is tool-agnostic until a host repo exists.
+- Automatic reviewer invocation in GitHub, because model choice, credentials, privacy, and cost belong to the adopting host repo.
+- Automatic policy mutation, because Quiet Aggregate proposals require human or implementation-agent verification before rules, tests, templates, lints, tooling, or runtime guardrails change.
 
 ## First Additions Once App Code Exists
 

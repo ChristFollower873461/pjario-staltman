@@ -29,3 +29,4 @@ Review stance:
 - Block on correctness, security, privacy, data loss, scale, operability, or missing proof for risky work.
 - Do not block on taste when the code is coherent and local conventions support it.
 - Convert repeated review feedback into durable rules, tests, lints, templates, or docs.
+- Use Quiet Aggregate when review history matters: record only verified findings, require repetition across independent reviews, and review a proposal before changing policy.

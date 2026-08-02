@@ -44,6 +44,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Local toolchain requirements and npm-based linting path.
 - `docs/supply-chain.md`
   - External tool pins, dependency posture, and network touchpoints.
+- `docs/quiet-aggregate.md`
+  - Recovered autoreview boundary, deterministic finding ledger, recurrence gate, and non-mutating guardrail proposal flow.
 - `docs/trust-contract.md`
   - Safety, command behavior, network use, generated files, and public-release gate.
 - `tools/review-packet.py`
@@ -57,6 +59,8 @@ This package is a portable release-quality workflow for agentic engineering:
   - Validate package/adoption shape, generate implementation-agent prompts, and export a compact Agent Skills artifact.
 - `tools/triage-review-finding.py`
   - Converts review findings into garbage-collection records.
+- `tools/quiet-aggregate.py`
+  - Records verified findings, detects repetition across independent review sources, and creates auditable guardrail proposals.
 - `tests/`
   - Unit tests for package tool scripts.
 - `Pevie Hischer/`
@@ -79,6 +83,8 @@ This package is a portable release-quality workflow for agentic engineering:
 - `make kickoff-build REQUEST=path/to/build-request.md`
 - `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md`
 - `make triage-review-finding FINDING=path/to/finding.md DECISION=test`
+- `python3 tools/quiet-aggregate.py --help`
+- `python3 tools/quiet-aggregate.py report`
 - `make export-skill`
 - `make export-skill SKILL_MODE=caveman`
 - `make skill-budget`
@@ -107,7 +113,8 @@ Notes:
 6. Attach evidence using `build-system/templates/pr.md` and `build-system/templates/qa-plan.md`.
 7. Generate packet with `make review-packet`.
 8. Review with `build-system/agents/software-engineer-reviewer.md`.
-9. Promote repeated failures using `build-system/templates/garbage-collection.md`.
+9. Record verified repeated findings with Quiet Aggregate when review history matters.
+10. Review the generated proposal, then promote the failure using `build-system/templates/garbage-collection.md`.
 
 ## Adoption Steps In A Target Repo
 
@@ -129,6 +136,7 @@ Notes:
 - Decide whether planning-brief enforcement should be mandatory in CI or soft-gated.
 - Decide whether to keep `scale-readiness.md` as-is or split by stack (web/backend/data/AI).
 - Decide whether `Pevie Hischer/` should be adopted as the default frontend profile.
+- Decide whether the host repo will supply a maintained structured autoreview helper or use Quiet Aggregate only for human/CI findings.
 - For frontend-heavy repos, decide where the canonical `DESIGN.md` lives before implementation begins.
 - Add host-repo specific runbooks once deployed services exist.
 

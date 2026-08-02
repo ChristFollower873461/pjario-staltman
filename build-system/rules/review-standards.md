@@ -48,3 +48,5 @@ Once a week, collect the friction:
 - Which docs were missing when the agent needed context?
 
 Then add exactly one durable improvement per recurring failure class.
+
+Use Quiet Aggregate when the recurrence claim needs evidence across reviews. Only verified `actionable` records count, two findings from one review remain one source, and generated proposals must be reviewed before policy changes.

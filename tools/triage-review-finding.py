@@ -66,6 +66,10 @@ def build_record(finding: str, decision: str) -> str:
 
 - {title}
 
+## Quiet Aggregate Evidence
+
+- Not recorded by this single-finding helper. Use `tools/quiet-aggregate.py` when recurrence across independent reviews needs an auditable ledger.
+
 ## Failure Class
 
 - {failure_class}

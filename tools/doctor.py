@@ -34,6 +34,7 @@ CORE_REQUIRED_FILES = [
     "tools/kickoff.py",
     "tools/review-packet.py",
     "tools/triage-review-finding.py",
+    "tools/quiet-aggregate.py",
     "Makefile",
 ]
 
@@ -46,6 +47,7 @@ PACKAGE_REQUIRED_FILES = [
     "docs/license-posture.md",
     "docs/prerequisites.md",
     "docs/remove-from-target-repo.md",
+    "docs/quiet-aggregate.md",
     "docs/supply-chain.md",
     "docs/trust-contract.md",
     "PUBLICATION-CHECKLIST.md",
@@ -221,7 +223,7 @@ def require_gitignore(root: Path, report: Report) -> None:
         report.warn(".gitignore is missing; generated review/export artifacts may be committed by accident.")
         return
     text = path.read_text(encoding="utf-8")
-    required = [".review-packet.md", ".dist/", "__pycache__/", "*.pyc"]
+    required = [".review-packet.md", ".dist/", ".pjario/", "__pycache__/", "*.pyc"]
     missing = [entry for entry in required if entry not in text]
     if missing:
         report.fail(f".gitignore missing generated-artifact entries: {', '.join(missing)}")

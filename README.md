@@ -58,6 +58,10 @@ A frontend-focused companion profile in [`Pevie Hischer/`](Pevie%20Hischer/READM
 
 A technical-debt control profile in [`build-system/rules/oh-shucksenburg-technical-debt.md`](build-system/rules/oh-shucksenburg-technical-debt.md). Use it when work risks adding shortcuts, duplicated logic, hidden coupling, stale TODOs, or future maintenance cost.
 
+### Quiet Aggregate
+
+A recovered review-learning loop in [`docs/quiet-aggregate.md`](docs/quiet-aggregate.md). It accepts verified findings from a maintained autoreview helper, human review, or CI; records them in a private local ledger; and proposes a consolidated guardrail only after the same failure class repeats across independent reviews. It never rewrites policy automatically.
+
 ## Quick Start
 
 1. Write work using [`build-system/templates/ticket.md`](build-system/templates/ticket.md) and set `Level: trivial` or `Level: non-trivial`.
@@ -68,7 +72,8 @@ A technical-debt control profile in [`build-system/rules/oh-shucksenburg-technic
 6. Check proof coverage with `make check-proof`.
 7. Generate a review packet with `make review-packet`.
 8. Review with [`build-system/agents/software-engineer-reviewer.md`](build-system/agents/software-engineer-reviewer.md).
-9. Promote repeated review feedback with [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
+9. Record verified findings with `python3 tools/quiet-aggregate.py record` when review history matters.
+10. Promote repeated review feedback with a reviewed Quiet Aggregate proposal and [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
 
 For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15-minutes.md). For rollback or removal from a target repo, use [`docs/remove-from-target-repo.md`](docs/remove-from-target-repo.md).
 
@@ -84,6 +89,8 @@ make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-no
 make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
 make kickoff-build REQUEST=path/to/build-request.md
 make triage-review-finding FINDING=path/to/finding.md DECISION=test
+python3 tools/quiet-aggregate.py --help
+python3 tools/quiet-aggregate.py report
 make export-skill
 make export-skill SKILL_MODE=caveman
 make skill-budget
@@ -134,6 +141,7 @@ make pevie-design-lint
 │   ├── rules/
 │   └── templates/
 ├── docs/
+│   └── quiet-aggregate.md
 ├── examples/
 ├── tools/
 ├── tests/
@@ -160,6 +168,7 @@ make pevie-design-lint
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
 - `make local-ready` provides an offline/local preflight before running npm-based design linting.
 - `make check-proof` checks that active ticket risks are represented in QA/PR/completion evidence.
+- Quiet Aggregate keeps verified review history local, rejects likely secrets and host paths, and requires independent sources before promotion.
 - `make skill-budget` keeps the exported skill small enough for agent context.
 - `SKILL_MODE=caveman` exports the lowest-context loop for agents that only need the operating pattern.
 - Oh Shucksenburg requires accepted debt to have an owner, trigger, and removal path.
