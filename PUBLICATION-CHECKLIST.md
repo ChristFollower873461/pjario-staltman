@@ -33,13 +33,13 @@ Release audit: [`docs/public-release-audit.md`](docs/public-release-audit.md)
 - [x] Run `make review-packet`.
 - [x] Run `make pevie-review-packet`.
 - [x] Confirm generated `.review-packet.md` files are ignored.
-- [ ] Confirm the public-release commit passes GitHub Actions on the default branch.
+- [x] Confirm the public-release commit passes GitHub Actions on the default branch.
 - [x] Review `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `ADOPTION-CHECKLIST.md`, `MAIN-AGENT-HANDOFF.md`, and `docs/trust-contract.md` for public clarity.
 
 ## Public Launch
 
 - [x] Add the MIT License for public reuse.
 - [x] Confirm the repository description, homepage, and topics fit the intended public audience.
-- [ ] Set the repository visibility to public and verify an unauthenticated clone.
-- [ ] Enable and verify GitHub private vulnerability reporting.
+- [x] Set the repository visibility to public and verify unauthenticated API and raw-source access.
+- [x] Enable and verify GitHub private vulnerability reporting.
 - [ ] Create a first release tag only after the workflow has been used in at least one real target repo.

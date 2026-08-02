@@ -45,3 +45,10 @@ The public-ready gate runs 53 Python tests across both profiles, validates the g
 - Pjario is workflow tooling, not a hosted service, autonomous deployment system, or substitute for host-repository tests.
 - `make public-ready` requires npm/network access for the design validator; `make local-ready` provides the offline preflight.
 - No GitHub Release tag should be created until the workflow has been exercised in a real target repository and the resulting adoption evidence has been reviewed.
+
+## Launch Verification
+
+- Public repository: `https://github.com/ChristFollower873461/pjario-staltman`
+- Default-branch quality run: `https://github.com/ChristFollower873461/pjario-staltman/actions/runs/30730184308` (`fccdd393de0e5d4012c767374387be1bc6d95679`, passed)
+- Anonymous GitHub API and raw `README.md` requests returned the public repository and MIT license metadata.
+- GitHub private vulnerability reporting, secret scanning, and push protection are enabled.
