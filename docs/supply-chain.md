@@ -13,17 +13,17 @@ Pjario Staltman is intentionally low-dependency.
 
 | Surface | Purpose | Pinning |
 | --- | --- | --- |
-| `actions/checkout` | GitHub Actions checkout | Major version in `.github/workflows/quality.yml` |
-| `actions/setup-python` | GitHub Actions Python runtime | Major version plus Python `3.11` |
-| `actions/setup-node` | GitHub Actions Node runtime | Major version plus Node `24` |
-| `@google/design.md` | Pevie `DESIGN.md` linting | Exact version through `DESIGN_MD_VERSION ?= 0.1.1` |
+| `actions/checkout` | GitHub Actions checkout | `v7.0.1` commit `3d3c42e5aac5ba805825da76410c181273ba90b1` |
+| `actions/setup-python` | GitHub Actions Python runtime | `v7.0.0` commit `5fda3b95a4ea91299a34e894583c3862153e4b97`, Python `3.11` |
+| `actions/setup-node` | GitHub Actions Node runtime | `v7.0.0` commit `820762786026740c76f36085b0efc47a31fe5020`, Node `24` |
+| `@google/design.md` | Pevie `DESIGN.md` linting | Exact package version `@google/design.md@0.4.0` through `DESIGN_MD_VERSION` |
 
 ## Network Use
 
 Core Pjario commands are local. Network is expected only for:
 
 - GitHub Actions dependency/action resolution.
-- Pevie design linting through `npx -y @google/design.md@0.1.1`.
+- Pevie design linting through `npx -y @google/design.md@0.4.0`.
 
 Use `make local-ready` when a local-only validation path is needed.
 
@@ -35,4 +35,4 @@ Before changing an external tool, update this document, keep the version pinned,
 make public-ready
 ```
 
-For a stricter public release, consider pinning GitHub Actions by commit SHA. The current package uses major-version pins for maintainability while the repository remains private.
+The active root workflow and bundled Pevie workflow template both use immutable commit SHAs with reviewed release tags in comments. Dependabot checks those action pins weekly. `make doctor` fails when action pins are mutable or the documented design validator version drifts from the executable Makefile pin.

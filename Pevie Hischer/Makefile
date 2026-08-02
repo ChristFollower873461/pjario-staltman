@@ -1,7 +1,7 @@
 .PHONY: review-packet check-planning-brief check-design-context design-lint design-lint-examples validate-examples test
 
 DESIGN ?= DESIGN.md
-DESIGN_MD_VERSION ?= 0.1.1
+DESIGN_MD_VERSION ?= 0.4.0
 
 review-packet:
 	python3 "Pevie Hischer/tools/review-packet.py" --output "Pevie Hischer/.review-packet.md"

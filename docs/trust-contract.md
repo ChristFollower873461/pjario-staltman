@@ -6,7 +6,7 @@ Use this page to decide whether Pjario Staltman is safe to inspect, clone, run, 
 
 - Safe to inspect: yes.
 - Safe to run locally: yes, after cloning into a normal development sandbox and reviewing the commands below.
-- Ready for public reuse: not until a license is chosen; see `docs/license-posture.md`.
+- Ready for public reuse: yes, under the repository's MIT License; see `docs/license-posture.md`.
 - Network access: only Pevie's optional `design-lint` path and the full `make public-ready` gate use npm through `npx`.
 - Destructive behavior: no tracked-source destructive behavior is part of the normal workflow.
 
@@ -53,6 +53,8 @@ make triage-review-finding FINDING=path/to/finding.md DECISION=test
 
 `make local-ready` and `make public-ready` also generate review packets and temporary skill exports, then remove the generated review packets from the package root.
 
+Every exported skill includes the repository's MIT `LICENSE` file. The license file is not Markdown and therefore does not consume the agent instruction budget measured by `make skill-budget`.
+
 Generated review packets and `.dist/` exports are ignored so they are not committed by accident.
 
 ## Commands That Read Git State
@@ -84,7 +86,7 @@ make public-ready
 Those Pevie lint paths execute:
 
 ```bash
-npx -y @google/design.md@0.1.1 lint DESIGN.md
+npx -y @google/design.md@0.4.0 lint DESIGN.md
 ```
 
 Run the local design-context checks instead when offline:
@@ -137,10 +139,10 @@ Expected result:
 
 ## Public-Release Gate
 
-Before making the repository public:
+Before a public release or material change to the public package contract:
 
 1. Complete `PUBLICATION-CHECKLIST.md`.
-2. Resolve `docs/license-posture.md`: choose a license, publish only for inspection, split a generic package, or keep the repository private.
+2. Confirm `LICENSE` and `docs/license-posture.md` still match the intended reuse and packaging terms.
 3. Confirm `SECURITY.md` points to the intended disclosure channel.
 4. Confirm `docs/prerequisites.md` matches the tested toolchain.
 5. Confirm `docs/supply-chain.md` matches the external tools in use.

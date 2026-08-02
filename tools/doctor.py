@@ -42,6 +42,7 @@ PACKAGE_REQUIRED_FILES = [
     "CHANGELOG.md",
     "COMPLETENESS.md",
     "CONTRIBUTING.md",
+    "LICENSE",
     "docs/license-posture.md",
     "docs/prerequisites.md",
     "docs/remove-from-target-repo.md",
@@ -246,6 +247,7 @@ def require_workflow_root(root: Path, report: Report) -> None:
 def check_supply_chain_pins(root: Path, report: Report) -> None:
     pevie_makefile = root / "Pevie Hischer" / "Makefile"
     workflow = root / ".github" / "workflows" / "quality.yml"
+    pevie_workflow = root / "Pevie Hischer" / ".github" / "workflows" / "pevie-quality.yml"
     supply_chain = root / "docs" / "supply-chain.md"
     missing = [path.relative_to(root).as_posix() for path in [pevie_makefile, workflow, supply_chain] if not path.is_file()]
     if missing:
@@ -254,9 +256,16 @@ def check_supply_chain_pins(root: Path, report: Report) -> None:
 
     pevie_text = pevie_makefile.read_text(encoding="utf-8")
     workflow_text = workflow.read_text(encoding="utf-8")
+    if pevie_workflow.is_file():
+        workflow_text += "\n" + pevie_workflow.read_text(encoding="utf-8")
     supply_text = supply_chain.read_text(encoding="utf-8")
     failures: list[str] = []
-    if not re.search(r"^DESIGN_MD_VERSION\s*\?=\s*\d+\.\d+\.\d+\s*$", pevie_text, re.MULTILINE):
+    design_version_match = re.search(
+        r"^DESIGN_MD_VERSION\s*\?=\s*(\d+\.\d+\.\d+)\s*$",
+        pevie_text,
+        re.MULTILINE,
+    )
+    if not design_version_match:
         failures.append("Pevie DESIGN_MD_VERSION must be pinned to an exact semantic version.")
     if "@google/design.md@$(DESIGN_MD_VERSION)" not in pevie_text:
         failures.append("Pevie design lint must use the pinned DESIGN_MD_VERSION.")
@@ -264,8 +273,24 @@ def check_supply_chain_pins(root: Path, report: Report) -> None:
         failures.append("GitHub Actions Python runtime must stay pinned to 3.11.")
     if 'node-version: "24"' not in workflow_text:
         failures.append("GitHub Actions Node runtime must stay pinned to 24.")
-    if "@google/design.md" not in supply_text or "0.1.1" not in supply_text:
-        failures.append("docs/supply-chain.md must document the pinned @google/design.md version.")
+    action_uses = re.findall(
+        r"uses:\s+actions/(checkout|setup-python|setup-node)@([^\s#]+)",
+        workflow_text,
+    )
+    pinned_actions = {
+        action for action, ref in action_uses if re.fullmatch(r"[0-9a-f]{40}", ref)
+    }
+    required_actions = {"checkout", "setup-python", "setup-node"}
+    if pinned_actions != required_actions or any(
+        not re.fullmatch(r"[0-9a-f]{40}", ref) for _, ref in action_uses
+    ):
+        failures.append("GitHub Actions dependencies must use immutable 40-character commit pins.")
+    if design_version_match:
+        documented_version = f"@google/design.md@{design_version_match.group(1)}"
+        if documented_version not in supply_text:
+            failures.append(
+                "docs/supply-chain.md must document the exact DESIGN_MD_VERSION from the Pevie Makefile."
+            )
     if failures:
         for failure in failures:
             report.fail(failure)
@@ -327,6 +352,7 @@ def check_generated_artifacts_not_tracked(root: Path, report: Report) -> None:
 
 def check_publication_docs(root: Path, report: Report) -> None:
     docs = [
+        "LICENSE",
         "PUBLICATION-CHECKLIST.md",
         "SECURITY.md",
         "CONTRIBUTING.md",
@@ -346,8 +372,9 @@ def check_publication_docs(root: Path, report: Report) -> None:
     trust = (root / "docs" / "trust-contract.md").read_text(encoding="utf-8") if (root / "docs" / "trust-contract.md").is_file() else ""
     if "make public-ready" not in readme or "make public-ready" not in trust:
         report.fail("README.md and docs/trust-contract.md must document the public-ready gate.")
-    if "License: intentionally undecided" in readme:
-        report.warn("License is intentionally undecided; keep private until reuse terms are chosen.")
+    license_text = (root / "LICENSE").read_text(encoding="utf-8") if (root / "LICENSE").is_file() else ""
+    if "MIT License" not in license_text:
+        report.fail("Public reuse requires the approved MIT LICENSE file.")
 
 
 def add_stack_hints(stack: str, report: Report) -> None:

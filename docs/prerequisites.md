@@ -35,7 +35,7 @@ make public-ready
 This includes `make local-ready` plus Pevie `DESIGN.md` linting through:
 
 ```bash
-npx -y @google/design.md@0.1.1 lint DESIGN.md
+npx -y @google/design.md@0.4.0 lint DESIGN.md
 ```
 
 ## No Core Package Install

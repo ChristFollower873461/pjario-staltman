@@ -19,6 +19,16 @@ export_skill = load_module()
 
 
 class ExportSkillTests(unittest.TestCase):
+    def test_export_fails_without_reuse_terms(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "source"
+            root.mkdir()
+            output = Path(tmp) / "export"
+
+            with self.assertRaisesRegex(SystemExit, "missing LICENSE"):
+                export_skill.export_skill(root, output)
+            self.assertFalse(output.exists())
+
     def test_export_skill_has_minimal_skill_shape(self):
         source_root = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory() as tmp:
@@ -26,6 +36,10 @@ class ExportSkillTests(unittest.TestCase):
             export_skill.export_skill(source_root, output)
 
             self.assertTrue((output / "SKILL.md").is_file())
+            self.assertEqual(
+                (output / "LICENSE").read_text(encoding="utf-8"),
+                (source_root / "LICENSE").read_text(encoding="utf-8"),
+            )
             self.assertTrue((output / "references" / "core-workflow.md").is_file())
             self.assertTrue((output / "references" / "completion-contract.md").is_file())
             self.assertTrue((output / "references" / "technical-debt.md").is_file())
@@ -43,6 +57,10 @@ class ExportSkillTests(unittest.TestCase):
 
             skill_text = (output / "SKILL.md").read_text(encoding="utf-8")
             self.assertTrue((output / "SKILL.md").is_file())
+            self.assertEqual(
+                (output / "LICENSE").read_text(encoding="utf-8"),
+                (source_root / "LICENSE").read_text(encoding="utf-8"),
+            )
             self.assertTrue((output / "agents" / "openai.yaml").is_file())
             self.assertFalse((output / "references").exists())
             self.assertIn("Caveman Mode", skill_text)

@@ -6,7 +6,7 @@ Use this when a coordinator hands a concrete build, release, or verification tas
 
 What should exist when this is done?
 
-- The package has a private GitHub-ready quality pass with passing tests, validated examples, and green CI.
+- The package has a GitHub-ready quality pass with passing tests, validated examples, and green CI.
 
 ## Target
 
@@ -15,7 +15,7 @@ What should exist when this is done?
 - Platform or surface: GitHub repository package
 - App/package/bundle ID: Not applicable.
 - Version/build number: Not applicable.
-- Release track or destination: Private repository, public-ready posture.
+- Release track or destination: Public repository pull request.
 
 ## Current State
 
@@ -33,8 +33,7 @@ In:
 
 Out:
 
-- Change repository visibility.
-- Add a public license decision.
+- Change repository visibility or license terms.
 
 ## Constraints
 
@@ -42,7 +41,7 @@ Out:
 - Environment variables: Not applicable.
 - Feature flags: Not applicable.
 - External services: GitHub Actions only.
-- Deadline or sequencing: Keep the private repository clean and ready.
+- Deadline or sequencing: Keep the public repository clean and reviewable.
 
 ## Risk Surfaces
 
@@ -73,9 +72,9 @@ Commands, builds, tests, screenshots, logs, artifact paths, store-page status, o
 
 What should the coordinator do after the implementation agent reports back?
 
-- Merge or open PR: Direct private `main` push is acceptable for this package pass.
+- Merge or open PR: Open a pull request and merge only after required checks pass.
 - Rerun CI: Confirm GitHub Actions passes.
 - Upload artifact: Not applicable.
 - Submit for review: Not applicable.
 - Collect missing access: Not applicable.
-- Other: Keep repository private until public-license and visibility decisions are made.
+- Other: Keep the repository's public trust and license documentation accurate.

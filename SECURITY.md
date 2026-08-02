@@ -1,12 +1,12 @@
 # Security
 
-Pjario Staltman is currently private. Treat it as public-bound: do not commit secrets, private customer data, screenshots containing sensitive information, or personal machine paths.
+Pjario Staltman is public. Do not commit secrets, private customer data, screenshots containing sensitive information, or personal machine paths.
 
 ## Reporting
 
-While this repository is private, report security issues through the existing private maintainer channel.
+Report suspected vulnerabilities through [GitHub's private vulnerability reporting form](https://github.com/ChristFollower873461/pjario-staltman/security/advisories/new). Do not include exploit details, credentials, or sensitive repository data in a public issue.
 
-If the repository is made public, enable GitHub private vulnerability reporting or GitHub Security Advisories before accepting outside reports.
+If the private reporting form is unavailable, open a public issue containing only a request for a private maintainer contact. Do not disclose the vulnerability in that issue.
 
 ## Sensitive Files
 
@@ -27,7 +27,7 @@ Core Pjario tooling is local. It validates files, reads git state, generates rev
 Pevie design linting can use network because it runs:
 
 ```bash
-npx -y @google/design.md@0.1.1 lint DESIGN.md
+npx -y @google/design.md@0.4.0 lint DESIGN.md
 ```
 
 Use `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md` when an offline check is required.
@@ -36,7 +36,7 @@ The normal workflow does not push commits, deploy code, change remote repository
 
 ## Release Safety
 
-Before making the repository public:
+Before a public release:
 
 - Run the privacy scan from `PUBLICATION-CHECKLIST.md`.
 - Review `docs/trust-contract.md`.

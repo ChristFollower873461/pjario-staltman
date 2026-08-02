@@ -15,7 +15,7 @@ What should exist when this is done?
 - Platform or surface: Agent workflow package
 - App/package/bundle ID: Not applicable.
 - Version/build number: Not applicable.
-- Release track or destination: Private repository main branch.
+- Release track or destination: Public repository pull request targeting `main`.
 
 ## Current State
 
@@ -33,7 +33,7 @@ In:
 
 Out:
 
-- Public visibility.
+- Repository visibility or license changes.
 - Host app stack CI.
 
 ## Constraints
@@ -42,7 +42,7 @@ Out:
 - Environment variables: Not applicable.
 - Feature flags: Not applicable.
 - External services: GitHub Actions after push.
-- Deadline or sequencing: Keep the package private and public-ready.
+- Deadline or sequencing: Keep the package public-ready and reviewable.
 
 ## Risk Surfaces
 
@@ -73,9 +73,9 @@ Commands, builds, tests, screenshots, logs, artifact paths, store-page status, o
 
 What should the coordinator do after the implementation agent reports back?
 
-- Merge or open PR: Direct private `main` push is acceptable.
+- Merge or open PR: Open a pull request and merge only after required checks pass.
 - Rerun CI: Confirm GitHub Actions passes.
 - Upload artifact: Not applicable.
 - Submit for review: Not applicable.
 - Collect missing access: Not applicable.
-- Other: Keep private until license and visibility decisions are made.
+- Other: Preserve the public trust, security, and license contracts.
