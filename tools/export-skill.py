@@ -167,11 +167,17 @@ def read_optional(path: Path) -> str:
 
 
 def export_skill(root: Path, output: Path, force: bool = False, mode: str = "standard") -> None:
+    license_text = read_optional(root / "LICENSE")
+    if not license_text:
+        raise SystemExit("Source package is missing LICENSE; exported skills must carry reuse terms.")
+
     if output.exists():
         if not force:
             raise SystemExit(f"Output already exists: {output}. Rerun with --force to replace it.")
         shutil.rmtree(output)
     output.mkdir(parents=True)
+
+    write(output / "LICENSE", license_text)
 
     if mode == "caveman":
         write(output / "SKILL.md", CAVEMAN_SKILL_MD)

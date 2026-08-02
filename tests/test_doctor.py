@@ -78,6 +78,7 @@ class DoctorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "README.md").write_text("# Package\n", encoding="utf-8")
+            (root / "LICENSE").write_text("MIT License\n", encoding="utf-8")
             (root / "PUBLICATION-CHECKLIST.md").write_text("# Checklist\n", encoding="utf-8")
             (root / "SECURITY.md").write_text("# Security\n", encoding="utf-8")
             (root / "CONTRIBUTING.md").write_text("# Contributing\n", encoding="utf-8")
@@ -127,6 +128,36 @@ class DoctorTests(unittest.TestCase):
             doctor.check_supply_chain_pins(root, report)
             self.assertTrue(report.failures)
             self.assertIn("exact semantic version", report.failures[0])
+
+    def test_supply_chain_pins_reject_documentation_drift(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "Pevie Hischer").mkdir()
+            (root / ".github" / "workflows").mkdir(parents=True)
+            (root / "docs").mkdir()
+            (root / "Pevie Hischer" / "Makefile").write_text(
+                "DESIGN_MD_VERSION ?= 0.4.0\n"
+                "design-lint:\n"
+                "\tnpx -y @google/design.md@$(DESIGN_MD_VERSION) lint \"$(DESIGN)\"\n",
+                encoding="utf-8",
+            )
+            (root / ".github" / "workflows" / "quality.yml").write_text(
+                'uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1\n'
+                'uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97\n'
+                'python-version: "3.11"\n'
+                'uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020\n'
+                'node-version: "24"\n',
+                encoding="utf-8",
+            )
+            (root / "docs" / "supply-chain.md").write_text(
+                "@google/design.md@0.3.0\n",
+                encoding="utf-8",
+            )
+
+            report = doctor.Report()
+            doctor.check_supply_chain_pins(root, report)
+            self.assertTrue(report.failures)
+            self.assertIn("exact DESIGN_MD_VERSION", report.failures[0])
 
     def test_supply_chain_pins_pass_for_current_shape(self):
         root = Path(__file__).resolve().parents[1]

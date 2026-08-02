@@ -2,17 +2,17 @@
 
 [![Quality](https://github.com/ChristFollower873461/pjario-staltman/actions/workflows/quality.yml/badge.svg)](https://github.com/ChristFollower873461/pjario-staltman/actions/workflows/quality.yml)
 
-A small operating system for building software with agents.
+An open-source operating system for building software with agents.
 
 Pjario Staltman turns agent work into a repeatable loop: tickets define intent, agents implement scoped changes, proof is captured, staff-level review checks the work, and repeated friction becomes durable guardrails instead of repeated comments.
 
-This repository is private while the system is being refined. It is structured so it can be made public later with minimal cleanup.
+The package is intentionally small, local-first, and auditable. It does not deploy code or call an LLM for you; it makes the surrounding engineering work explicit enough for humans and agents to review.
 
 ## Current Status
 
-- Visibility: private
-- Public-readiness: staged for later review with [`PUBLICATION-CHECKLIST.md`](PUBLICATION-CHECKLIST.md)
-- License: intentionally undecided until public reuse is approved; see [`docs/license-posture.md`](docs/license-posture.md)
+- Visibility: public open source
+- Public-readiness: verified with [`PUBLICATION-CHECKLIST.md`](PUBLICATION-CHECKLIST.md) and the [`public release audit`](docs/public-release-audit.md)
+- License: [MIT](LICENSE), including the bundled Pevie Hischer profile and exported Agent Skill artifacts
 
 ## Trust Path
 
@@ -20,7 +20,7 @@ If you are evaluating this package cold, start with [`docs/trust-contract.md`](d
 
 Runtime requirements are listed in [`docs/prerequisites.md`](docs/prerequisites.md).
 
-The license and reuse posture is documented in [`docs/license-posture.md`](docs/license-posture.md).
+The license and reuse posture is documented in [`docs/license-posture.md`](docs/license-posture.md). Security issues can be reported privately through [GitHub Security Advisories](https://github.com/ChristFollower873461/pjario-staltman/security/advisories/new).
 
 External tool and dependency posture is documented in [`docs/supply-chain.md`](docs/supply-chain.md).
 

@@ -21,7 +21,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A 15-minute adoption guide for first-time target repos.
 - A target-repo removal guide for reversible adoption.
 - A prerequisites guide for local tools, full public-ready tools, and the npm-only lint path.
-- A license-posture guide so public-readiness does not imply public reuse rights.
+- A resolved MIT license posture covering both bundled profiles and exported skills.
 - A supply-chain guide for external tool pins, dependency posture, and network touchpoints.
 - A trust contract that documents command behavior, write paths, network use, cold-start proof, and public-release gates.
 - A local `review-packet.py` tool that packages repo rules and diffs for review.
@@ -42,7 +42,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A complete Pevie golden workflow example that connects ticket, `DESIGN.md`, planning brief, QA plan, and PR note.
 - Repository-level GitHub Actions quality workflow.
 - Public-facing `CONTRIBUTING.md`, `SECURITY.md`, and `CHANGELOG.md`.
-- Private-to-public publication checklist.
+- A completed public-release checklist and reproducible publication audit.
 
 ## Intentionally Not Included Yet
 

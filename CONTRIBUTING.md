@@ -1,6 +1,6 @@
 # Contributing
 
-Pjario Staltman is private while it is being refined. This guide exists so the repository is ready for outside collaborators later.
+Pjario Staltman welcomes focused issues and pull requests that make agent-assisted engineering easier to trust, adopt, or remove.
 
 ## Quality Bar
 
@@ -37,6 +37,8 @@ make pevie-validate-examples
 - Explain risk, proof, and follow-ups in the PR note.
 - Do not include private company names, credentials, screenshots, customer data, personal paths, or generated review packets.
 
-## Public Release Note
+## Security And License
 
-Do not change repository visibility until `PUBLICATION-CHECKLIST.md` is complete and the license posture is intentionally chosen.
+Do not open a public issue for a suspected vulnerability or accidentally exposed secret. Follow [`SECURITY.md`](SECURITY.md) instead.
+
+Contributions are accepted under the repository's [MIT License](LICENSE).

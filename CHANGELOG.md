@@ -2,7 +2,14 @@
 
 All notable changes to this package should be documented here.
 
-## Unreleased
+## 0.1.0 - 2026-08-01
+
+- Published the package under the MIT License, with the Pevie Hischer companion profile retained in the same repository.
+- Included the MIT notice in both standard and caveman Agent Skill exports.
+- Added a public security-reporting path and a reproducible public-release audit.
+- Updated `@google/design.md` from `0.1.1` to `0.4.0` and verified every bundled design contract.
+- Updated GitHub's checkout, Python, and Node actions to current v7 releases with immutable commit pins.
+- Added weekly Dependabot checks for GitHub Actions and made `make doctor` reject mutable or undocumented supply-chain pins.
 
 - Added a supply-chain posture guide and doctor checks for external tool pins.
 - Added a license-posture guide so public-readiness remains separate from public reuse approval.
@@ -30,7 +37,7 @@ All notable changes to this package should be documented here.
 - Added validated examples for core and frontend workflows.
 - Added public-facing contribution and security docs while keeping the repository private.
 
-## 0.1.0-private
+## Private prototype
 
 - Added the core Pjario Staltman workflow package.
 - Added the Pevie Hischer frontend quality profile.
