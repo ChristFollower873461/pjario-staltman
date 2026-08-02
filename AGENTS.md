@@ -5,6 +5,7 @@ Humans steer. Agents execute. The goal is merged, maintainable software with cle
 Before changing code:
 
 - Read the ticket or task brief and restate the outcome in your own working notes.
+- When a `pjario.work/v1` Work Packet exists, treat it as the canonical scope, risk, proof, and handoff record.
 - Read `build-system/README.md`.
 - Read the relevant rules in `build-system/rules/`.
 - Keep the change scoped to the stated outcome.

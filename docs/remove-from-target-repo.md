@@ -12,7 +12,7 @@ Record why the workflow is being removed:
 - split into a different package
 - temporary evaluation complete
 
-If the package created useful tickets, QA notes, PR notes, completion reports, or review records, keep those project artifacts unless they are only sample files.
+If the package created useful Work Packets, tickets, QA notes, PR notes, completion reports, or review records, keep those project artifacts unless they are only sample files.
 
 ## Remove Core Files
 
@@ -31,7 +31,7 @@ Remove copied package files only if they are not used by other local workflows:
 
 Remove or edit `AGENTS.md` only after preserving any repo-specific agent rules that should stay.
 
-The default `.pjario/quiet-aggregate.jsonl` ledger is local and ignored. Preserve it only if its verified review history is still useful; otherwise remove the repo-local `.pjario/` directory through the host repo's normal recoverable cleanup process.
+Work Packets under `.pjario/work/` are tracked project records. Move or preserve any packets the team still needs before removing Pjario. Other `.pjario/` runtime state, including `quiet-aggregate.jsonl` and generated review packets, is local and ignored; preserve it only when its private review history is still useful.
 
 ## Remove CI Hooks
 

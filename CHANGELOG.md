@@ -2,6 +2,16 @@
 
 All notable changes to this package should be documented here.
 
+## 0.3.0 - 2026-08-02
+
+- Replaced the default five-artifact ceremony with one tracked, versioned `pjario.work/v1` Work Packet.
+- Added the standard-library `pjario` CLI for start, check, review, finish, Quiet Aggregate learning, and non-mutating adoption previews.
+- Added stable `RISK-xx` and `PROOF-xx` contracts, exact evidence matching, accepted-gap handling, input validation, path confinement, and private-runtime protections.
+- Made review packets include the active Work Packet as mandatory context while preserving the tracked diff and size boundary.
+- Added golden Work Packets and deterministic behavioral fixtures for trivial work, migrations, frontend routing, single findings, and independently repeated findings.
+- Trimmed the standard exported skill while adding the Work Packet template and executable CLI helpers.
+- Preserved the ticket, planning brief, QA, PR, and completion-report commands as an explicit compatibility path.
+
 ## 0.2.0 - 2026-08-02
 
 - Revived Quiet Aggregate as Pjario's deterministic review-learning loop.

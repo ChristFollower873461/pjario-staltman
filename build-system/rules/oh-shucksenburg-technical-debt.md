@@ -11,7 +11,7 @@ Use this profile when a change risks adding shortcuts, duplicated logic, unstabl
 
 ## Rules
 
-- Name debt explicitly in the ticket, planning brief, PR note, or completion report.
+- Name debt explicitly in the Work Packet. Existing adopters may use the equivalent legacy artifact.
 - Separate acceptable debt from accidental debt.
 - If debt is accepted, state owner, trigger, and removal path.
 - If debt is paid down, state the simplification and proof that behavior still holds.

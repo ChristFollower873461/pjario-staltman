@@ -18,4 +18,4 @@ Use this matrix to choose the minimum proof expected before an implementation ag
 | Technical debt or maintainability | Debt introduced/paid-down note; complexity, duplication, ownership, and future-change impact stated | Small cleanup plan, issue link, or targeted refactor test |
 | Agent workflow/tooling | Unit tests plus a real command invocation | Golden fixture covering a failure case |
 
-If the work does not fit a row, state the risk explicitly and choose the closest proof shape. Missing proof is acceptable only when the completion report names the gap and the coordinator accepts it.
+If the work does not fit a row, state the risk explicitly and choose the closest proof shape. Missing proof is acceptable only when the Work Packet records `accepted-gap`, names the gap, and gives a next action.

@@ -20,6 +20,8 @@ Release audit: [`docs/public-release-audit.md`](docs/public-release-audit.md)
 - [x] Review `docs/supply-chain.md` against current external tool versions.
 - [x] Review `docs/quiet-aggregate.md` against the tested autoreview schema and local privacy boundary.
 - [x] Review `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md` for reversible adoption.
+- [x] Validate both complete Work Packet examples with `pjario finish`.
+- [x] Run deterministic skill-behavior fixtures for triggering, routing, and learning boundaries.
 - [x] Run `make test-all`.
 - [x] Run `make validate-examples`.
 - [x] Run `make kickoff-build REQUEST=examples/golden-workflow/build-request.md`.
@@ -27,6 +29,8 @@ Release audit: [`docs/public-release-audit.md`](docs/public-release-audit.md)
 - [x] Run `make pevie-design-lint`.
 - [x] Run `make doctor`.
 - [x] Run `make export-skill OUT="$(mktemp -d)/pjario-staltman"`.
+- [x] Execute `scripts/pjario start` from a clean exported skill.
+- [x] Validate the exported skill with the Agent Skills validator and generated OpenAI interface metadata.
 - [x] Run `make export-skill SKILL_MODE=caveman OUT="$(mktemp -d)/pjario-staltman-caveman"`.
 - [x] Run `make skill-budget`.
 - [x] Run `make local-ready`.

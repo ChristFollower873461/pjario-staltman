@@ -2,6 +2,12 @@
 
 Use this path when installing Pjario Staltman into a target repository for the first time.
 
+Start with a non-mutating inventory:
+
+```bash
+python3 tools/pjario.py adopt --target /path/to/repo --profile core --dry-run
+```
+
 ## 1. Copy The Core
 
 Copy:
@@ -12,6 +18,7 @@ Copy:
 - `tests/`
 - `.github/workflows/quality.yml` into the target repo root workflow directory
 - relevant `Makefile` targets
+- `evals/skill-behavior.json` when the target will maintain or extend the skill
 
 Run:
 
@@ -22,15 +29,15 @@ make validate-examples
 make review-packet
 ```
 
-## 2. Pick Working Paths
+## 2. Pick The Work Packet Path
 
-Decide and write down:
+Track Work Packets under `.pjario/work/`. Keep other `.pjario/` runtime state ignored:
 
-- Ticket path.
-- Planning brief path.
-- Build request path.
-- QA plan, PR note, and completion report paths.
-- Review packet command.
+```gitignore
+.pjario/*
+!.pjario/work/
+!.pjario/work/*.md
+```
 
 For frontend-heavy repos, also decide where `DESIGN.md` lives. Prefer the repo root.
 
@@ -69,22 +76,21 @@ Treat `DESIGN.md` as binding design context for non-trivial UI work.
 
 Use this order:
 
-1. Fill a ticket.
-2. Fill a planning brief for non-trivial work.
-3. For UI work, confirm `DESIGN.md` is current.
-4. Implement the smallest scoped patch.
-5. Fill PR and QA notes.
-6. Fill a completion report.
-7. Check proof with `make check-proof`.
-8. Generate a kickoff prompt with `make kickoff` or `make kickoff-build`.
-9. Generate a review packet.
-10. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
+1. Create one packet with `python3 tools/pjario.py start --help`.
+2. Fill Scope; fill Plan only for non-trivial work.
+3. Activate relevant risks and map them to stable proof IDs.
+4. For UI work, set Profile to `frontend` and name the current `DESIGN.md` path.
+5. Run `pjario check`, implement, and attach terminal evidence to every proof ID.
+6. Run `pjario review`, record the decision, and run `pjario finish`.
+7. Promote independently repeated verified friction through `pjario learn` and Quiet Aggregate.
+
+Existing adopters may keep the older ticket, planning brief, QA plan, PR note, and completion report flow while migrating active work incrementally.
 
 When the recurrence claim needs history across reviews, use [`docs/quiet-aggregate.md`](quiet-aggregate.md). Quiet Aggregate records only verified findings, requires independent repetition, and generates a proposal without changing policy automatically.
 
 ## Reference Example
 
-Use `examples/golden-workflow/` as the complete core example.
+Use `examples/work-packets/` as the preferred core examples. `examples/golden-workflow/` demonstrates the supported legacy flow.
 
 Use `Pevie Hischer/examples/golden-workflow/` as the complete frontend example.
 

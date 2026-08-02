@@ -2,93 +2,65 @@
 
 Use this checklist when installing Pjario Staltman into a target repository.
 
-## 1. Copy Core Package
+## 1. Preview And Scope
 
-- [ ] Copy `AGENTS.md`.
-- [ ] Copy `build-system/`.
-- [ ] Copy `examples/`.
-- [ ] Copy `tools/`.
-- [ ] Copy `tests/`.
-- [ ] Copy `.github/workflows/quality.yml` into the target repo root workflow directory, or fold equivalent checks into existing CI.
-- [ ] Copy the relevant `Makefile` targets.
+- [ ] Run `python3 tools/pjario.py adopt --target <repo> --profile <core|frontend> --dry-run`.
+- [ ] Review the reported files, CI choices, and removal path; the preview does not mutate the target.
+- [ ] Decide whether the target needs core Pjario only or the Pevie Hischer frontend profile.
+- [ ] Keep the initial adoption to one product or team path.
 
-## 2. Define Local Conventions
+## 2. Install The Contract
 
-- [ ] Pick the canonical ticket path.
-- [ ] Pick the canonical planning-brief path.
-- [ ] Pick where build requests live.
-- [ ] Pick where QA plans, PR notes, and completion reports live.
-- [ ] Decide whether planning briefs are mandatory in CI or soft-gated.
-- [ ] Decide where accepted technical debt follow-ups live.
+- [ ] Copy `AGENTS.md`, `build-system/`, `tools/`, relevant tests, and Makefile targets through the target repo's normal review process.
+- [ ] Copy `Pevie Hischer/` only when the frontend profile is needed.
+- [ ] Ignore `.pjario/*`, then allowlist `.pjario/work/` and `.pjario/work/*.md`.
+- [ ] Keep review packets, Quiet Aggregate ledgers, and other `.pjario/` runtime state private and untracked.
+- [ ] Define where accepted technical-debt follow-ups live.
 
-## 3. Wire Agent Workflow
+## 3. Exercise One Work Packet
 
-- [ ] Implementation agents read `AGENTS.md`.
-- [ ] Implementation agents read `build-system/agents/implementation-agent.md`.
-- [ ] Review agents read `build-system/agents/software-engineer-reviewer.md`.
-- [ ] Agents use `build-system/rules/oh-shucksenburg-technical-debt.md` when debt is introduced or paid down.
-- [ ] Coordinators use `build-system/templates/build-request.md`.
+- [ ] Create a packet with `python3 tools/pjario.py start --help`.
+- [ ] Fill Scope and Non-Goals.
+- [ ] For non-trivial work, fill Plan and map every active `RISK-xx` to a `PROOF-xx` requirement.
+- [ ] For frontend work, set `Profile: frontend` and provide concrete Design Context.
+- [ ] Run `python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md`.
+- [ ] Implement the change and attach real evidence to every proof ID.
+- [ ] Run `python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md --base <ref>`.
+- [ ] Record the review decision, gaps, and next action, then run `python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md`.
 
-## 4. Enable Local Checks
+## 4. Verify The Installation
 
-Run and confirm:
+- [ ] Run `make test`.
+- [ ] Run `make validate-examples` if examples were copied.
+- [ ] Run `make doctor MODE=adopted PROFILE=core`.
+- [ ] Run the host application's own lint, typecheck, unit, integration, e2e, build, or platform checks.
+- [ ] For frontend adoption, create `DESIGN.md` and run `make doctor MODE=adopted PROFILE=pevie` plus the Pevie checks.
 
-- [ ] `make test`
-- [ ] `make validate-examples`
-- [ ] `make doctor MODE=adopted PROFILE=core`
-- [ ] `make review-packet`
-- [ ] `make kickoff TICKET=<ticket> PLAN=<planning-brief>`
-- [ ] `make kickoff-build REQUEST=<build-request>`
-- [ ] `make check-proof TICKET=<ticket> QA=<qa-plan> PR=<pr-note> COMPLETION=<completion-report>`
-- [ ] `make check-planning-brief TICKET=<ticket> PLAN=<planning-brief>`
-- [ ] `python3 tools/quiet-aggregate.py --help`
+## 5. Add CI Carefully
 
-For trivial tickets:
+- [ ] Validate changed Work Packets and host-app checks in CI.
+- [ ] Build a review packet as a sanity check for meaningful changes.
+- [ ] Keep model invocation, credentials, privacy, and cost decisions in the host repository.
+- [ ] Do not make Pjario's workflow checks a substitute for product, security, or release checks.
 
-- [ ] `make check-planning-brief TICKET=<ticket>`
+## 6. Learn Without Auto-Mutation
 
-## 5. Add Frontend Profile When Needed
+- [ ] Record only verified findings.
+- [ ] Use Quiet Aggregate only when the same explicit failure class repeats across independent reviews.
+- [ ] Review each proposed rule, test, lint, template, or tooling change before adoption.
+- [ ] Never expose the private ledger or mutate policy automatically.
 
-Use `Pevie Hischer/` when a target repo needs higher frontend discipline.
-
-- [ ] Copy `Pevie Hischer/`.
-- [ ] Run `make -f "Pevie Hischer/Makefile" test`.
-- [ ] Run `make -f "Pevie Hischer/Makefile" validate-examples`.
-- [ ] Run `make -f "Pevie Hischer/Makefile" design-lint-examples`.
-- [ ] After creating `DESIGN.md`, run `make doctor MODE=adopted PROFILE=pevie`.
-- [ ] Wire `frontend-implementation-agent.md` into implementation handoffs.
-- [ ] Wire `frontend-staff-reviewer.md` into frontend review.
-- [ ] Define accessibility and performance proof expectations.
-
-## 6. Add CI
-
-- [ ] Run package tests.
-- [ ] Run planning-brief checks for non-trivial work.
-- [ ] Build review packets as a sanity check.
-- [ ] Add host app checks: lint, typecheck, unit, e2e, Storybook, Playwright, or platform-specific builds.
-
-## 7. Start Small
-
-- [ ] Adopt the workflow on one product surface first.
-- [ ] Hold weekly garbage collection.
-- [ ] Use `make triage-review-finding FINDING=<finding> DECISION=<rule|template|test|lint|tooling|accepted-non-rule>` after repeated review friction.
-- [ ] Use Quiet Aggregate when recurrence needs an auditable history across independent reviews.
-- [ ] Promote one repeated issue at a time into a durable rule, template, test, lint, or tool.
-
-## 8. Define A Backout Path
+## 7. Preserve A Backout Path
 
 - [ ] Read `docs/remove-from-target-repo.md`.
-- [ ] Decide which copied package files are owned by the host repo.
-- [ ] Decide which generated project artifacts should be kept if the package is removed.
-- [ ] Confirm Pjario-specific CI steps can be removed without breaking host checks.
+- [ ] Know which copied package files are owned by the host repo.
+- [ ] Keep useful Work Packets if Pjario is removed.
+- [ ] Confirm Pjario-specific CI can be removed without breaking host checks.
+
+## Legacy Compatibility
+
+Existing adopters may retain ticket, planning brief, QA plan, PR note, and completion report paths. Keep their current checks working, use one Work Packet for new work, and migrate active artifacts only when it reduces—not creates—ceremony.
 
 ## Done Criteria
 
-Adoption is complete when:
-
-- [ ] Non-trivial work consistently starts with a planning brief.
-- [ ] PR notes include risk and QA evidence.
-- [ ] Completion reports include changed files, commands, proof status, known gaps, and next coordinator action.
-- [ ] Review packets are used for meaningful changes.
-- [ ] At least one repeated review issue has been converted into a durable guardrail.
-- [ ] The team knows how to remove the package without losing useful project history.
+Adoption is complete when one real Work Packet has passed check, review, finish, and the host application's own proof; the team knows where tracked work and private runtime state live; and removal is documented.

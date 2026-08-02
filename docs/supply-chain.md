@@ -5,6 +5,7 @@ Pjario Staltman is intentionally low-dependency.
 ## Core Package
 
 - Core Python tools use the Python standard library.
+- The `pjario` Work Packet CLI, dry-run adopter, and stable proof validator add no runtime dependency.
 - There is no core Python dependency install step.
 - There is no vendored third-party code.
 - Generated review packets and skill exports are local artifacts and are ignored by default.

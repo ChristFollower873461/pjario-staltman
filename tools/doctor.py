@@ -29,12 +29,14 @@ CORE_REQUIRED_FILES = [
     "build-system/templates/pr.md",
     "build-system/templates/qa-plan.md",
     "build-system/templates/garbage-collection.md",
+    "build-system/templates/work-packet.md",
     "tools/check-planning-brief.py",
     "tools/check-proof.py",
     "tools/kickoff.py",
     "tools/review-packet.py",
     "tools/triage-review-finding.py",
     "tools/quiet-aggregate.py",
+    "tools/pjario.py",
     "Makefile",
 ]
 
@@ -53,6 +55,7 @@ PACKAGE_REQUIRED_FILES = [
     "PUBLICATION-CHECKLIST.md",
     "RESEARCH-NOTES.md",
     "SECURITY.md",
+    "evals/skill-behavior.json",
     ".github/workflows/quality.yml",
 ]
 
@@ -223,7 +226,15 @@ def require_gitignore(root: Path, report: Report) -> None:
         report.warn(".gitignore is missing; generated review/export artifacts may be committed by accident.")
         return
     text = path.read_text(encoding="utf-8")
-    required = [".review-packet.md", ".dist/", ".pjario/", "__pycache__/", "*.pyc"]
+    required = [
+        ".review-packet.md",
+        ".dist/",
+        ".pjario/*",
+        "!.pjario/work/",
+        "!.pjario/work/*.md",
+        "__pycache__/",
+        "*.pyc",
+    ]
     missing = [entry for entry in required if entry not in text]
     if missing:
         report.fail(f".gitignore missing generated-artifact entries: {', '.join(missing)}")
@@ -344,12 +355,19 @@ def check_generated_artifacts_not_tracked(root: Path, report: Report) -> None:
     bad = [
         path.relative_to(root).as_posix()
         for path in tracked
-        if path.name == ".review-packet.md" or ".dist" in path.parts
+        if (
+            path.name == ".review-packet.md"
+            or ".dist" in path.parts
+            or (
+                ".pjario" in path.parts
+                and not path.relative_to(root).as_posix().startswith(".pjario/work/")
+            )
+        )
     ]
     if bad:
         report.fail("Generated artifacts are tracked: " + ", ".join(bad))
     else:
-        report.pass_("Generated review/export artifacts are not tracked.")
+        report.pass_("Generated review/export/runtime artifacts are not tracked.")
 
 
 def check_publication_docs(root: Path, report: Report) -> None:

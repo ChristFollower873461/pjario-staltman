@@ -2,6 +2,7 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 def load_module():
@@ -165,6 +166,23 @@ class DoctorTests(unittest.TestCase):
         doctor.check_supply_chain_pins(root, report)
         self.assertFalse(report.failures)
         self.assertTrue(report.passes)
+
+    def test_tracked_work_packets_are_allowed_but_runtime_state_is_not(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            work_packet = root / ".pjario" / "work" / "API-001.md"
+            runtime = root / ".pjario" / "quiet-aggregate.jsonl"
+            with mock.patch.object(doctor, "git_files", return_value=[work_packet]):
+                report = doctor.Report()
+                doctor.check_generated_artifacts_not_tracked(root, report)
+                self.assertFalse(report.failures)
+
+            with mock.patch.object(doctor, "git_files", return_value=[work_packet, runtime]):
+                report = doctor.Report()
+                doctor.check_generated_artifacts_not_tracked(root, report)
+                self.assertTrue(report.failures)
+                self.assertIn("quiet-aggregate.jsonl", report.failures[0])
+                self.assertNotIn("API-001.md", report.failures[0])
 
 
 if __name__ == "__main__":

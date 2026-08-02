@@ -18,14 +18,13 @@ External tool pinning and network touchpoints are listed in `docs/supply-chain.m
 
 Pjario Staltman gives agents and humans a repeatable build loop:
 
-1. Define work with a ticket.
-2. Require a planning brief for non-trivial work.
-3. Generate compact kickoff prompts for implementation or build coordination.
-4. Capture proof in QA notes, PR notes, completion reports, commands, logs, screenshots, or artifacts.
-5. Generate review packets that preserve the diff under review.
+1. Keep intent, scope, risk, plan, proof IDs, evidence, review, gaps, and next action in one versioned Work Packet.
+2. Require a concrete Plan only for non-trivial work.
+3. Require every active risk to map to proof before implementation.
+4. Generate review packets that preserve both the Work Packet and tracked diff.
+5. Validate terminal evidence structurally by proof ID.
 6. Review against correctness, user risk, production risk, security, privacy, scale, and maintainability.
-7. Promote repeated friction into a rule, template, test, lint, or tool.
-8. Optionally record verified findings in Quiet Aggregate and generate a non-mutating guardrail proposal after independent repetition.
+7. Optionally route independently repeated verified findings through Quiet Aggregate without automatic policy mutation.
 
 Pevie Hischer adds frontend-specific discipline: `DESIGN.md`, accessibility, viewport proof, frontend performance, frontend observability, and production UI review.
 
@@ -46,6 +45,9 @@ Oh Shucksenburg adds a debt-control check: accepted debt needs an owner, trigger
 These commands write generated local artifacts:
 
 ```bash
+python3 tools/pjario.py start ...
+python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md --output .pjario/completion.md
 make review-packet
 make pevie-review-packet
 make export-skill
@@ -62,7 +64,7 @@ Every exported skill includes the repository's MIT `LICENSE` file. The license f
 
 Generated review packets and `.dist/` exports are ignored so they are not committed by accident.
 
-Quiet Aggregate writes its JSONL ledger and optional reports under `.pjario/` by default. That directory is ignored because review metadata may contain private implementation context. A proposal is written only to an explicit repo-confined output path. Ledgers and outputs fail closed on traversal and symlink boundaries.
+Work Packets under `.pjario/work/` are intended to be tracked. Private runtime state elsewhere under `.pjario/`, including the Quiet Aggregate ledger and generated review/completion packets, remains ignored. Repo-confined outputs fail closed on traversal and symlink boundaries.
 
 ## Commands That Read Git State
 
@@ -83,6 +85,8 @@ They read tracked files, changed files, and eligible untracked files for validat
 Core Pjario commands are local Python and Makefile commands.
 
 Quiet Aggregate is also local and standard-library-only. It can consume a JSON report previously produced by an external autoreview helper, but it does not launch that helper or contact a model provider.
+
+The `pjario` Work Packet CLI is local and standard-library-only. `adopt` is dry-run-only; it reports proposed file operations and makes no changes.
 
 Pevie design linting uses npm:
 

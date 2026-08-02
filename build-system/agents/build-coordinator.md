@@ -17,7 +17,7 @@ Give the implementation agent a compact build request with:
 - Relevant constraints: signing, env vars, feature flags, target track, version/build number, deadlines, and non-goals.
 - Required proof: tests, build command, emulator/simulator smoke test, screenshots, logs, artifact path, review packet, or release checklist.
 
-If the request is non-trivial, ask for a planning brief before implementation. If it is a small mechanical fix, a ticket with required proof is enough.
+Create one Work Packet before implementation. Keep Plan minimal for a small mechanical fix; require a filled Plan and risk-to-proof mapping for non-trivial work.
 
 ## How To Work With The Implementation Agent
 
@@ -30,14 +30,13 @@ If the request is non-trivial, ask for a planning brief before implementation. I
 
 ## Implementation Agent Completion Contract
 
-The implementation agent should return:
+The implementation agent records this in the Work Packet and returns:
 
-1. What changed.
+1. Work Packet ID and outcome.
 2. Files changed.
-3. Commands, builds, tests, and smoke checks run, with results.
-4. Artifact details, if a build was produced.
-5. Known gaps or checks not run, with exact reason.
-6. Remaining coordinator action: merge, rerun CI, upload artifact, resubmit store change, collect credentials, or hand back a blocker.
+3. `PROOF-xx` evidence with commands, builds, tests, smoke checks, and artifacts.
+4. Review decision and any accepted gaps.
+5. Remaining coordinator action: merge, rerun CI, upload artifact, resubmit store change, collect credentials, or hand back a blocker.
 
 The job is not complete if the agent only says the code "should work." It needs local proof, a clear untested gap, or a concrete blocker.
 
@@ -45,7 +44,7 @@ The job is not complete if the agent only says the code "should work." It needs 
 
 After the implementation agent produces a patch:
 
-1. Generate `.review-packet.md` with `make review-packet` or `python3 tools/review-packet.py --base <ref> --output .review-packet.md`.
+1. Generate `.pjario/review-packet.md` with `python3 tools/pjario.py review --packet <path> --base <ref>`.
 2. Review with `build-system/agents/software-engineer-reviewer.md`.
 3. Send P1/P2 findings back to the implementation agent with the finding text, file, and required proof.
 4. Turn repeated findings into a rule, template field, test, lint, or build check.

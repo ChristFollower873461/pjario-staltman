@@ -4,7 +4,7 @@
 
 An open-source operating system for building software with agents.
 
-Pjario Staltman turns agent work into a repeatable loop: tickets define intent, agents implement scoped changes, proof is captured, staff-level review checks the work, and repeated friction becomes durable guardrails instead of repeated comments.
+Pjario Staltman turns agent work into a repeatable loop: one Work Packet carries intent, scope, risks, proof, review, and handoff; repeated friction becomes durable guardrails instead of repeated comments.
 
 The package is intentionally small, local-first, and auditable. It does not deploy code or call an LLM for you; it makes the surrounding engineering work explicit enough for humans and agents to review.
 
@@ -40,12 +40,12 @@ The repository quality workflow runs the same `make public-ready` gate on pushes
 
 The core workflow for agentic engineering:
 
-- ticketed work with explicit outcome, scope, risk, acceptance criteria, and proof
-- planning briefs for non-trivial changes
+- one versioned Work Packet for outcome, scope, risks, plan, stable proof IDs, evidence, review, gaps, and next action
+- progressive planning that stays minimal for trivial work and becomes mandatory for non-trivial work
 - implementation-agent handoffs
 - build-request handoffs for coordinated build/release work
 - staff-level review prompts
-- proof checks that map ticket risks to QA/PR evidence
+- structural proof checks that map stable risk IDs to evidence
 - Oh Shucksenburg technical-debt control for shortcuts, coupling, duplication, and accepted cleanup debt
 - review packet generation
 - rule promotion when review feedback repeats
@@ -64,22 +64,24 @@ A recovered review-learning loop in [`docs/quiet-aggregate.md`](docs/quiet-aggre
 
 ## Quick Start
 
-1. Write work using [`build-system/templates/ticket.md`](build-system/templates/ticket.md) and set `Level: trivial` or `Level: non-trivial`.
-2. For non-trivial work, draft [`build-system/templates/planning-brief.md`](build-system/templates/planning-brief.md) before implementation.
-3. For build or release coordination, fill [`build-system/templates/build-request.md`](build-system/templates/build-request.md) and use [`build-system/agents/build-coordinator.md`](build-system/agents/build-coordinator.md).
-4. Give the task plus [`AGENTS.md`](AGENTS.md) and [`build-system/agents/implementation-agent.md`](build-system/agents/implementation-agent.md) to an implementation agent.
-5. Capture QA and risk evidence with [`build-system/templates/pr.md`](build-system/templates/pr.md), [`build-system/templates/qa-plan.md`](build-system/templates/qa-plan.md), and [`build-system/templates/completion-report.md`](build-system/templates/completion-report.md).
-6. Check proof coverage with `make check-proof`.
-7. Generate a review packet with `make review-packet`.
-8. Review with [`build-system/agents/software-engineer-reviewer.md`](build-system/agents/software-engineer-reviewer.md).
-9. Record verified findings with `python3 tools/quiet-aggregate.py record` when review history matters.
-10. Promote repeated review feedback with a reviewed Quiet Aggregate proposal and [`build-system/templates/garbage-collection.md`](build-system/templates/garbage-collection.md).
+1. Create one Work Packet with `python3 tools/pjario.py start --help`.
+2. Fill Scope. For non-trivial work, fill Plan and map each active `RISK-xx` to a `PROOF-xx` requirement.
+3. Run `python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md` before implementation.
+4. Implement the scoped change and attach real evidence to every proof ID.
+5. Run `python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md --base origin/main`.
+6. Record the review decision, then run `python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md`.
+7. When the same verified failure class repeats across independent reviews, use `python3 tools/pjario.py learn ...` to route it through Quiet Aggregate.
 
 For first-time adoption, follow [`docs/adopt-in-15-minutes.md`](docs/adopt-in-15-minutes.md). For rollback or removal from a target repo, use [`docs/remove-from-target-repo.md`](docs/remove-from-target-repo.md).
 
 ## Commands
 
 ```bash
+python3 tools/pjario.py start --help
+python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md --base origin/main
+python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py adopt --profile core --dry-run
 make test
 make validate-examples
 make doctor
@@ -99,6 +101,8 @@ make public-ready
 make test-all
 ```
 
+The ticket, planning-brief, QA, PR, and completion commands below are compatibility paths for existing adopters; new work should use one Work Packet.
+
 For trivial tickets, `PLAN` is optional:
 
 ```bash
@@ -117,9 +121,9 @@ make pevie-review-packet
 
 ## Examples
 
-Validated examples live in [`examples/`](examples/) and [`Pevie Hischer/examples/`](Pevie%20Hischer/examples/). They are intentionally small, but they show the expected difference between trivial work and non-trivial work that needs a planning brief.
+Validated examples live in [`examples/`](examples/) and [`Pevie Hischer/examples/`](Pevie%20Hischer/examples/). They are intentionally small, but show how trivial and non-trivial work use the same packet with different planning depth.
 
-The complete core reference flow lives in [`examples/golden-workflow/`](examples/golden-workflow/).
+Complete Work Packet examples live in [`examples/work-packets/`](examples/work-packets/). The legacy multi-artifact reference flow remains in [`examples/golden-workflow/`](examples/golden-workflow/).
 
 The complete frontend reference flow lives in [`Pevie Hischer/examples/golden-workflow/`](Pevie%20Hischer/examples/golden-workflow/).
 
@@ -142,6 +146,8 @@ make pevie-design-lint
 │   └── templates/
 ├── docs/
 │   └── quiet-aggregate.md
+├── evals/
+│   └── skill-behavior.json
 ├── examples/
 ├── tools/
 ├── tests/
@@ -163,11 +169,12 @@ make pevie-design-lint
 - [`docs/trust-contract.md`](docs/trust-contract.md) documents the local command behavior and public-release gate.
 - [`docs/prerequisites.md`](docs/prerequisites.md) documents required local tools and the npm-only lint path.
 - [`docs/supply-chain.md`](docs/supply-chain.md) documents external tool pins and network touchpoints.
+- Work Packets use stable risk and proof IDs, so evidence is checked structurally instead of by copied prose.
 - Review packets exclude likely sensitive untracked files by default.
 - The tracked diff is mandatory context; packet generation fails rather than silently dropping it.
 - `make doctor` checks required files, root workflow placement, generated-artifact ignores, and tracked-file privacy markers.
 - `make local-ready` provides an offline/local preflight before running npm-based design linting.
-- `make check-proof` checks that active ticket risks are represented in QA/PR/completion evidence.
+- `make check-proof PACKET=.pjario/work/WORK-ID.md` checks stable proof IDs, terminal evidence, and active-risk coverage; the legacy multi-file form remains supported.
 - Quiet Aggregate keeps verified review history local, rejects likely secrets and host paths, and requires independent sources before promotion.
 - `make skill-budget` keeps the exported skill small enough for agent context.
 - `SKILL_MODE=caveman` exports the lowest-context loop for agents that only need the operating pattern.

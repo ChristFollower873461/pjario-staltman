@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Check that implementation evidence covers ticket risk surfaces."""
+"""Validate preferred Work Packet proof evidence or legacy ticket artifacts."""
 
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import re
 import sys
 from pathlib import Path
@@ -141,17 +142,38 @@ def validate(ticket: Path, qa_plan: Path, pr_note: Path, completion_report: Path
         )
 
 
+def validate_work_packet(packet: Path, root: Path | None = None) -> None:
+    tool_path = Path(__file__).resolve().with_name("pjario.py")
+    spec = importlib.util.spec_from_file_location("pjario_work_packet", tool_path)
+    if spec is None or spec.loader is None:
+        raise SystemExit("Could not load tools/pjario.py for Work Packet validation.")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    module.load_and_validate((root or Path.cwd()).resolve(), packet, phase="finish")
+
+
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--ticket", type=Path, required=True)
-    parser.add_argument("--qa-plan", type=Path, required=True)
-    parser.add_argument("--pr-note", type=Path, required=True)
+    parser.add_argument("--packet", type=Path, help="Preferred Pjario Work Packet path.")
+    parser.add_argument("--ticket", type=Path)
+    parser.add_argument("--qa-plan", type=Path)
+    parser.add_argument("--pr-note", type=Path)
     parser.add_argument("--completion-report", type=Path)
     return parser.parse_args(argv)
 
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    legacy_values = (args.ticket, args.qa_plan, args.pr_note, args.completion_report)
+    if args.packet:
+        if any(value is not None for value in legacy_values):
+            raise SystemExit("Use --packet by itself; do not mix Work Packet and legacy proof arguments.")
+        validate_work_packet(args.packet)
+        print("PASS: Work Packet proof IDs have terminal evidence and valid risk coverage.")
+        return 0
+    if not all(value is not None for value in (args.ticket, args.qa_plan, args.pr_note)):
+        raise SystemExit("Provide --packet, or provide --ticket, --qa-plan, and --pr-note.")
     validate(args.ticket, args.qa_plan, args.pr_note, args.completion_report)
     print("PASS: QA/PR evidence covers ticket proof requirements and active risk surfaces.")
     return 0

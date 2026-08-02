@@ -4,12 +4,12 @@ These are the durable expectations for agent-produced code.
 
 ## What Good Looks Like
 
-- The change solves the ticket without unrelated churn.
-- The implementation follows nearby patterns unless the ticket explicitly calls for a new one.
+- The change meets the Work Packet outcome and scope without unrelated churn.
+- The implementation follows nearby patterns unless the Work Packet explicitly calls for a new one.
 - Public interfaces are hard to misuse.
 - Errors are explicit, actionable, and observable.
 - Tests cover the main path and at least one important failure path.
-- QA evidence is written down in the PR note.
+- QA evidence is attached to stable proof IDs in the Work Packet, or captured in the legacy PR note for an existing adopter.
 - Risky behavior is reversible through rollback, feature flag, or configuration.
 
 ## Agent-Friendly Codebase Rules
