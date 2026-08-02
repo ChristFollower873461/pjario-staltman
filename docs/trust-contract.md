@@ -25,6 +25,7 @@ Pjario Staltman gives agents and humans a repeatable build loop:
 5. Generate review packets that preserve the diff under review.
 6. Review against correctness, user risk, production risk, security, privacy, scale, and maintainability.
 7. Promote repeated friction into a rule, template, test, lint, or tool.
+8. Optionally record verified findings in Quiet Aggregate and generate a non-mutating guardrail proposal after independent repetition.
 
 Pevie Hischer adds frontend-specific discipline: `DESIGN.md`, accessibility, viewport proof, frontend performance, frontend observability, and production UI review.
 
@@ -37,6 +38,7 @@ Oh Shucksenburg adds a debt-control check: accepted debt needs an owner, trigger
 - It does not collect telemetry.
 - It does not read credentials for package behavior.
 - It does not send repository contents to a third-party service through its Python tools.
+- It does not invoke the optional external autoreview engine; operators run and authorize that separately.
 - It does not replace host-repo tests, linters, security scanners, or release runbooks.
 
 ## Commands That Write Files
@@ -49,6 +51,9 @@ make pevie-review-packet
 make export-skill
 make export-skill SKILL_MODE=caveman
 make triage-review-finding FINDING=path/to/finding.md DECISION=test
+python3 tools/quiet-aggregate.py record ...
+python3 tools/quiet-aggregate.py report --output .pjario/quiet-report.json
+python3 tools/quiet-aggregate.py propose ... --output path/to/proposal.md
 ```
 
 `make local-ready` and `make public-ready` also generate review packets and temporary skill exports, then remove the generated review packets from the package root.
@@ -56,6 +61,8 @@ make triage-review-finding FINDING=path/to/finding.md DECISION=test
 Every exported skill includes the repository's MIT `LICENSE` file. The license file is not Markdown and therefore does not consume the agent instruction budget measured by `make skill-budget`.
 
 Generated review packets and `.dist/` exports are ignored so they are not committed by accident.
+
+Quiet Aggregate writes its JSONL ledger and optional reports under `.pjario/` by default. That directory is ignored because review metadata may contain private implementation context. A proposal is written only to an explicit repo-confined output path. Ledgers and outputs fail closed on traversal and symlink boundaries.
 
 ## Commands That Read Git State
 
@@ -74,6 +81,8 @@ They read tracked files, changed files, and eligible untracked files for validat
 ## Commands That Use Network
 
 Core Pjario commands are local Python and Makefile commands.
+
+Quiet Aggregate is also local and standard-library-only. It can consume a JSON report previously produced by an external autoreview helper, but it does not launch that helper or contact a model provider.
 
 Pevie design linting uses npm:
 

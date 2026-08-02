@@ -24,11 +24,14 @@ Remove copied package files only if they are not used by other local workflows:
 - `tools/kickoff.py`
 - `tools/review-packet.py`
 - `tools/triage-review-finding.py`
+- `tools/quiet-aggregate.py`
 - copied package `tests/`
 - copied package `examples/`
 - package-specific `Makefile` targets
 
 Remove or edit `AGENTS.md` only after preserving any repo-specific agent rules that should stay.
+
+The default `.pjario/quiet-aggregate.jsonl` ledger is local and ignored. Preserve it only if its verified review history is still useful; otherwise remove the repo-local `.pjario/` directory through the host repo's normal recoverable cleanup process.
 
 ## Remove CI Hooks
 

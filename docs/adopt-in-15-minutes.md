@@ -80,6 +80,8 @@ Use this order:
 9. Generate a review packet.
 10. Review and promote repeated friction into a durable rule, test, template, lint, or tool.
 
+When the recurrence claim needs history across reviews, use [`docs/quiet-aggregate.md`](quiet-aggregate.md). Quiet Aggregate records only verified findings, requires independent repetition, and generates a proposal without changing policy automatically.
+
 ## Reference Example
 
 Use `examples/golden-workflow/` as the complete core example.

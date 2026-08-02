@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "title": "Missing rollback proof",
+      "body": "The release note does not identify a verified rollback path.",
+      "priority": "P2",
+      "confidence": 0.96,
+      "category": "maintainability",
+      "code_location": {
+        "file_path": "build-system/templates/pr.md",
+        "line": 12
+      }
+    }
+  ],
+  "overall_correctness": "patch is incorrect",
+  "overall_explanation": "The change is missing one required release-proof field.",
+  "overall_confidence": 0.96
+}

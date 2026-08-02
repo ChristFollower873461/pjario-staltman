@@ -18,6 +18,7 @@ Release audit: [`docs/public-release-audit.md`](docs/public-release-audit.md)
 - [x] Review `docs/license-posture.md` and confirm the current visibility/reuse stance is intentional.
 - [x] Review `docs/prerequisites.md` against the current GitHub Actions toolchain.
 - [x] Review `docs/supply-chain.md` against current external tool versions.
+- [x] Review `docs/quiet-aggregate.md` against the tested autoreview schema and local privacy boundary.
 - [x] Review `docs/adopt-in-15-minutes.md` and `docs/remove-from-target-repo.md` for reversible adoption.
 - [x] Run `make test-all`.
 - [x] Run `make validate-examples`.

@@ -2,6 +2,17 @@
 
 All notable changes to this package should be documented here.
 
+## 0.2.0 - 2026-08-02
+
+- Revived Quiet Aggregate as Pjario's deterministic review-learning loop.
+- Added a repo-confined JSONL ledger for verified autoreview, human-review, and CI findings.
+- Added recurrence detection that requires the same failure class across independent review sources before promotion.
+- Added explicit audited dispositions for actionable, follow-up, and rejected findings.
+- Added non-mutating guardrail proposals; Quiet Aggregate never rewrites policy automatically.
+- Added secret-shape, absolute-path, traversal, symlink, malformed-ledger, duplicate-ID, and resource-limit defenses.
+- Documented the maintained OpenClaw autoreview JSON boundary without vendoring or automatically invoking its model-backed engine.
+- Added a complete example report, CLI walkthrough, export support, and focused tests.
+
 ## 0.1.0 - 2026-08-01
 
 - Published the package under the MIT License, with the Pevie Hischer companion profile retained in the same repository.

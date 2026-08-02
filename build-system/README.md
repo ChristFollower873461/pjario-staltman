@@ -15,7 +15,8 @@ This is the operating system for agentic engineering in this repo. It is based o
 4. **Local Proof**: The agent runs tests, linters, smoke checks, or manual QA and records what happened. For non-trivial work, evidence should map back to the active ticket risks.
 5. **Review Agent**: A staff-engineer review agent checks the diff against repo rules, scale readiness, and the stated ticket.
 6. **Human Steering**: A human accepts, redirects, or escalates. The human should spend attention on product judgment, architecture, and risk.
-7. **Garbage Collection**: Repeated review feedback becomes a rule, test, lint, template, or tool.
+7. **Quiet Aggregate**: Record verified findings without interrupting the active task. When the same failure class appears across independent reviews, generate an auditable guardrail proposal.
+8. **Garbage Collection**: A human or implementation agent reviews the proposal and turns it into a rule, test, lint, template, runtime guardrail, or tool.
 
 ## Review Severity
 
@@ -34,6 +35,8 @@ When a review comment appears twice, promote it:
 - Template change if the missing context should be collected before work begins.
 - Test or lint if the failure can be detected mechanically.
 - Runtime guardrail if the failure can hurt users in production.
+
+Use `python3 tools/quiet-aggregate.py` when the repeated-review history needs to be durable. Quiet Aggregate never applies the promotion automatically; it records the evidence and proposes the smallest guardrail category for review.
 
 ## Agent Handoff Contract
 

@@ -43,8 +43,13 @@ class ExportSkillTests(unittest.TestCase):
             self.assertTrue((output / "references" / "core-workflow.md").is_file())
             self.assertTrue((output / "references" / "completion-contract.md").is_file())
             self.assertTrue((output / "references" / "technical-debt.md").is_file())
+            self.assertTrue((output / "references" / "quiet-aggregate.md").is_file())
             self.assertTrue((output / "references" / "pevie-hischer.md").is_file())
             self.assertTrue((output / "references" / "proof-matrix.md").is_file())
+            quiet_aggregate = output / "scripts" / "quiet-aggregate"
+            self.assertTrue(quiet_aggregate.is_file())
+            self.assertTrue(quiet_aggregate.stat().st_mode & 0o111)
+            self.assertIn("quiet-aggregate.finding/v1", quiet_aggregate.read_text(encoding="utf-8"))
             self.assertTrue((output / "agents" / "openai.yaml").is_file())
             self.assertFalse((output / "README.md").exists())
             self.assertIn("name: pjario-staltman", (output / "SKILL.md").read_text(encoding="utf-8"))
@@ -63,6 +68,7 @@ class ExportSkillTests(unittest.TestCase):
             )
             self.assertTrue((output / "agents" / "openai.yaml").is_file())
             self.assertFalse((output / "references").exists())
+            self.assertFalse((output / "scripts").exists())
             self.assertIn("Caveman Mode", skill_text)
             self.assertLessEqual(len(skill_text.split()), 140)
 

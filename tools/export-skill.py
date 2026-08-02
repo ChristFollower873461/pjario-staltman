@@ -26,6 +26,7 @@ Use this skill to keep agentic build work efficient and reviewable.
 4. Capture proof in tests, QA notes, screenshots, logs, review packets, or release artifacts.
 5. Review with a staff-level bar focused on correctness, user risk, production risk, security, privacy, scale, and maintainability.
 6. Promote repeated review friction into a rule, template, test, lint, or tool.
+7. When recurrence needs proof, use Quiet Aggregate to record verified findings and propose—but never silently apply—a guardrail.
 
 ## When Frontend Work Uses Pevie Hischer
 
@@ -39,6 +40,7 @@ For non-trivial UI work, establish `DESIGN.md` before implementation. Treat it a
 - `references/proof-matrix.md` - expected proof by work type.
 - `references/completion-contract.md` - exact completion report shape.
 - `references/technical-debt.md` - Oh Shucksenburg debt-control profile.
+- `references/quiet-aggregate.md` - deterministic repeated-finding ledger and proposal flow.
 - `references/pevie-hischer.md` - frontend-specific operating rules.
 
 ## Completion Contract
@@ -104,6 +106,22 @@ Use this profile when a change risks adding shortcuts, duplicated logic, hidden 
 For frontend work, also check for one-off components, token bypasses, missing UI states, accessibility debt, and performance debt.
 """
 
+QUIET_AGGREGATE_MD = """# Quiet Aggregate
+
+Use Quiet Aggregate only after the main agent verifies a review finding against the real code path.
+
+```bash
+python3 scripts/quiet-aggregate --help
+python3 scripts/quiet-aggregate record ...
+python3 scripts/quiet-aggregate report
+python3 scripts/quiet-aggregate propose ...
+```
+
+The ignored `.pjario/quiet-aggregate.jsonl` ledger records actionable, follow-up, and rejected findings. Only actionable findings count. Promotion requires the same explicit failure class and owner boundary across independent source references.
+
+The tool rejects likely credentials, local absolute paths, traversal, symlinked ledgers, malformed records, and duplicate IDs. It never invokes a reviewer, calls a model, or edits policy. Review and apply each proposal deliberately.
+"""
+
 PEVIE_MD = """# Pevie Hischer
 
 Use Pevie for frontend-heavy work where visual quality, design-system discipline, accessibility, performance, and QA evidence matter.
@@ -162,6 +180,11 @@ def write(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def write_executable(path: Path, text: str) -> None:
+    write(path, text)
+    path.chmod(0o755)
+
+
 def read_optional(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.is_file() else ""
 
@@ -188,10 +211,15 @@ def export_skill(root: Path, output: Path, force: bool = False, mode: str = "sta
     write(output / "references" / "core-workflow.md", CORE_WORKFLOW_MD)
     write(output / "references" / "completion-contract.md", COMPLETION_CONTRACT_MD)
     write(output / "references" / "technical-debt.md", TECHNICAL_DEBT_MD)
+    write(output / "references" / "quiet-aggregate.md", QUIET_AGGREGATE_MD)
     proof_matrix = read_optional(root / "build-system" / "rules" / "proof-matrix.md")
     if proof_matrix:
         write(output / "references" / "proof-matrix.md", proof_matrix)
     write(output / "references" / "pevie-hischer.md", PEVIE_MD)
+    quiet_aggregate = read_optional(root / "tools" / "quiet-aggregate.py")
+    if not quiet_aggregate:
+        raise SystemExit("Source package is missing tools/quiet-aggregate.py.")
+    write_executable(output / "scripts" / "quiet-aggregate", quiet_aggregate)
     write(output / "agents" / "openai.yaml", OPENAI_YAML)
 
 

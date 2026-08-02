@@ -18,12 +18,20 @@ Pjario Staltman is intentionally low-dependency.
 | `actions/setup-node` | GitHub Actions Node runtime | `v7.0.0` commit `820762786026740c76f36085b0efc47a31fe5020`, Node `24` |
 | `@google/design.md` | Pevie `DESIGN.md` linting | Exact package version `@google/design.md@0.4.0` through `DESIGN_MD_VERSION` |
 
+## Optional Review Integration
+
+Quiet Aggregate can consume the structured JSON produced by OpenClaw's maintained `autoreview` skill. The compatibility contract was tested against `openclaw/openclaw` commit `55816c47d133d00bf0b6306881589975505338a9`.
+
+Pjario does not vendor, download, install, or invoke that helper. The commit is a tested schema reference, not a runtime dependency. Operators independently choose the reviewer engine, model provider, credentials, network boundary, and cost posture before producing a report for Quiet Aggregate.
+
 ## Network Use
 
 Core Pjario commands are local. Network is expected only for:
 
 - GitHub Actions dependency/action resolution.
 - Pevie design linting through `npx -y @google/design.md@0.4.0`.
+
+Quiet Aggregate itself does not use the network. Running an external autoreview helper may submit a bounded change bundle to the selected model provider; review that helper's isolation, privacy, and cost contract separately.
 
 Use `make local-ready` when a local-only validation path is needed.
 
