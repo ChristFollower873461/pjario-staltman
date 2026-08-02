@@ -11,167 +11,130 @@ from pathlib import Path
 
 STANDARD_SKILL_MD = """---
 name: pjario-staltman
-description: Use when planning, coordinating, implementing, proving, or reviewing agent-built software with tickets, planning briefs, QA evidence, review packets, durable rule promotion, or the Pevie Hischer frontend quality profile.
+description: Use when a repository explicitly adopts Pjario Staltman or the user requests Pjario Work Packets, ticket-to-proof workflow, staff review packets, Quiet Aggregate learning, Pevie Hischer frontend quality checks, or Pjario adoption/removal. Do not trigger merely because ordinary software work involves planning, implementation, or review.
 ---
 
 # Pjario Staltman
 
-Use this skill to keep agentic build work efficient and reviewable.
+Use one tracked Work Packet as the task, plan, proof ledger, review state, and handoff.
 
-## Core Loop
+## Flow
 
-1. Start from a ticket with outcome, scope, risks, acceptance criteria, and required proof.
-2. Require a planning brief for non-trivial work before implementation.
-3. Give the implementation agent a compact kickoff with repo path, ticket, plan, constraints, and proof commands.
-4. Capture proof in tests, QA notes, screenshots, logs, review packets, or release artifacts.
-5. Review with a staff-level bar focused on correctness, user risk, production risk, security, privacy, scale, and maintainability.
-6. Promote repeated review friction into a rule, template, test, lint, or tool.
-7. When recurrence needs proof, use Quiet Aggregate to record verified findings and propose—but never silently apply—a guardrail.
+1. Inspect the target repo and its `AGENTS.md` before editing.
+2. Run `python3 scripts/pjario start --help`; create one packet under `.pjario/work/`.
+3. Keep trivial work small. For non-trivial work, complete Plan and map every active `RISK-xx` to a `PROOF-xx` requirement.
+4. Run `python3 scripts/pjario check --packet <path>` before implementation.
+5. Implement the scoped change and replace each proof's pending evidence with a terminal result.
+6. Run `python3 scripts/pjario review --packet <path>` and then `python3 scripts/pjario finish --packet <path>`.
 
-## When Frontend Work Uses Pevie Hischer
+## Route Context
 
-Read `references/pevie-hischer.md` when work touches UI, UX, design systems, accessibility, frontend performance, frontend observability, or user-facing polish.
+- UI/UX work: read `references/pevie-hischer.md`; require Design Context.
+- Proof selection: read `references/proof-matrix.md`.
+- Accepted debt: read `references/technical-debt.md`.
+- The same verified failure across independent reviews: read `references/quiet-aggregate.md`, then use `pjario learn`.
+- Adoption, review command details, or legacy artifact compatibility: read `references/core-workflow.md`.
 
-For non-trivial UI work, establish `DESIGN.md` before implementation. Treat it as the design equivalent of `AGENTS.md`: implementation reads it first, planning maps it to proof, and review blocks unmanaged drift.
-
-## Useful References
-
-- `references/core-workflow.md` - package workflow, commands, and completion contract.
-- `references/proof-matrix.md` - expected proof by work type.
-- `references/completion-contract.md` - exact completion report shape.
-- `references/technical-debt.md` - Oh Shucksenburg debt-control profile.
-- `references/quiet-aggregate.md` - deterministic repeated-finding ledger and proposal flow.
-- `references/pevie-hischer.md` - frontend-specific operating rules.
-
-## Completion Contract
-
-Return changed files, commands run, pass/fail results, artifact paths or identities, known gaps, and the next coordinator action.
+Never invent evidence, activate Quiet Aggregate from one review, expose private ledger contents, or mutate policy automatically.
 """
 
 CORE_WORKFLOW_MD = """# Core Workflow
 
-## Inputs
-
-- Repo path and branch.
-- Ticket with implementation complexity.
-- Planning brief for non-trivial work.
-- Constraints, risk surfaces, required proof, and next coordinator action.
-
-## Commands
+Prefer the versioned `pjario.work/v1` Work Packet. Legacy ticket, plan, QA, PR, and completion files remain supported for existing adopters.
 
 ```bash
-make doctor
-make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
-make kickoff-build REQUEST=path/to/build-request.md
-make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md
-make test
-make validate-examples
-make review-packet
-make public-ready
+python3 scripts/pjario start --help
+python3 scripts/pjario check --packet .pjario/work/WORK-ID.md
+python3 scripts/pjario review --packet .pjario/work/WORK-ID.md --base origin/main
+python3 scripts/pjario finish --packet .pjario/work/WORK-ID.md
+python3 scripts/pjario adopt --profile core --dry-run
 ```
 
-For trivial tickets, omit `PLAN`.
-
-## Review Packet Rule
-
-The tracked diff is mandatory review context. If the diff cannot fit, narrow the diff or increase the packet budget rather than trimming the changes under review.
-"""
-
-COMPLETION_CONTRACT_MD = """# Completion Contract
-
-Every implementation handoff should include:
-
-- Changed files.
-- Commands run and pass/fail result.
-- Proof status mapped to the ticket or build request.
-- Artifact paths or identities when produced.
-- Known gaps or untested surfaces.
-- Next coordinator action.
-
-Prefer the host repo's `build-system/templates/completion-report.md` when available.
+`review` always includes the Work Packet and tracked diff. `adopt` is dry-run-only. Use host-repo checks in addition to Pjario validation.
 """
 
 TECHNICAL_DEBT_MD = """# Oh Shucksenburg
 
-Use this profile when a change risks adding shortcuts, duplicated logic, hidden coupling, stale TODOs, weak ownership, or future maintenance cost.
+Use when work adds shortcuts, duplication, coupling, stale TODOs, or future cleanup.
 
-## Rules
-
-- Name debt explicitly in the ticket, planning brief, PR note, or completion report.
-- Separate acceptable debt from accidental debt.
-- If debt is accepted, state owner, trigger, and removal path.
-- If debt is paid down, state the simplification and proof that behavior still holds.
-- Do not add a new abstraction unless it removes real duplication, risk, or cognitive load.
-
-For frontend work, also check for one-off components, token bypasses, missing UI states, accessibility debt, and performance debt.
+- Name debt explicitly in the Work Packet.
+- Accepted debt requires owner, trigger, and removal path.
+- Paid-down debt requires behavior proof.
+- Add abstractions only when they remove real duplication, risk, or cognitive load.
+- For frontend work, include token bypasses, missing states, accessibility, and performance debt.
 """
 
 QUIET_AGGREGATE_MD = """# Quiet Aggregate
 
-Use Quiet Aggregate only after the main agent verifies a review finding against the real code path.
+Use only after a finding is verified and the same explicit failure class repeats across independent source references.
 
 ```bash
-python3 scripts/quiet-aggregate --help
-python3 scripts/quiet-aggregate record ...
-python3 scripts/quiet-aggregate report
-python3 scripts/quiet-aggregate propose ...
+python3 scripts/pjario learn record ...
+python3 scripts/pjario learn report
+python3 scripts/pjario learn propose ...
 ```
 
-The ignored `.pjario/quiet-aggregate.jsonl` ledger records actionable, follow-up, and rejected findings. Only actionable findings count. Promotion requires the same explicit failure class and owner boundary across independent source references.
-
-The tool rejects likely credentials, local absolute paths, traversal, symlinked ledgers, malformed records, and duplicate IDs. It never invokes a reviewer, calls a model, or edits policy. Review and apply each proposal deliberately.
+Only actionable records count. The private ledger stays ignored. The tool never invokes a model or applies policy; review each proposal.
 """
 
 PEVIE_MD = """# Pevie Hischer
 
-Use Pevie for frontend-heavy work where visual quality, design-system discipline, accessibility, performance, and QA evidence matter.
-
-## Required Frontend Context
+Use for user-facing UI, UX, design systems, accessibility, frontend performance, observability, or polish.
 
 - `DESIGN.md` or `docs/product/DESIGN.md`.
-- Ticket and planning brief for non-trivial changes.
-- Frontend proof commands and manual QA notes.
+- A frontend Work Packet with concrete Design Context.
 - Screenshots or viewport evidence for visible changes.
-
-## Commands
-
-```bash
-make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md
-make -f "Pevie Hischer/Makefile" design-lint DESIGN=DESIGN.md
-make -f "Pevie Hischer/Makefile" check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
-make -f "Pevie Hischer/Makefile" test
-make -f "Pevie Hischer/Makefile" review-packet
-```
-
-## Review Posture
+- Accessibility, failure-state, performance, and production QA proportional to risk.
 
 Block on broken flows, inaccessible UI, unmanaged design drift, performance regressions, missing failure states, or unproved rollout risk. Do not block on subjective taste unless it contradicts `DESIGN.md` or the product quality bar.
 """
 
+PROOF_MATRIX_MD = """# Proof Selection
+
+Choose the smallest credible proof and map active risks to its `PROOF-xx` ID.
+
+| Work | Minimum proof |
+| --- | --- |
+| Copy/docs | Targeted diff plus render or link check |
+| Core logic | Happy path and one meaningful failure test |
+| Refactor | Existing tests plus named behavior equivalence |
+| API/contract | Schema or contract fixture and compatibility note |
+| Data/migration | Forward, rollback, and data-loss proof |
+| Auth/privacy | Allowed and denied access tests |
+| External call | Timeout and error-path proof |
+| Release/package | Artifact identity and clean install/run smoke test |
+| UI | Viewport screenshot, accessibility, and failure state |
+| Performance | Before/after measurement against a budget |
+| Observability | Event name and emitted sample |
+| Agent tooling | Unit test plus real command invocation |
+
+Evidence must name the command, artifact, measurement, or observation. Use `accepted-gap` only with a concrete Known Gaps entry and next action.
+"""
+
 CAVEMAN_SKILL_MD = """---
 name: pjario-staltman
-description: Use when an agent needs the smallest useful Pjario loop: ticket, plan if non-trivial, proof, review, debt note, and cleanup.
+description: Use when the user explicitly requests Pjario's smallest Work Packet loop for scoped implementation, proof, review, debt, or cleanup.
 ---
 
 # Pjario Staltman: Caveman Mode
 
 Do the smallest durable loop:
 
-1. Ticket: outcome, scope, risks, proof.
-2. Plan only if non-trivial.
+1. Create one Work Packet: outcome, scope, risks, proof IDs.
+2. Add a plan only when non-trivial.
 3. Build the scoped change.
-4. Prove it with commands, QA, artifacts, or screenshots.
-5. Review the diff.
-6. Name debt with Oh Shucksenburg: owner, trigger, removal path.
-7. Convert repeated friction into a rule, test, template, lint, or tool.
+4. Attach real evidence to every proof ID.
+5. Review the packet and diff.
+6. Name accepted debt: owner, trigger, removal path.
+7. Promote only independently repeated, verified friction.
 
 For frontend work, establish `DESIGN.md` before implementation.
 """
 
 OPENAI_YAML = """interface:
   display_name: "Pjario Staltman"
-  short_description: "Agentic build workflow with tickets, proof, review, and Pevie frontend checks."
-  default_prompt: "Use Pjario Staltman to structure this build, define proof, and prepare a reviewable handoff."
+  short_description: "One Work Packet from intent through proof"
+  default_prompt: "Use $pjario-staltman to run this change through one scoped Work Packet, proof, and review."
 """
 
 
@@ -209,17 +172,26 @@ def export_skill(root: Path, output: Path, force: bool = False, mode: str = "sta
 
     write(output / "SKILL.md", STANDARD_SKILL_MD)
     write(output / "references" / "core-workflow.md", CORE_WORKFLOW_MD)
-    write(output / "references" / "completion-contract.md", COMPLETION_CONTRACT_MD)
     write(output / "references" / "technical-debt.md", TECHNICAL_DEBT_MD)
     write(output / "references" / "quiet-aggregate.md", QUIET_AGGREGATE_MD)
-    proof_matrix = read_optional(root / "build-system" / "rules" / "proof-matrix.md")
-    if proof_matrix:
-        write(output / "references" / "proof-matrix.md", proof_matrix)
+    write(output / "references" / "proof-matrix.md", PROOF_MATRIX_MD)
     write(output / "references" / "pevie-hischer.md", PEVIE_MD)
+    work_packet = read_optional(root / "build-system" / "templates" / "work-packet.md")
+    if not work_packet:
+        raise SystemExit("Source package is missing the Work Packet template.")
+    write(output / "assets" / "work-packet.md", work_packet)
+    pjario = read_optional(root / "tools" / "pjario.py")
+    if not pjario:
+        raise SystemExit("Source package is missing tools/pjario.py.")
+    write_executable(output / "scripts" / "pjario", pjario)
     quiet_aggregate = read_optional(root / "tools" / "quiet-aggregate.py")
     if not quiet_aggregate:
         raise SystemExit("Source package is missing tools/quiet-aggregate.py.")
     write_executable(output / "scripts" / "quiet-aggregate", quiet_aggregate)
+    review_packet = read_optional(root / "tools" / "review-packet.py")
+    if not review_packet:
+        raise SystemExit("Source package is missing tools/review-packet.py.")
+    write_executable(output / "scripts" / "review-packet", review_packet)
     write(output / "agents" / "openai.yaml", OPENAI_YAML)
 
 

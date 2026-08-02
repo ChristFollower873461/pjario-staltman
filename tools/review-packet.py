@@ -96,6 +96,24 @@ def collect_rules(root: Path) -> list[tuple[str, str]]:
     return docs
 
 
+def collect_explicit_context(root: Path, paths: list[Path]) -> list[tuple[str, str]]:
+    docs: list[tuple[str, str]] = []
+    root_resolved = root.resolve()
+    for raw in paths:
+        candidate = raw if raw.is_absolute() else root_resolved / raw
+        if candidate.exists() and candidate.is_symlink():
+            raise SystemExit(f"Context file must not be a symlink: {raw}")
+        resolved = candidate.resolve(strict=False)
+        if resolved != root_resolved and root_resolved not in resolved.parents:
+            raise SystemExit(f"Context file must stay inside the repository: {raw}")
+        if not resolved.is_file():
+            raise SystemExit(f"Context file does not exist: {raw}")
+        text = read_text(resolved).strip()
+        if text:
+            docs.append((resolved.relative_to(root_resolved).as_posix(), text))
+    return docs
+
+
 def collect_diff(root: Path, args: argparse.Namespace) -> str:
     if args.cached:
         return run_git(root, ["diff", "--cached", "--no-ext-diff", "--unified=80"])
@@ -192,6 +210,18 @@ Review the supplied changes as the staff software engineer review agent. Use P2+
 ```
 """
 
+    explicit_context = collect_explicit_context(root, getattr(args, "context", []))
+    context_block = ""
+    if explicit_context:
+        context_text = "\n\n".join(
+            f"## {name}\n\n{body}" for name, body in explicit_context
+        )
+        context_block = f"""
+# Explicit Work Context
+
+{context_text}
+"""
+
     docs_block = ""
     if docs_text:
         docs_block = f"""
@@ -206,11 +236,12 @@ Review the supplied changes as the staff software engineer review agent. Use P2+
 {diff}
 """
 
-    # The diff is mandatory context. If it doesn't fit, fail loudly.
-    minimum_required = byte_len(header) + byte_len(diff_block)
+    # Explicit work context and the diff are mandatory. If either cannot fit, fail loudly.
+    minimum_required = byte_len(header) + byte_len(context_block) + byte_len(diff_block)
     if minimum_required > args.max_bytes:
         raise SystemExit(
-            "Diff exceeds --max-bytes budget. Rerun with a larger --max-bytes value "
+            "Required work context and diff exceed --max-bytes budget. "
+            "Rerun with a larger --max-bytes value "
             "or a narrower --base range."
         )
 
@@ -242,12 +273,19 @@ Review the supplied changes as the staff software engineer review agent. Use P2+
                 optional_parts.append(untracked_chunk)
                 remaining -= byte_len(untracked_chunk)
 
-    return header + "".join(optional_parts) + diff_block
+    return header + context_block + "".join(optional_parts) + diff_block
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", help="Base ref for PR-style review, for example main or origin/main")
+    parser.add_argument(
+        "--context",
+        action="append",
+        type=Path,
+        default=[],
+        help="Repo-confined context file to include before rules and diff; repeatable.",
+    )
     parser.add_argument("--cached", action="store_true", help="Review only staged changes")
     parser.add_argument("--include-untracked", action="store_true", help="Include untracked text files")
     parser.add_argument(

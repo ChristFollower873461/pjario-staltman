@@ -9,11 +9,11 @@ This is the operating system for agentic engineering in this repo. It is based o
 
 ## The Loop
 
-1. **Ticket**: Define outcome, user impact, risk surfaces, acceptance criteria, expected proof, and implementation complexity (`trivial` or `non-trivial`).
-2. **Planning Brief**: For non-trivial work, fill `build-system/templates/planning-brief.md` before coding. Lock approach, non-goals, risk-to-proof mapping, and rollout/rollback plan.
-3. **Implementation**: An agent owns the patch end to end. It may plan privately, but it must optimize for a working, reviewed change.
-4. **Local Proof**: The agent runs tests, linters, smoke checks, or manual QA and records what happened. For non-trivial work, evidence should map back to the active ticket risks.
-5. **Review Agent**: A staff-engineer review agent checks the diff against repo rules, scale readiness, and the stated ticket.
+1. **Work Packet**: Keep outcome, scope, complexity, risks, plan, stable proof IDs, evidence, review, gaps, and next action in one tracked `pjario.work/v1` file. Trivial work leaves Plan unused; non-trivial work completes it before coding.
+2. **Readiness Check**: Every active `RISK-xx` maps to at least one `PROOF-xx` requirement before implementation.
+3. **Implementation**: An agent owns the scoped patch end to end.
+4. **Local Proof**: Replace each pending evidence row with a real command, artifact, measurement, or observation. Do not satisfy proof by copying requirement prose.
+5. **Review Agent**: A staff-engineer review agent checks the Work Packet and diff against repo rules and scale readiness.
 6. **Human Steering**: A human accepts, redirects, or escalates. The human should spend attention on product judgment, architecture, and risk.
 7. **Quiet Aggregate**: Record verified findings without interrupting the active task. When the same failure class appears across independent reviews, generate an auditable guardrail proposal.
 8. **Garbage Collection**: A human or implementation agent reviews the proposal and turns it into a rule, test, lint, template, runtime guardrail, or tool.
@@ -42,15 +42,15 @@ Use `python3 tools/quiet-aggregate.py` when the repeated-review history needs to
 
 Every implementation handoff should include:
 
-- The ticket or task brief.
+- The active Work Packet, or the legacy ticket and planning artifacts for an existing adopter.
 - For coordinated build work, `build-system/templates/build-request.md`.
 - Relevant files, APIs, or user flows.
 - Risk surfaces: data, authz, tenancy, async, external calls, LLMs, privacy, rollout.
 - Required evidence: tests, screenshots, logs, migration proof, load test, runbook, or manual QA.
 - Debt posture: debt introduced, paid down, or explicitly not applicable.
 - Any explicit non-goals.
-- The planning brief when the task is non-trivial.
-- The completion report after implementation.
+- A completed Plan section when the Work Packet is non-trivial.
+- Terminal evidence for every proof ID and a concrete next action.
 
 ## Coordinator And Implementation Agent Build Contract
 
@@ -60,9 +60,20 @@ For build work, the handoff is incomplete unless it names the target surface, cu
 
 ## Merge Bias
 
-Bias toward accepting useful code that meets the ticket and has credible proof. Bias against perfection loops, sprawling refactors, and review comments that cannot be tied to user risk, system risk, or maintainability.
+Bias toward accepting useful code that meets the Work Packet outcome and has credible proof. Bias against perfection loops, sprawling refactors, and review comments that cannot be tied to user risk, system risk, or maintainability.
 
 ## Optional Enforcement
+
+Preferred flow:
+
+```bash
+python3 tools/pjario.py start --help
+python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md --base origin/main
+python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md
+```
+
+The older ticket, planning brief, QA plan, PR note, and completion report commands remain supported for compatibility.
 
 Use `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md` to enforce that non-trivial tickets include a filled planning brief.
 

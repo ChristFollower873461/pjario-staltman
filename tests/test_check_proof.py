@@ -73,6 +73,28 @@ class CheckProofTests(unittest.TestCase):
                 check_proof.validate(ticket, qa, pr, None)
             self.assertIn("Required Proof", str(exc.exception))
 
+    def test_preferred_packet_mode_validates_terminal_evidence(self):
+        root = Path(__file__).resolve().parents[1]
+        check_proof.validate_work_packet(
+            Path("examples/work-packets/non-trivial-integration.md"),
+            root=root,
+        )
+
+    def test_packet_mode_cannot_mix_legacy_arguments(self):
+        with self.assertRaisesRegex(SystemExit, "do not mix"):
+            check_proof.main(
+                [
+                    "--packet",
+                    "packet.md",
+                    "--ticket",
+                    "ticket.md",
+                    "--qa-plan",
+                    "qa.md",
+                    "--pr-note",
+                    "pr.md",
+                ]
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

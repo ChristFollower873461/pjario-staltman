@@ -100,7 +100,7 @@ class ReviewPacketTests(unittest.TestCase):
             with mock.patch.object(review_packet, "collect_diff", return_value="D" * 5000):
                 with self.assertRaises(SystemExit) as exc:
                     review_packet.build_packet(repo, args)
-            self.assertIn("Diff exceeds --max-bytes budget", str(exc.exception))
+            self.assertIn("work context and diff exceed --max-bytes budget", str(exc.exception))
 
     def test_collect_diff_with_missing_base_has_clear_message(self):
         with tempfile.TemporaryDirectory() as tmp:

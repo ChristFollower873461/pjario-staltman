@@ -5,18 +5,19 @@ This package is complete enough to use as a first working harness for agentic so
 ## Covered
 
 - Repo-wide agent rules in `AGENTS.md`.
-- A build loop for ticket, implementation, proof, review, human steering, and rule promotion.
+- A build loop where one versioned Work Packet carries intent, scope, plan, risk, proof, review, and handoff.
+- A standard-library `pjario` CLI for starting, checking, reviewing, finishing, learning, and previewing adoption.
 - An implementation-agent prompt for end-to-end patch ownership.
 - A staff software engineer review-agent prompt with severity levels and hard blocks.
 - A build-coordinator prompt for handing concrete build and release work to an implementation agent.
 - Scale-readiness rules derived from the supplied PDF.
 - Review standards that separate blocking risk from taste.
 - Oh Shucksenburg technical-debt control rules for accepted debt, coupling, duplication, and maintainability.
-- Ticket, PR note, QA plan, and garbage-collection templates.
-- A completion-report template for implementation-agent closeout.
-- A planning-brief template to force pre-implementation scope, risk-to-proof mapping, and rollout planning.
+- A canonical Work Packet template with stable `RISK-xx` and `PROOF-xx` identifiers.
+- Legacy ticket, PR note, QA plan, completion-report, and planning-brief templates for existing adopters.
 - A build-request template for repo path, target platform, current state, constraints, required proof, and coordinator follow-up.
-- Validated examples for trivial tickets, non-trivial tickets, planning briefs, and build requests.
+- Validated examples for trivial and non-trivial Work Packets plus the legacy artifact flow.
+- Deterministic skill-behavior fixtures for triggering, routing, and Quiet Aggregate promotion boundaries.
 - A complete core golden workflow example that connects ticket, build request, planning brief, QA plan, PR note, completion report, and garbage collection.
 - A 15-minute adoption guide for first-time target repos.
 - A target-repo removal guide for reversible adoption.
@@ -30,7 +31,7 @@ This package is complete enough to use as a first working harness for agentic so
 - A `make doctor` readiness check for package/adoption shape, workflow placement, generated artifacts, and tracked privacy markers.
 - A `make kickoff` prompt generator for compact implementation-agent handoffs.
 - A `make kickoff-build` prompt generator for coordinator build requests.
-- A `make check-proof` guard for matching QA/PR/completion evidence to active ticket risks.
+- A `make check-proof PACKET=<path>` guard for terminal proof evidence and exact active-risk coverage, with a legacy multi-file mode.
 - A `make triage-review-finding` helper for turning review findings into garbage-collection records.
 - A Quiet Aggregate ledger for verified review findings, deterministic recurrence detection across independent sources, and non-mutating guardrail proposals.
 - A documented adapter boundary for maintained structured autoreview output without vendoring or silently invoking an LLM reviewer.

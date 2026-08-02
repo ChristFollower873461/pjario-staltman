@@ -1,0 +1,51 @@
+{
+  "schema_version": "pjario.skill-evals/v1",
+  "cases": [
+    {
+      "id": "trivial-copy",
+      "request": "Update one sentence on the public project card and test the rendered copy.",
+      "expected": {
+        "complexity": "trivial",
+        "profile": "core",
+        "plan_required": false,
+        "quiet_aggregate": false
+      }
+    },
+    {
+      "id": "non-trivial-migration",
+      "request": "Add a backward-compatible database column and roll it through production.",
+      "expected": {
+        "complexity": "non-trivial",
+        "profile": "core",
+        "plan_required": true,
+        "required_risks": ["RISK-01", "RISK-10"]
+      }
+    },
+    {
+      "id": "frontend-flow",
+      "request": "Redesign the mobile checkout flow and prove accessibility and viewport behavior.",
+      "expected": {
+        "complexity": "non-trivial",
+        "profile": "frontend",
+        "design_context_required": true,
+        "plan_required": true
+      }
+    },
+    {
+      "id": "single-review-finding",
+      "request": "A reviewer found one missing outbound timeout in this pull request.",
+      "expected": {
+        "quiet_aggregate": false,
+        "review_action": "fix-or-prove-current-finding"
+      }
+    },
+    {
+      "id": "independent-repeat",
+      "request": "The same verified missing-timeout failure class appeared in two independent reviews.",
+      "expected": {
+        "quiet_aggregate": true,
+        "policy_mutation": false
+      }
+    }
+  ]
+}

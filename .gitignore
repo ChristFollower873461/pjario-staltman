@@ -3,4 +3,6 @@
 __pycache__/
 *.pyc
 .dist/
-.pjario/
+.pjario/*
+!.pjario/work/
+!.pjario/work/*.md

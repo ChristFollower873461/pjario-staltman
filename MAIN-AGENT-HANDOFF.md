@@ -1,151 +1,80 @@
 # Main Agent Handoff
 
-This package is a portable release-quality workflow for agentic engineering:
-
-- Ticketed work with explicit risk surfaces and proof requirements
-- Pre-implementation planning for non-trivial tasks
-- Implementation and QA evidence templates
-- Staff-level review agent rubric and severity model
-- Review packet generation for LLM/agent review
-- Enforcement checks and tests for core guardrails
-- A frontend-focused companion profile in `Pevie Hischer/`
+Pjario Staltman is a portable engineering loop for agents. The preferred path uses one tracked Work Packet from intent through proof and review. The older ticket, plan, QA, PR, and completion artifacts remain supported for incremental adoption.
 
 ## What Is Included
 
-- `AGENTS.md`
-  - Repo operating rules and completion bar.
-- `build-system/README.md`
-  - Full workflow loop and review posture.
-- `build-system/rules/`
-  - `review-standards.md`
-  - `scale-readiness.md`
-  - `proof-matrix.md`
-  - `oh-shucksenburg-technical-debt.md`
-- `build-system/agents/`
-  - `implementation-agent.md`
-  - `software-engineer-reviewer.md`
-  - `build-coordinator.md`
-- `build-system/templates/`
-  - `build-request.md`
-  - `ticket.md`
-  - `planning-brief.md`
-  - `qa-plan.md`
-  - `pr.md`
-  - `garbage-collection.md`
-- `examples/`
-  - Validated sample trivial ticket, non-trivial ticket, planning brief, and build request.
-- `docs/adopt-in-15-minutes.md`
-  - Fast target-repo adoption path.
-- `docs/license-posture.md`
-  - Current visibility, reuse, and public-launch license decision gate.
-- `docs/remove-from-target-repo.md`
-  - Reversible target-repo removal path.
-- `docs/prerequisites.md`
-  - Local toolchain requirements and npm-based linting path.
-- `docs/supply-chain.md`
-  - External tool pins, dependency posture, and network touchpoints.
-- `docs/quiet-aggregate.md`
-  - Recovered autoreview boundary, deterministic finding ledger, recurrence gate, and non-mutating guardrail proposal flow.
-- `docs/trust-contract.md`
-  - Safety, command behavior, network use, generated files, and public-release gate.
-- `tools/review-packet.py`
-  - Builds `.review-packet.md` for review-agent context.
-  - Includes sensitive untracked-file filtering by default.
-- `tools/check-planning-brief.py`
-  - Enforces planning brief for non-trivial tickets.
-- `tools/check-proof.py`
-  - Checks that QA/PR/completion evidence covers active ticket risks.
-- `tools/doctor.py`, `tools/kickoff.py`, `tools/export-skill.py`
-  - Validate package/adoption shape, generate implementation-agent prompts, and export a compact Agent Skills artifact.
-- `tools/triage-review-finding.py`
-  - Converts review findings into garbage-collection records.
-- `tools/quiet-aggregate.py`
-  - Records verified findings, detects repetition across independent review sources, and creates auditable guardrail proposals.
-- `tests/`
-  - Unit tests for package tool scripts.
-- `Pevie Hischer/`
-  - Frontend-focused profile for UI taste, Stitch-compatible `DESIGN.md`, accessibility, performance, observability, and frontend QA.
-  - Includes Oh Shucksenburg frontend-debt control for one-off components, token bypasses, UI state debt, accessibility debt, and performance debt.
-  - If adopting its nested workflow file, copy it into the host repo root `.github/workflows/` directory.
-- `.github/workflows/quality.yml`
-  - Repository-level smoke and package checks.
-- `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`
-  - Public-facing maintainer and release-readiness docs.
+- `build-system/templates/work-packet.md`: canonical `pjario.work/v1` contract.
+- `tools/pjario.py`: start, check, review, finish, learn, and adoption-preview commands.
+- `build-system/agents/`: implementation, staff review, and build coordination prompts.
+- `build-system/rules/`: review, proof, scale-readiness, and technical-debt rules.
+- `tools/review-packet.py`: bounded review context with mandatory Work Packet and diff support.
+- `tools/quiet-aggregate.py`: private, deterministic recurrence ledger and non-mutating guardrail proposals.
+- `evals/skill-behavior.json`: deterministic routing and promotion-boundary fixtures.
+- `Pevie Hischer/`: optional frontend profile for design context, accessibility, performance, observability, and production QA. When adopted alone, copy its workflow into the target repo root `.github/workflows/` directory.
+- `examples/work-packets/`: complete trivial and non-trivial reference packets.
+- Legacy templates, tools, and examples for existing adopters.
 
-## Baseline Commands
+## Preferred Commands
 
-- `make test`
-- `make test-all`
-- `make validate-examples`
-- `make review-packet`
-- `make doctor`
-- `make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
-- `make kickoff-build REQUEST=path/to/build-request.md`
-- `make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md`
-- `make triage-review-finding FINDING=path/to/finding.md DECISION=test`
-- `python3 tools/quiet-aggregate.py --help`
-- `python3 tools/quiet-aggregate.py report`
-- `make export-skill`
-- `make export-skill SKILL_MODE=caveman`
-- `make skill-budget`
-- `make local-ready`
-- `make public-ready`
-- `make pevie-test`
-- `make pevie-validate-examples`
-- `make pevie-design-lint`
-- `make pevie-review-packet`
-- `make -f "Pevie Hischer/Makefile" check-design-context DESIGN=DESIGN.md`
-- `make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md`
+```bash
+python3 tools/pjario.py start --help
+python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py review --packet .pjario/work/WORK-ID.md --base origin/main
+python3 tools/pjario.py finish --packet .pjario/work/WORK-ID.md
+python3 tools/pjario.py learn --help
+python3 tools/pjario.py adopt --target . --profile core --dry-run
+make test-all
+make doctor
+make local-ready
+make public-ready
+```
 
-Notes:
+The adoption command is intentionally dry-run-only. It reports the files and policy choices a target repository needs without silently modifying that repository.
 
-- For trivial tickets, `PLAN` is optional:
-  - `make check-planning-brief TICKET=path/to/ticket.md`
-- If using `review-packet.py --base <ref>`, ensure the base ref exists locally.
+## Working Contract
 
-## Expected Working Contract
+1. Create one Work Packet under `.pjario/work/`.
+2. Keep trivial work concise. For non-trivial work, complete Plan and map every active `RISK-xx` to one or more `PROOF-xx` requirements.
+3. Run `pjario check` before implementation.
+4. Implement only the stated Scope; treat Non-Goals as binding.
+5. Replace pending evidence with real commands, artifacts, measurements, or observations.
+6. Run `pjario review`; record the decision and findings in the packet.
+7. Run `pjario finish`. Use `accepted-gap` only with a named gap and concrete next action.
+8. Route only independently repeated, verified failure classes through Quiet Aggregate. Never mutate policy automatically.
 
-1. Fill `build-system/templates/ticket.md` and set `Level: trivial` or `Level: non-trivial`.
-2. For non-trivial work, fill `build-system/templates/planning-brief.md`.
-3. For coordinated build work, fill `build-system/templates/build-request.md` and use `build-system/agents/build-coordinator.md`.
-4. For frontend-heavy work, use `Pevie Hischer/MAIN-AGENT-HANDOFF.md`.
-5. Implement with `build-system/agents/implementation-agent.md`.
-6. Attach evidence using `build-system/templates/pr.md` and `build-system/templates/qa-plan.md`.
-7. Generate packet with `make review-packet`.
-8. Review with `build-system/agents/software-engineer-reviewer.md`.
-9. Record verified repeated findings with Quiet Aggregate when review history matters.
-10. Review the generated proposal, then promote the failure using `build-system/templates/garbage-collection.md`.
+For UI work, use `Profile: frontend`, provide Design Context, and apply the Pevie Hischer rules. For accepted technical debt, record owner, trigger, and removal path in the packet.
 
-## Adoption Steps In A Target Repo
+## Adoption In A Target Repository
 
-1. Copy `AGENTS.md`, `build-system/`, `tools/`, `tests/`, `Makefile` targets.
-2. Run `make test` and confirm all checks pass.
-3. Run `make doctor MODE=adopted` after copying the workflow into the host repo.
-4. Pick canonical ticket and planning-brief paths in the target repo.
-5. Optionally add CI to run:
-   - `make test`
-   - `make pevie-test`
-   - `make check-planning-brief ...` on changed tickets
-   - `make review-packet` sanity step
-6. Start with one team/project path and tune rules via weekly garbage collection.
+1. Run `python3 tools/pjario.py adopt --target <repo> --profile <core|frontend> --dry-run` from this package.
+2. Review the preview and copy only the selected package files through the target repository's normal change process.
+3. Preserve `.pjario/work/*.md` as reviewable project history; keep the rest of `.pjario/` ignored as private runtime state.
+4. Run `make doctor MODE=adopted PROFILE=<core|pevie>` and the target application's own checks.
+5. Add Pjario checks to CI only after the local flow works.
 
-## Known Integration Decisions For Main Agent
+## Legacy Compatibility
 
-- Decide canonical paths for active ticket + planning brief in the host repo.
-- Decide where build requests live in the host repo.
-- Decide whether planning-brief enforcement should be mandatory in CI or soft-gated.
-- Decide whether to keep `scale-readiness.md` as-is or split by stack (web/backend/data/AI).
-- Decide whether `Pevie Hischer/` should be adopted as the default frontend profile.
-- Decide whether the host repo will supply a maintained structured autoreview helper or use Quiet Aggregate only for human/CI findings.
-- For frontend-heavy repos, decide where the canonical `DESIGN.md` lives before implementation begins.
-- Add host-repo specific runbooks once deployed services exist.
+Existing adopters may continue to use:
 
-## QA Snapshot
+```bash
+make kickoff TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make check-planning-brief TICKET=path/to/ticket.md PLAN=path/to/planning-brief.md
+make check-proof TICKET=path/to/ticket.md QA=path/to/qa-plan.md PR=path/to/pr-note.md COMPLETION=path/to/completion-report.md
+make kickoff-build REQUEST=path/to/build-request.md
+make triage-review-finding FINDING=path/to/finding.md DECISION=test
+```
 
-- `make test-all` currently passes in this repository.
-- `make validate-examples` and `make pevie-validate-examples` currently pass.
-- `make doctor` checks package shape, public-readiness docs, root workflow placement, generated artifacts, and tracked privacy markers.
-- `make check-proof` validates the core golden workflow proof evidence.
-- `make review-packet` currently generates `.review-packet.md`.
-- Planning checker passes on valid non-trivial ticket + planning brief.
-- Pevie `DESIGN.md` template and example currently pass design-context validation.
+Do not convert active legacy work merely for cosmetic consistency. Start new work with a Work Packet and migrate old artifacts only when useful.
+
+## Completion Evidence
+
+Before proposing completion, report:
+
+- Work Packet ID and achieved outcome.
+- Files changed.
+- Proof IDs and their actual evidence.
+- Review decision.
+- Known gaps and next action.
+
+`make public-ready` is the package release gate. It runs both profile suites, examples, doctor checks, export budgets, review-packet generation, whitespace checks, and the pinned Pevie design validator.
