@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
+  <title id="title">Pjario Staltman GitHub social preview</title>
+  <desc id="description">One Work Packet carries intent through proof and review. Quiet Aggregate turns repeated verified findings into proposed guardrails for human review.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#f4efe4"/>
+      <stop offset="1" stop-color="#e9e0cf"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#152a26"/>
+      <stop offset="1" stop-color="#23483f"/>
+    </linearGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#17342e" fill-opacity="0.085"/>
+    </pattern>
+    <filter id="cardShadow" x="-20%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="11" flood-color="#14211e" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#paper)"/>
+  <rect width="1280" height="640" fill="url(#dots)"/>
+  <path d="M0 0h26v640H0z" fill="#ef6f52"/>
+  <path d="M26 0h5v640h-5z" fill="#15342d" fill-opacity="0.16"/>
+
+  <g transform="translate(76 62)">
+    <rect width="55" height="55" rx="9" fill="url(#ink)"/>
+    <path d="M14 14h27v6H20v8h17v6H20v8h21v6H14z" fill="#f4efe4"/>
+    <circle cx="42" cy="13" r="6" fill="#ef6f52"/>
+    <text x="74" y="25" fill="#17342e" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-0.6">Pjario Staltman</text>
+    <text x="74" y="49" fill="#557069" font-family="SFMono-Regular, Consolas, monospace" font-size="12" font-weight="700" letter-spacing="1.4">OPEN-SOURCE AGENT ENGINEERING LOOP</text>
+  </g>
+
+  <g transform="translate(76 176)">
+    <text fill="#102d27" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="-2.2">
+      <tspan x="0" dy="0">One packet.</tspan>
+      <tspan x="0" dy="62">Proof attached.</tspan>
+      <tspan x="0" dy="62">Ready to review.</tspan>
+    </text>
+    <text x="0" y="221" fill="#526a64" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="19">
+      <tspan x="0" dy="0">A small, local-first operating system for building</tspan>
+      <tspan x="0" dy="29">maintainable software with humans and agents.</tspan>
+    </text>
+  </g>
+
+  <g transform="translate(580 74)">
+    <path d="M167 142h49M382 142h49" fill="none" stroke="#17342e" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 8"/>
+    <path d="m206 135 12 7-12 7M421 135l12 7-12 7" fill="none" stroke="#17342e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g filter="url(#cardShadow)">
+      <rect x="0" y="54" width="174" height="176" rx="18" fill="#fffdf8" stroke="#17342e" stroke-opacity="0.16"/>
+      <rect x="0" y="54" width="174" height="10" rx="5" fill="#ef6f52"/>
+      <text x="22" y="96" fill="#17342e" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" letter-spacing="1.4">01 · DEFINE</text>
+      <text x="22" y="129" fill="#17342e" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="800">Work Packet</text>
+      <path d="M22 150h130M22 169h97M22 188h117" stroke="#17342e" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round"/>
+      <rect x="22" y="205" width="68" height="13" rx="6.5" fill="#ef6f52" fill-opacity="0.17"/>
+    </g>
+
+    <g transform="translate(216 0)" filter="url(#cardShadow)">
+      <rect x="0" y="54" width="174" height="176" rx="18" fill="#fffdf8" stroke="#17342e" stroke-opacity="0.16"/>
+      <rect x="0" y="54" width="174" height="10" rx="5" fill="#e3a62f"/>
+      <text x="22" y="96" fill="#17342e" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" letter-spacing="1.4">02 · BUILD</text>
+      <text x="22" y="129" fill="#17342e" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="800">Attach proof</text>
+      <circle cx="31" cy="159" r="9" fill="#1f7764"/>
+      <path d="m27 159 3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M50 159h102M22 188h130" stroke="#17342e" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round"/>
+      <rect x="22" y="205" width="86" height="13" rx="6.5" fill="#e3a62f" fill-opacity="0.20"/>
+    </g>
+
+    <g transform="translate(431 0)" filter="url(#cardShadow)">
+      <rect x="0" y="54" width="174" height="176" rx="18" fill="#fffdf8" stroke="#17342e" stroke-opacity="0.16"/>
+      <rect x="0" y="54" width="174" height="10" rx="5" fill="#1f7764"/>
+      <text x="22" y="96" fill="#17342e" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" letter-spacing="1.4">03 · REVIEW</text>
+      <text x="22" y="129" fill="#17342e" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="800">Decide + hand off</text>
+      <rect x="22" y="149" width="130" height="43" rx="9" fill="#1f7764"/>
+      <text x="46" y="176" fill="#fffdf8" font-family="SFMono-Regular, Consolas, monospace" font-size="13" font-weight="800" letter-spacing="1.2">PASS · PROOF</text>
+      <path d="M22 211h88" stroke="#17342e" stroke-opacity="0.18" stroke-width="7" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(0 290)">
+      <rect width="605" height="168" rx="21" fill="#15342d"/>
+      <rect x="20" y="20" width="148" height="30" rx="15" fill="#f4efe4" fill-opacity="0.10" stroke="#f4efe4" stroke-opacity="0.16"/>
+      <circle cx="39" cy="35" r="5" fill="#ef6f52"/>
+      <text x="52" y="39" fill="#f4efe4" font-family="SFMono-Regular, Consolas, monospace" font-size="10" font-weight="800" letter-spacing="1.2">QUIET AGGREGATE</text>
+      <text x="22" y="84" fill="#fffdf8" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="800">Repeated review friction becomes a proposal.</text>
+      <g transform="translate(22 109)">
+        <text fill="#c6d4cf" font-family="SFMono-Regular, Consolas, monospace" font-size="12" font-weight="700">VERIFIED FINDINGS</text>
+        <path d="M135 0h44" stroke="#ef6f52" stroke-width="2" stroke-dasharray="2 6"/>
+        <path d="m173-5 9 5-9 5" fill="none" stroke="#ef6f52" stroke-width="2"/>
+        <text x="195" fill="#c6d4cf" font-family="SFMono-Regular, Consolas, monospace" font-size="12" font-weight="700">REPEATED CLASS</text>
+        <path d="M317 0h44" stroke="#ef6f52" stroke-width="2" stroke-dasharray="2 6"/>
+        <path d="m355-5 9 5-9 5" fill="none" stroke="#ef6f52" stroke-width="2"/>
+        <text x="377" fill="#aaf0dc" font-family="SFMono-Regular, Consolas, monospace" font-size="12" font-weight="800">HUMAN-REVIEWED GUARDRAIL</text>
+      </g>
+      <text x="22" y="147" fill="#8faaa1" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="12">Never silently changes policy.</text>
+    </g>
+  </g>
+
+  <g transform="translate(76 582)">
+    <text fill="#17342e" font-family="SFMono-Regular, Consolas, monospace" font-size="12" font-weight="800" letter-spacing="1.2">MIT · STANDARD LIBRARY · LOCAL-FIRST · AUDITABLE</text>
+    <text x="958" fill="#6c7d77" font-family="SFMono-Regular, Consolas, monospace" font-size="12">github.com/ChristFollower873461</text>
+  </g>
+</svg>
