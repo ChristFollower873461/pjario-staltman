@@ -64,7 +64,14 @@ A recovered review-learning loop in [`docs/quiet-aggregate.md`](docs/quiet-aggre
 
 ## Quick Start
 
-1. Create one Work Packet with `python3 tools/pjario.py start --help`.
+1. Create one Work Packet (replace the example ID, title, and outcome for your task):
+
+   ```bash
+   python3 tools/pjario.py start --id WORK-ID --title "Fix the setup instructions" --outcome "A new contributor can complete the documented setup." --complexity trivial
+   ```
+
+   Use `--complexity non-trivial` when a plan is needed; `python3 tools/pjario.py start --help` lists all options.
+
 2. Fill Scope. For non-trivial work, fill Plan and map each active `RISK-xx` to a `PROOF-xx` requirement.
 3. Run `python3 tools/pjario.py check --packet .pjario/work/WORK-ID.md` before implementation.
 4. Implement the scoped change and attach real evidence to every proof ID.
